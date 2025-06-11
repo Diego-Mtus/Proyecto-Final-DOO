@@ -1,2 +1,7 @@
-# Proyecto-Final-DOO
-Simulador de Tienda de Mascotas Virtual
+# Proyecto final: Simulador de Tienda de Mascotas Virtual
+### Grupo 24:
+* José Efraín González Aguayo
+* Diego Antonio Matus Salas
+### Diagrama de casos de uso UML:
+### Prototipo de interfaz
+![Prototipo de interfaz](https://github.com/Diego-Mtus/Proyecto-Final-DOO/blob/main/Prototipo.png?raw=true "Prototipo de interfaz")
