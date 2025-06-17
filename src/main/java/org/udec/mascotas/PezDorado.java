@@ -1,12 +1,12 @@
 package org.udec.mascotas;
 
 import org.udec.GeneradorNombreAleatorio;
-import org.udec.TiposEnum;
+
 
 public class PezDorado extends Mascota{
     public PezDorado(){
-        this.nombreAnimal = "Pez Dorado";
-        this.tipo = TiposEnum.ACUATICO;
+        this.nombreAnimal = MascotasEnum.PEZDORADO.getNombre();
+        this.tipo = MascotasEnum.PEZDORADO.getTipo();
         this.nombrePropio = GeneradorNombreAleatorio.obtenerNombreAleatorio();
     }
 }

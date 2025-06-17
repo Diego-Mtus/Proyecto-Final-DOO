@@ -1,13 +1,12 @@
 package org.udec.mascotas;
 
 import org.udec.GeneradorNombreAleatorio;
-import org.udec.TiposEnum;
 
 public class Golondrina extends Mascota{
 
     public Golondrina(){
-        this.nombreAnimal = "Golondrina";
-        this.tipo = TiposEnum.VOLADOR;
+        this.nombreAnimal = MascotasEnum.GOLONDRINA.getNombre();
+        this.tipo = MascotasEnum.GOLONDRINA.getTipo();
         this.nombrePropio = GeneradorNombreAleatorio.obtenerNombreAleatorio();
     }
 }

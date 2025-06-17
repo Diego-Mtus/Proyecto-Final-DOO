@@ -1,12 +1,12 @@
 package org.udec.mascotas;
 
-import org.udec.TiposEnum;
+import org.udec.GeneradorNombreAleatorio;
 
 public class Gato extends Mascota{
     public Gato(){
-        this.nombreAnimal = "Gato";
-        this.tipo = TiposEnum.COMUN;
-        this.nombrePropio = "Morgana";
+        this.nombreAnimal = MascotasEnum.GATO.getNombre();
+        this.tipo = MascotasEnum.GATO.getTipo();
+        this.nombrePropio = GeneradorNombreAleatorio.obtenerNombreAleatorio();
     }
 
 
