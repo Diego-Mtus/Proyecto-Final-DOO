@@ -30,6 +30,11 @@ public abstract class Escenario {
             return false;
         }
 
+        if(mascota == null){
+            System.out.println("Esa mascota no puede vivir ahí.");
+            return false;
+        }
+
         if(puedeAlojar(mascota)){
             this.mascotaActual = mascota;
             System.out.println("Se ha alojado a " + mascota.getNombreAnimal());
