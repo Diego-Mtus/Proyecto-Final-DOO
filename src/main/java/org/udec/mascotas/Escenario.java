@@ -1,6 +1,5 @@
-package org.udec.escenarios;
+package org.udec.mascotas;
 
-import org.udec.mascotas.Mascota;
 import org.udec.TiposEnum;
 
 public abstract class Escenario {

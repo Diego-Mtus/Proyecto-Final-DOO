@@ -1,9 +1,9 @@
-package org.udec.escenarios;
+package org.udec.mascotas;
 
 import org.udec.TiposEnum;
 
 public class EscenarioRoedor extends Escenario {
-    public EscenarioRoedor(){
+    EscenarioRoedor(){
         this.tipoEscenario = TiposEnum.ROEDOR;
         this.nombre = "Jaula";
     }

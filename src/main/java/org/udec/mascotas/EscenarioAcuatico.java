@@ -1,9 +1,9 @@
-package org.udec.escenarios;
+package org.udec.mascotas;
 
 import org.udec.TiposEnum;
 
 public class EscenarioAcuatico extends Escenario{
-    public EscenarioAcuatico(){
+    EscenarioAcuatico(){
         this.tipoEscenario = TiposEnum.ACUATICO;
         this.nombre = "Pecera";
     }

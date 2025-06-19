@@ -1,9 +1,9 @@
-package org.udec.escenarios;
+package org.udec.mascotas;
 
 import org.udec.TiposEnum;
 
 public class EscenarioComun extends Escenario{
-    public EscenarioComun(){
+    EscenarioComun(){
         this.tipoEscenario = TiposEnum.COMUN;
         this.nombre = "Patio";
     }

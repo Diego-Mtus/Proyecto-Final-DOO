@@ -1,9 +1,9 @@
-package org.udec.escenarios;
+package org.udec.mascotas;
 
 import org.udec.TiposEnum;
 
 public class EscenarioVolador extends Escenario{
-    public EscenarioVolador(){
+    EscenarioVolador(){
         this.tipoEscenario = TiposEnum.VOLADOR;
         this.nombre = "Pajarera";
     }

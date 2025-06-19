@@ -42,7 +42,7 @@ public enum MascotasEnum {
         return this.rutaImagenJuego;
     }
 
-    public Mascota crearMascota(){
+    Mascota crearMascota(){
         return switch (this) {
             case PERRO -> new Perro();
             case GATO -> new Gato();

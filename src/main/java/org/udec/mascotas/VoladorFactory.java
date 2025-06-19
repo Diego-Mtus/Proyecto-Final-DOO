@@ -1,7 +1,6 @@
-package org.udec;
+package org.udec.mascotas;
 
-import org.udec.escenarios.*;
-import org.udec.mascotas.*;
+import org.udec.TiposEnum;
 
 
 public class VoladorFactory implements HabitatFactory{
