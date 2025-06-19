@@ -13,9 +13,9 @@ public class Main {
         HabitatFactory factory = new RoedorFactory();
 
         Escenario escenario = factory.crearEscenario();
-        Mascota mascota = factory.crearMascota(MascotasEnum.RATON);
 
-        escenario.alojarMascota(mascota);
+        factory.crearMascotaParaEscenario(MascotasEnum.RATON, escenario);
+        escenario.venderMascota();
 
         System.out.println(escenario.getMascotaActual());
     }

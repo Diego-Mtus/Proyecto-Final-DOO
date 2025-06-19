@@ -29,11 +29,6 @@ public abstract class Escenario {
             return false;
         }
 
-        if(mascota == null){
-            System.out.println("Esa mascota no puede vivir ahí.");
-            return false;
-        }
-
         if(puedeAlojar(mascota)){
             this.mascotaActual = mascota;
             System.out.println("Se ha alojado a " + mascota.getNombreAnimal());
@@ -47,7 +42,7 @@ public abstract class Escenario {
 
     public void venderMascota() {
         if (mascotaActual != null) {
-            System.out.println("Has vendido al " + mascotaActual.getTipo());
+            System.out.println("Has vendido al " + mascotaActual.getNombreAnimal());
             mascotaActual = null;
         } else {
             System.out.println("No hay ninguna mascota en el escenario.");

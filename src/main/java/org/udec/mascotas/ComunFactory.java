@@ -10,10 +10,10 @@ public class ComunFactory implements HabitatFactory{
     }
 
     @Override
-    public Mascota crearMascota(MascotasEnum mascota) {
+    public void crearMascotaParaEscenario(MascotasEnum mascota, Escenario escenario) {
         if(TiposEnum.COMUN.mascotasCompatibles().contains(mascota)){
-            return mascota.crearMascota();
+            escenario.alojarMascota(mascota.crearMascota());
         }
-        return null;
+
     }
 }

@@ -10,10 +10,9 @@ public class VoladorFactory implements HabitatFactory{
     }
 
     @Override
-    public Mascota crearMascota(MascotasEnum mascota) {
+    public void crearMascotaParaEscenario(MascotasEnum mascota, Escenario escenario) {
         if(TiposEnum.VOLADOR.mascotasCompatibles().contains(mascota)){
-            return mascota.crearMascota();
+            escenario.alojarMascota(mascota.crearMascota());
         }
-        return null;
     }
 }
