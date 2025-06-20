@@ -7,6 +7,7 @@ public class Gato extends Mascota{
         this.nombreAnimal = MascotasEnum.GATO.getNombre();
         this.tipo = MascotasEnum.GATO.getTipo();
         this.nombrePropio = GeneradorNombreAleatorio.obtenerNombreAleatorio();
+        this.estado = new Estado(100,100,150);
     }
 
 
