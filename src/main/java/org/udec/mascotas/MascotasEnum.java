@@ -11,7 +11,7 @@ public enum MascotasEnum {
     RATON( "Ratón", TiposEnum.ROEDOR, "raton.png", "raton.png"),
     LORO( "Loro", TiposEnum.VOLADOR, "loro.png", "loro.png"),
     GOLONDRINA( "Golondrina", TiposEnum.VOLADOR, "golondrina.png", "golondrina.png"),
-    PEZDORADO( "Pez dorada", TiposEnum.ACUATICO, "pezDorada.png", "pezDorada.png"),
+    PEZDORADO( "Pez dorado", TiposEnum.ACUATICO, "pezDorada.png", "pezDorada.png"),
     PEZPAYASO( "Pez payaso", TiposEnum.ACUATICO, "pezPayaso.png", "pezPayaso.png");
 
     private String nombre;

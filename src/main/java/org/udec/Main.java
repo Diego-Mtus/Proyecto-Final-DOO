@@ -10,13 +10,12 @@ public class Main {
 
         System.out.println(TiposEnum.ROEDOR.mascotasCompatibles());
 
-        HabitatFactory factory = new RoedorFactory();
+        Escenario acuatico = EscenarioFactory.crearEscenario(TiposEnum.ACUATICO);
+        acuatico.fabricarMascota(MascotasEnum.GATO);
+        acuatico.fabricarMascota(MascotasEnum.PEZDORADO);
 
-        Escenario escenario = factory.crearEscenario();
+        Mascota mascota = acuatico.getMascotaActual();
+        System.out.println(mascota.toString());
 
-        factory.crearMascotaParaEscenario(MascotasEnum.RATON, escenario);
-        escenario.venderMascota();
-
-        System.out.println(escenario.getMascotaActual());
     }
 }

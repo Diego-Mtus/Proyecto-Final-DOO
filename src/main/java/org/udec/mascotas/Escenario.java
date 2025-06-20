@@ -19,23 +19,22 @@ public abstract class Escenario {
         return nombre;
     }
 
-    public boolean puedeAlojar(Mascota mascota){
+    public boolean puedeAlojar(MascotasEnum mascota){
         return mascota.getTipo() == this.tipoEscenario;
     }
 
-    public boolean alojarMascota(Mascota mascota){
+    public void fabricarMascota(MascotasEnum mascota){
+
         if(mascotaActual != null) {
             System.out.println("Ya hay una mascota habitando ahí.");
-            return false;
+            return;
         }
 
         if(puedeAlojar(mascota)){
-            this.mascotaActual = mascota;
-            System.out.println("Se ha alojado a " + mascota.getNombreAnimal());
-            return true;
+            this.mascotaActual = mascota.crearMascota();
+            System.out.println("Se ha alojado a " + mascotaActual.getNombreAnimal());
         } else {
             System.out.println("Esa mascota no puede vivir ahí.");
-            return false;
         }
 
     }

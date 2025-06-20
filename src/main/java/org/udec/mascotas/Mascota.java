@@ -19,4 +19,12 @@ public abstract class Mascota {
     public String getNombrePropio(){
         return this.nombrePropio;
     }
+
+    @Override
+    public String toString() {
+        return "Mascota: " +
+                "nombrePropio='" + nombrePropio + '\'' +
+                ", nombreAnimal='" + nombreAnimal + '\'' +
+                ", tipo=" + tipo;
+    }
 }
