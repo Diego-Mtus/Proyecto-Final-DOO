@@ -1,7 +1,5 @@
 package org.udec.mascotas;
 
-import org.udec.TiposEnum;
-
 import java.awt.image.BufferedImage;
 import java.util.Random;
 

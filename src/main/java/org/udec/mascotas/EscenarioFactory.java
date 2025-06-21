@@ -1,7 +1,5 @@
 package org.udec.mascotas;
 
-import org.udec.TiposEnum;
-
 public class EscenarioFactory {
 
     public static Escenario crearEscenario(TiposEnum tipo){

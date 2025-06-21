@@ -1,6 +1,4 @@
-package org.udec;
-
-import org.udec.mascotas.MascotasEnum;
+package org.udec.mascotas;
 
 import java.util.ArrayList;
 import java.util.List;

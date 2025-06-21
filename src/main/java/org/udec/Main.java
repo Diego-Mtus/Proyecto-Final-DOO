@@ -1,12 +1,12 @@
 package org.udec;
 
 import org.udec.mascotas.*;
+import org.udec.visual.VentanaPrincipal;
 
 import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
-        JFrame ventana = new VentanaPrincipal();
 
         System.out.println(TiposEnum.ROEDOR.mascotasCompatibles());
 
@@ -18,6 +18,9 @@ public class Main {
         System.out.println("salud: " + mascota.verSalud());
         System.out.println("hambre: " + mascota.verHambre());
         System.out.println("felicidad: " + mascota.verFelicidad());
+
+        SwingUtilities.invokeLater(VentanaPrincipal::new);
+
 
     }
 }
