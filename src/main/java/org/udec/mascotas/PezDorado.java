@@ -1,6 +1,7 @@
 package org.udec.mascotas;
 
-import org.udec.GeneradorNombreAleatorio;
+import org.udec.util.CargadorDeImagenes;
+import org.udec.util.GeneradorNombreAleatorio;
 
 
 public class PezDorado extends Mascota{
@@ -8,5 +9,7 @@ public class PezDorado extends Mascota{
         this.nombreAnimal = MascotasEnum.PEZDORADO.getNombre();
         this.tipo = MascotasEnum.PEZDORADO.getTipo();
         this.nombrePropio = GeneradorNombreAleatorio.obtenerNombreAleatorio();
+        this.estado = new Estado(125,100,125);
+        this.imagenMascota = CargadorDeImagenes.cargarImagen(MascotasEnum.PEZDORADO.getRutaImagen());
     }
 }

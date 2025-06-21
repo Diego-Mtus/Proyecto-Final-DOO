@@ -2,10 +2,13 @@ package org.udec.mascotas;
 
 import org.udec.TiposEnum;
 
+import java.awt.image.BufferedImage;
+
 public abstract class Escenario {
     protected String nombre;
     protected Mascota mascotaActual;
     protected TiposEnum tipoEscenario;
+    protected BufferedImage imagenEscenario;
 
     public TiposEnum getTipoEscenario(){
         return this.tipoEscenario;
@@ -17,6 +20,10 @@ public abstract class Escenario {
 
     public String getNombre() {
         return nombre;
+    }
+
+    public BufferedImage getImagenEscenario() {
+        return imagenEscenario;
     }
 
     public boolean puedeAlojar(MascotasEnum mascota){

@@ -2,12 +2,14 @@ package org.udec.mascotas;
 
 import org.udec.TiposEnum;
 
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public abstract class Mascota {
 
     protected String nombrePropio;
     protected String nombreAnimal;
+    protected BufferedImage imagenMascota;
     protected TiposEnum tipo;
     protected Estado estado;
 
@@ -21,6 +23,10 @@ public abstract class Mascota {
 
     public String getNombrePropio(){
         return this.nombrePropio;
+    }
+
+    public BufferedImage getImagenMascota() {
+        return imagenMascota;
     }
 
     @Override

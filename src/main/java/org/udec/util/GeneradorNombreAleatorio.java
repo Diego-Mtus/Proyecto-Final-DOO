@@ -1,4 +1,4 @@
-package org.udec;
+package org.udec.util;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
