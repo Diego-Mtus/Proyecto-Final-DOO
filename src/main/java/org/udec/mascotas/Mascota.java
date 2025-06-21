@@ -72,7 +72,6 @@ public abstract class Mascota {
         public int getSalud(){
             return this.salud;
         }
-
         public int getHambre(){
             return this.hambre;
         }
