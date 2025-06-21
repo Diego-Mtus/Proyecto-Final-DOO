@@ -11,10 +11,13 @@ public class PanelEscenario extends JPanel {
 
     private Escenario escenario;
     private BufferedImage imagenEscenario;
+
     private Mascota mascota;
     private BufferedImage imagenMascota;
 
     private JButton botonAdoptarMascota; // Esto será su propia clase más adelante
+
+    private EscenarioListener escenarioListener;
 
     public PanelEscenario(){
         this.setVisible(true);
@@ -25,6 +28,10 @@ public class PanelEscenario extends JPanel {
         crearBotonAdoptarMascota();
     }
 
+    public void setEscenarioListener(EscenarioListener escenarioListener) {
+        this.escenarioListener = escenarioListener;
+    }
+
     private void crearBotonDeInicializarEscenario(){
         JButton boton = new JButton("Inicializar Escenario");
         boton.setFocusable(false);
@@ -33,6 +40,8 @@ public class PanelEscenario extends JPanel {
         boton.addActionListener(e -> {
             System.out.println("Inicializar Escenario prueba");
             escenario = EscenarioFactory.crearEscenario(TiposEnum.COMUN);
+
+            escenarioListener.escenarioInicializado(this);
             imagenEscenario = escenario.getImagenEscenario();
             boton.setVisible(false);
             repaint();
@@ -61,6 +70,10 @@ public class PanelEscenario extends JPanel {
         });
     }
 
+    public boolean tieneEscenario() {
+        return escenario != null;
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -72,8 +85,8 @@ public class PanelEscenario extends JPanel {
 
         } else if (mascota != null) {
             g.setColor(Color.BLACK);
-            g.drawString("Mascota: " + mascota.getNombreAnimal(), 10, 20);
-            g.drawString("Nombre: " + mascota.getNombrePropio(), 10, 40);
+            g.setFont(new Font("Arial", Font.BOLD, 16));
+            g.drawString(mascota.getNombrePropio() + " - " + mascota.getNombreAnimal(), 10, 20);
             g.drawString("Salud: " + mascota.verSalud(), 10, 60);
             g.drawString("Hambre: " + mascota.verHambre(), 10, 80);
             g.drawString("Felicidad: " + mascota.verFelicidad(), 10, 100);
