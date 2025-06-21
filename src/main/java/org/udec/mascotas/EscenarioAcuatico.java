@@ -7,6 +7,6 @@ public class EscenarioAcuatico extends Escenario{
     EscenarioAcuatico(){
         this.tipoEscenario = TiposEnum.ACUATICO;
         this.nombre = "Pecera";
-        this.imagenEscenario = CargadorDeImagenes.cargarImagen("/acuatico.png");
+        this.imagenEscenario = CargadorDeImagenes.cargarImagen("/escenarios/acuatico.png");
     }
 }

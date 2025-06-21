@@ -7,6 +7,6 @@ public class EscenarioRoedor extends Escenario {
     EscenarioRoedor(){
         this.tipoEscenario = TiposEnum.ROEDOR;
         this.nombre = "Jaula";
-        this.imagenEscenario = CargadorDeImagenes.cargarImagen("/acuatico.png");
+        this.imagenEscenario = CargadorDeImagenes.cargarImagen("/escenarios/acuatico.png");
     }
 }

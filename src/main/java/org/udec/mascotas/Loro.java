@@ -2,6 +2,7 @@ package org.udec.mascotas;
 
 import org.udec.util.CargadorDeImagenes;
 import org.udec.util.GeneradorNombreAleatorio;
+import org.udec.util.GestionDeSonido;
 
 public class Loro extends Mascota {
     Loro(){
@@ -10,5 +11,6 @@ public class Loro extends Mascota {
         this.nombrePropio = GeneradorNombreAleatorio.obtenerNombreAleatorio();
         this.estado = new Estado(125,100,125);
         this.imagenMascota = CargadorDeImagenes.cargarImagen(MascotasEnum.LORO.getRutaImagen());
+        this.sonidoMascota = GestionDeSonido.cargarClip(MascotasEnum.LORO.getRutaSonido());
     }
 }

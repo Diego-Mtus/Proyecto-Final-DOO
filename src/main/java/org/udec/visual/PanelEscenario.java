@@ -14,6 +14,7 @@ public class PanelEscenario extends JPanel {
 
     private Mascota mascota;
     private BufferedImage imagenMascota;
+    private MascotaInteractuable mascotaInteractuable;
 
     private JButton botonAdoptarMascota; // Esto será su propia clase más adelante
 
@@ -23,13 +24,22 @@ public class PanelEscenario extends JPanel {
         this.setVisible(true);
         this.setLayout(null);
         this.setBounds(0,0, VentanaPrincipal.ANCHO, VentanaPrincipal.ALTO);
-        this.imagenEscenario = CargadorDeImagenes.cargarImagen("/base.png");
+        this.imagenEscenario = CargadorDeImagenes.cargarImagen("/escenarios/base.png");
         crearBotonDeInicializarEscenario();
         crearBotonAdoptarMascota();
+        crearMascotaInteractuable();
     }
 
     public void setEscenarioListener(EscenarioListener escenarioListener) {
         this.escenarioListener = escenarioListener;
+    }
+
+    public BufferedImage getImagenMascota() {
+        return imagenMascota;
+    }
+
+    public Escenario getEscenario() {
+        return escenario;
     }
 
     private void crearBotonDeInicializarEscenario(){
@@ -48,6 +58,11 @@ public class PanelEscenario extends JPanel {
         });
     }
 
+    private void crearMascotaInteractuable() {
+         this.mascotaInteractuable = new MascotaInteractuable(this, VentanaPrincipal.ANCHO / 2 - 150, VentanaPrincipal.ALTO / 2 - 150, 300, 300);
+         this.add(mascotaInteractuable);
+    }
+
     private void crearBotonAdoptarMascota(){
         botonAdoptarMascota = new JButton("Adoptar Mascota");
         botonAdoptarMascota.setBounds(getWidth() / 2 - 100, getHeight() / 2 - 50, 200, 50);
@@ -59,7 +74,8 @@ public class PanelEscenario extends JPanel {
                 escenario.crearMascota(MascotasEnum.GATO); // Por ejemplo, adoptar un gato
                 mascota = escenario.getMascotaActual();
                 if (mascota != null) {
-                    imagenMascota = mascota.getImagenMascota();
+
+                    mascotaInteractuable.setMascota(mascota);
                     botonAdoptarMascota.setVisible(false);
                     repaint();
                 } else {
@@ -90,7 +106,6 @@ public class PanelEscenario extends JPanel {
             g.drawString("Salud: " + mascota.verSalud(), 10, 60);
             g.drawString("Hambre: " + mascota.verHambre(), 10, 80);
             g.drawString("Felicidad: " + mascota.verFelicidad(), 10, 100);
-            g.drawImage(imagenMascota, getWidth() / 2 - 150, getHeight() / 2 - 150, 300, 300, this);
         }
     }
 }

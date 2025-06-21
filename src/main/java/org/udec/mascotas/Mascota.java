@@ -1,5 +1,6 @@
 package org.udec.mascotas;
 
+import javax.sound.sampled.Clip;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
@@ -8,6 +9,7 @@ public abstract class Mascota {
     protected String nombrePropio;
     protected String nombreAnimal;
     protected BufferedImage imagenMascota;
+    protected Clip sonidoMascota;
     protected TiposEnum tipo;
     protected Estado estado;
 
@@ -25,6 +27,10 @@ public abstract class Mascota {
 
     public BufferedImage getImagenMascota() {
         return imagenMascota;
+    }
+
+    public Clip getSonidoMascota() {
+        return sonidoMascota;
     }
 
     @Override
