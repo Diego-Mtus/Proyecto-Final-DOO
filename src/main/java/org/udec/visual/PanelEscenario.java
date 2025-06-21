@@ -56,7 +56,7 @@ public class PanelEscenario extends JPanel {
         this.add(botonAdoptarMascota);
         botonAdoptarMascota.addActionListener(e -> {
             if (escenario != null) {
-                escenario.fabricarMascota(MascotasEnum.GATO); // Por ejemplo, adoptar un gato
+                escenario.crearMascota(MascotasEnum.GATO); // Por ejemplo, adoptar un gato
                 mascota = escenario.getMascotaActual();
                 if (mascota != null) {
                     imagenMascota = mascota.getImagenMascota();
