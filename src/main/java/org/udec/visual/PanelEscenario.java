@@ -42,19 +42,26 @@ public class PanelEscenario extends JPanel {
         return escenario;
     }
 
+    public void establecerEscenario(TiposEnum escenarioTipo) {
+        if(this.escenario == null) {
+            this.escenario = EscenarioFactory.crearEscenario(escenarioTipo);
+            escenarioListener.escenarioInicializado(this);
+            this.imagenEscenario = escenario.getImagenEscenario();
+            repaint();
+        }
+    }
+
     private void crearBotonDeInicializarEscenario(){
         JButton boton = new JButton("Inicializar Escenario");
         boton.setFocusable(false);
         boton.setBounds(getWidth() / 2 - 100, getHeight() / 2 - 50, 200, 50);
         this.add(boton);
         boton.addActionListener(e -> {
-            System.out.println("Inicializar Escenario prueba");
-            escenario = EscenarioFactory.crearEscenario(TiposEnum.COMUN);
-
-            escenarioListener.escenarioInicializado(this);
-            imagenEscenario = escenario.getImagenEscenario();
-            boton.setVisible(false);
-            repaint();
+            System.out.println("Se abre panel de selección de escenario");
+            SelectorEscenario selector = new SelectorEscenario(this);
+            if(selector.isEscenarioSeleccionado()) {
+                boton.setVisible(false);
+            }
         });
     }
 

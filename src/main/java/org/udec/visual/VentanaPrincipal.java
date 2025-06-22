@@ -75,6 +75,7 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener{
         this.setContentPane(panelCapas);
         this.pack();
         this.setVisible(true);
+
     }
 
     // Método auxiliar para añadir paneles y mantener el contador

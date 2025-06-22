@@ -7,6 +7,6 @@ public class EscenarioComun extends Escenario{
     EscenarioComun(){
         this.tipoEscenario = TiposEnum.COMUN;
         this.nombre = "Patio";
-        this.imagenEscenario = CargadorDeImagenes.cargarImagen("/escenarios/acuatico.png");
+        this.imagenEscenario = CargadorDeImagenes.cargarImagen("/escenarios/comun.png");
     }
 }
