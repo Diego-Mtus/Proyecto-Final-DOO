@@ -4,6 +4,7 @@ import org.udec.util.TiposEnum;
 
 public class EscenarioFactory {
 
+    // TODO: Implementar un patrón de diseño para crear los escenarios, no usar un switch estático.
     public static Escenario crearEscenario(TiposEnum tipo){
         return switch (tipo) {
             case VOLADOR -> new EscenarioVolador();

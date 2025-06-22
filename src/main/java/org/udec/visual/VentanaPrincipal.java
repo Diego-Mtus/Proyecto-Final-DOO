@@ -78,7 +78,7 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener{
 
     }
 
-    // Método auxiliar para añadir paneles y mantener el contador
+    // Métod o auxiliar para añadir paneles y mantener el contador
     private void addPanelToCardLayout(PanelEscenario panel) {
         panel.setEscenarioListener(this);
         panelesEscenario.add(panel);

@@ -23,38 +23,7 @@ public class SelectorEscenario extends JDialog {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(2, 2));
 
-        JButton acuaticoButton = new JButton("Pecera");
-        acuaticoButton.addActionListener(e -> {
-            panelEscenario.establecerEscenario(TiposEnum.ACUATICO);
-            escenarioSeleccionado = true;
-            dispose();
-        });
-
-        JButton voladorButton = new JButton("Pajarera");
-        voladorButton.addActionListener(e -> {
-            panelEscenario.establecerEscenario(TiposEnum.VOLADOR);
-            escenarioSeleccionado = true;
-            dispose();
-        });
-
-        JButton comunButton = new JButton("Patio");
-        comunButton.addActionListener(e -> {
-            panelEscenario.establecerEscenario(TiposEnum.COMUN);
-            escenarioSeleccionado = true;
-            dispose();
-        });
-
-        JButton roedorButton = new JButton("Jaula");
-        roedorButton.addActionListener(e -> {
-            panelEscenario.establecerEscenario(TiposEnum.ROEDOR);
-            escenarioSeleccionado = true;
-            dispose();
-        });
-
-        buttonPanel.add(acuaticoButton);
-        buttonPanel.add(voladorButton);
-        buttonPanel.add(comunButton);
-        buttonPanel.add(roedorButton);
+        crearBotonesDeEscenario(panelEscenario, buttonPanel);
 
         add(buttonPanel, BorderLayout.CENTER);
 
@@ -64,6 +33,18 @@ public class SelectorEscenario extends JDialog {
 
     public boolean isEscenarioSeleccionado() {
         return escenarioSeleccionado;
+    }
+
+    private void crearBotonesDeEscenario(PanelEscenario panelEscenario, JPanel buttonPanel) {
+        for(TiposEnum tipo : TiposEnum.values()) {
+            JButton button = new JButton(tipo.name());
+            button.addActionListener(e -> {
+                panelEscenario.establecerEscenario(tipo);
+                escenarioSeleccionado = true;
+                dispose();
+            });
+            buttonPanel.add(button);
+        }
     }
 
 }
