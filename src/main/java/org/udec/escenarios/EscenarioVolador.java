@@ -1,6 +1,7 @@
-package org.udec.mascotas;
+package org.udec.escenarios;
 
 import org.udec.util.CargadorDeImagenes;
+import org.udec.util.TiposEnum;
 
 public class EscenarioVolador extends Escenario{
 

@@ -1,4 +1,8 @@
-package org.udec.mascotas;
+package org.udec.escenarios;
+
+import org.udec.mascotas.Mascota;
+import org.udec.util.MascotasEnum;
+import org.udec.util.TiposEnum;
 
 import java.awt.image.BufferedImage;
 
@@ -28,20 +32,13 @@ public abstract class Escenario {
         return mascota.getTipo() == this.tipoEscenario;
     }
 
-    public void crearMascota(MascotasEnum mascota){
+    public boolean tieneMascota() {
+        return mascotaActual != null;
+    }
 
-        if(mascotaActual != null) {
-            System.out.println("Ya hay una mascota habitando ahí.");
-            return;
-        }
-
-        if(puedeAlojar(mascota)){
-            this.mascotaActual = MascotaFactory.crearMascota(mascota);
-            System.out.println("Se ha alojado a " + mascotaActual.getNombreAnimal());
-        } else {
-            System.out.println("Esa mascota no puede vivir ahí.");
-        }
-
+    public void alojarMascota(Mascota mascota) {
+        this.mascotaActual = mascota;
+        System.out.println("Se ha alojado a " + mascotaActual.getNombreAnimal());
     }
 
     public void venderMascota() {

@@ -1,7 +1,12 @@
 package org.udec.visual;
 
+import org.udec.escenarios.Escenario;
+import org.udec.escenarios.EscenarioFactory;
 import org.udec.mascotas.*;
 import org.udec.util.CargadorDeImagenes;
+import org.udec.util.MascotaViviendoException;
+import org.udec.util.TipoIncorrectoException;
+import org.udec.util.TiposEnum;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,6 +18,7 @@ public class PanelEscenario extends JPanel {
     private BufferedImage imagenEscenario;
 
     private Mascota mascota;
+    private MascotaFactory mascotaFactory;
     private BufferedImage imagenMascota;
     private MascotaInteractuable mascotaInteractuable;
 
@@ -34,9 +40,6 @@ public class PanelEscenario extends JPanel {
         this.escenarioListener = escenarioListener;
     }
 
-    public BufferedImage getImagenMascota() {
-        return imagenMascota;
-    }
 
     public Escenario getEscenario() {
         return escenario;
@@ -78,16 +81,19 @@ public class PanelEscenario extends JPanel {
         this.add(botonAdoptarMascota);
         botonAdoptarMascota.addActionListener(e -> {
             if (escenario != null) {
-                escenario.crearMascota(MascotasEnum.GATO); // Por ejemplo, adoptar un gato
-                mascota = escenario.getMascotaActual();
-                if (mascota != null) {
-
+                mascotaFactory = new GatoFactory();
+                try {
+                    mascotaFactory.crearMascota(escenario);
+                    mascota = escenario.getMascotaActual();
                     mascotaInteractuable.setMascota(mascota);
                     botonAdoptarMascota.setVisible(false);
                     repaint();
-                } else {
-                    JOptionPane.showMessageDialog(this, "No se pudo adoptar la mascota.", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (MascotaViviendoException ex) {
+                    JOptionPane.showMessageDialog(this, "Ya hay una mascota viviendo en ese escenario.", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (TipoIncorrectoException ex) {
+                    JOptionPane.showMessageDialog(this, "La mascota no es del mismo tipo que el escenario.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
+
             }
 
         });

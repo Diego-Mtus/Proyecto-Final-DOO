@@ -1,4 +1,4 @@
-package org.udec.mascotas;
+package org.udec.util;
 
 import java.util.ArrayList;
 import java.util.List;

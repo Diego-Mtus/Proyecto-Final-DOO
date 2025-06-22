@@ -1,6 +1,6 @@
 package org.udec.visual;
 
-import org.udec.mascotas.TiposEnum;
+import org.udec.util.TiposEnum;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,5 +1,7 @@
 package org.udec.mascotas;
 
+import org.udec.util.TiposEnum;
+
 import javax.sound.sampled.Clip;
 import java.awt.image.BufferedImage;
 import java.util.Random;

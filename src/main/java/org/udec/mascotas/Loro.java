@@ -3,6 +3,7 @@ package org.udec.mascotas;
 import org.udec.util.CargadorDeImagenes;
 import org.udec.util.GeneradorNombreAleatorio;
 import org.udec.util.GestionDeSonido;
+import org.udec.util.MascotasEnum;
 
 public class Loro extends Mascota {
     Loro(){

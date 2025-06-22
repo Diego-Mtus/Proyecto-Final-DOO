@@ -1,4 +1,4 @@
-package org.udec.mascotas;
+package org.udec.util;
 
 public enum MascotasEnum {
 
@@ -12,11 +12,11 @@ public enum MascotasEnum {
     PEZDORADO( "Pez dorado", TiposEnum.ACUATICO, "/pezDorada.png", "/pezDorada.png", "/sonidos/pez.wav"),
     PEZPAYASO( "Pez payaso", TiposEnum.ACUATICO, "/pezPayaso.png", "/pezPayaso.png", "/sonidos/pez.wav");
 
-    private String nombre;
-    private TiposEnum tipo;
-    private String rutaImagen;
-    private String rutaImagenJuego;
-    private String rutaSonido;
+    private final String nombre;
+    private final TiposEnum tipo;
+    private final String rutaImagen;
+    private final String rutaImagenJuego;
+    private final String rutaSonido;
 
     MascotasEnum(String nombre, TiposEnum tipo, String rutaImagen, String rutaImagenJuego, String rutaSonido) {
         this.nombre = nombre;

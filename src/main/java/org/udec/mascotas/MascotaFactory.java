@@ -1,16 +1,12 @@
 package org.udec.mascotas;
 
-class MascotaFactory {
-     public static Mascota crearMascota(MascotasEnum tipo) {
-        return switch (tipo) {
-            case PERRO -> new Perro();
-            case GATO -> new Gato();
-            case LORO -> new Loro();
-            case GOLONDRINA -> new Golondrina();
-            case HAMSTER -> new Hamster();
-            case RATON -> new Raton();
-            case PEZDORADO -> new PezDorado();
-            case PEZPAYASO -> new PezPayaso();
-        };
-    }
+import org.jetbrains.annotations.NotNull;
+import org.udec.escenarios.Escenario;
+import org.udec.util.MascotaViviendoException;
+import org.udec.util.TipoIncorrectoException;
+
+public abstract class MascotaFactory {
+
+    public abstract void crearMascota (@NotNull Escenario escenario) throws MascotaViviendoException, TipoIncorrectoException;
+
 }
