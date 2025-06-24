@@ -44,15 +44,15 @@ public abstract class Mascota {
     }
 
     public int verSalud(){
-        return this.estado.getSalud();
+        return this.estado.salud;
     }
 
     public int verHambre(){
-        return this.estado.getHambre();
+        return this.estado.hambre;
     }
 
     public int verFelicidad(){
-        return this.estado.getFelicidad();
+        return this.estado.felicidad;
     }
 
     // Clase solo existe dentro del contexto de la mascota.
@@ -61,9 +61,9 @@ public abstract class Mascota {
         private int hambre;
         private int felicidad;
         
-        private int saludMax;
-        private int hambreMax;
-        private int felicidadMax;
+        private final int saludMax;
+        private final int hambreMax;
+        private final int felicidadMax;
         
         public Estado(int saludMax, int hambreMax, int felicidadMax){
             this.saludMax = saludMax;
@@ -77,15 +77,7 @@ public abstract class Mascota {
             this.felicidad = random.nextInt(felicidadMax/2 + 1);
         }
 
-        public int getSalud(){
-            return this.salud;
-        }
-        public int getHambre(){
-            return this.hambre;
-        }
-        public int getFelicidad(){
-            return this.felicidad;
-        }
+
 
         public void setSalud(int salud){
             if(salud >= 0 && salud <= saludMax){
