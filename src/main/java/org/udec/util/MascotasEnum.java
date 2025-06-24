@@ -4,7 +4,7 @@ public enum MascotasEnum {
 
     // Nombre, Tipo, rutaImagen
     GATO( "Gato", TiposEnum.COMUN, "/mascotas/gato.png", "/mascotas/gato.png", "/sonidos/gato.wav", "GatoFactory"),
-    PERRO( "Perro", TiposEnum.COMUN, "/mascotas/perro.png", "/perro.png", "/sonidos/gato.wav", "PerroFactory"),
+    PERRO( "Perro", TiposEnum.COMUN, "/mascotas/perro.png", "/perro.png", "/sonidos/rand.wav", "PerroFactory"),
     HAMSTER( "Hamster", TiposEnum.ROEDOR, "/mascotas/hamster.png", "/mascotas/hamster.png", "/sonidos/hamster.wav", "HamsterFactory"),
     RATON( "Ratón", TiposEnum.ROEDOR, "/mascotas/raton.png", "/mascotas/raton.png", "/sonidos/raton.wav", "RatonFactory"),
     LORO( "Loro", TiposEnum.VOLADOR, "/mascotas/loro.png", "/mascotas/loro.png", "/sonidos/loro.wav", "LoroFactory"),
