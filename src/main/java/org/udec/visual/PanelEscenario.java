@@ -54,16 +54,34 @@ public class PanelEscenario extends JPanel {
         }
     }
 
+    public void establecerMascota(MascotaFactory mascotaFactory){
+        if (escenario != null) {
+            try {
+                    mascotaFactory.crearMascota(escenario);
+                    mascota = escenario.getMascotaActual();
+                    mascotaInteractuable.setMascota(mascota);
+                    botonAdoptarMascota.setVisible(false);
+                    repaint();
+                } catch (MascotaViviendoException ex) {
+                    JOptionPane.showMessageDialog(this, "Ya hay una mascota viviendo en ese escenario.", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (TipoIncorrectoException ex) {
+                    JOptionPane.showMessageDialog(this, "La mascota no es del mismo tipo que el escenario.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+            }
+    }
+
+
     private void crearBotonDeInicializarEscenario(){
-        JButton boton = new JButton("Inicializar Escenario");
-        boton.setFocusable(false);
-        boton.setBounds(getWidth() / 2 - 100, getHeight() / 2 - 50, 200, 50);
-        this.add(boton);
-        boton.addActionListener(e -> {
+        JButton botonInicializarEscenario = new JButton("Inicializar Escenario");
+        botonInicializarEscenario.setFocusable(false);
+        botonInicializarEscenario.setBounds(getWidth() / 2 - 100, getHeight() / 2 - 50, 200, 50);
+        this.add(botonInicializarEscenario);
+        botonInicializarEscenario.addActionListener(e -> {
             System.out.println("Se abre panel de selección de escenario");
-            SelectorEscenario selector = new SelectorEscenario(this);
-            if(selector.isEscenarioSeleccionado()) {
-                boton.setVisible(false);
+            SelectorEscenario selectorEscenario = new SelectorEscenario(this);
+            if(selectorEscenario.isEscenarioSeleccionado()) {
+                botonInicializarEscenario.setVisible(false);
             }
         });
     }
@@ -80,22 +98,10 @@ public class PanelEscenario extends JPanel {
         botonAdoptarMascota.setFocusable(false);
         this.add(botonAdoptarMascota);
         botonAdoptarMascota.addActionListener(e -> {
-            if (escenario != null) {
-                mascotaFactory = new GatoFactory();
-                try {
-                    mascotaFactory.crearMascota(escenario);
-                    mascota = escenario.getMascotaActual();
-                    mascotaInteractuable.setMascota(mascota);
-                    botonAdoptarMascota.setVisible(false);
-                    repaint();
-                } catch (MascotaViviendoException ex) {
-                    JOptionPane.showMessageDialog(this, "Ya hay una mascota viviendo en ese escenario.", "Error", JOptionPane.ERROR_MESSAGE);
-                } catch (TipoIncorrectoException ex) {
-                    JOptionPane.showMessageDialog(this, "La mascota no es del mismo tipo que el escenario.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-
+            SelectorMascota selectorMascota = new SelectorMascota(this);
+            if(selectorMascota.isMascotaSeleccionada()){
+                botonAdoptarMascota.setVisible(false);
             }
-
         });
     }
 

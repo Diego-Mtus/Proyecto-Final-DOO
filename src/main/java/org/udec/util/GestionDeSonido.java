@@ -17,7 +17,7 @@ public class GestionDeSonido {
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             return clip;
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | IllegalArgumentException e) {
             System.err.println("Error al cargar el clip de audio: " + e.getMessage());
             return null;
         }
