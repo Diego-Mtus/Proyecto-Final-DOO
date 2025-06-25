@@ -10,7 +10,7 @@ public class Golondrina extends Mascota{
         this.nombreAnimal = MascotasEnum.GOLONDRINA.getNombre();
         this.tipo = MascotasEnum.GOLONDRINA.getTipo();
         this.nombrePropio = GeneradorNombreAleatorio.obtenerNombreAleatorio();
-        this.estado = new Estado(125,100,100);
+        this.estado = new Estado();
         this.imagenMascota = CargadorDeImagenes.cargarImagen(MascotasEnum.GOLONDRINA.getRutaImagen());
         this.sonidoMascota = GestionDeSonido.cargarClip(MascotasEnum.GOLONDRINA.getRutaSonido());
     }

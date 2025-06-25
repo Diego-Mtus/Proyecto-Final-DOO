@@ -60,21 +60,18 @@ public abstract class Mascota {
         private int salud;
         private int hambre;
         private int felicidad;
+
+        private final int saludMax = 100;
+        private final int hambreMax = 100;
+        private final int felicidadMax = 100;
         
-        private final int saludMax;
-        private final int hambreMax;
-        private final int felicidadMax;
-        
-        public Estado(int saludMax, int hambreMax, int felicidadMax){
-            this.saludMax = saludMax;
-            this.hambreMax = hambreMax;
-            this.felicidadMax = felicidadMax;
+        public Estado(){
 
             // Que los valores que ya tenga sean al azar por debajo de la mitad.
             Random random = new Random();
-            this.salud = random.nextInt(saludMax/2 + 1);
-            this.hambre = random.nextInt(hambreMax/2 + 1);
-            this.felicidad = random.nextInt(felicidadMax/2 + 1);
+            this.salud = random.nextInt(50);
+            this.hambre = random.nextInt(50);
+            this.felicidad = random.nextInt(50);
         }
 
 

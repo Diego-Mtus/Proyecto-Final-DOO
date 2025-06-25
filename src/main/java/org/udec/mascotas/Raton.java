@@ -10,7 +10,7 @@ public class Raton extends Mascota{
         this.nombreAnimal = MascotasEnum.RATON.getNombre();
         this.tipo = MascotasEnum.RATON.getTipo();
         this.nombrePropio = GeneradorNombreAleatorio.obtenerNombreAleatorio();
-        this.estado = new Estado(125,100,125);
+        this.estado = new Estado();
         this.imagenMascota = CargadorDeImagenes.cargarImagen(MascotasEnum.RATON.getRutaImagen());
         this.sonidoMascota = GestionDeSonido.cargarClip(MascotasEnum.RATON.getRutaSonido());
     }

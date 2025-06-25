@@ -10,7 +10,7 @@ public class Perro extends Mascota{
         this.nombreAnimal = MascotasEnum.PERRO.getNombre();
         this.tipo = MascotasEnum.PERRO.getTipo();
         this.nombrePropio = GeneradorNombreAleatorio.obtenerNombreAleatorio();
-        this.estado = new Estado(100,150,100);
+        this.estado = new Estado();
         this.imagenMascota = CargadorDeImagenes.cargarImagen(MascotasEnum.PERRO.getRutaImagen());
         this.sonidoMascota = GestionDeSonido.cargarClip(MascotasEnum.PERRO.getRutaSonido());
     }
