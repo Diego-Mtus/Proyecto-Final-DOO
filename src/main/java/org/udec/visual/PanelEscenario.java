@@ -57,11 +57,14 @@ public class PanelEscenario extends JPanel {
     public void establecerMascota(MascotaFactory mascotaFactory){
         if (escenario != null) {
             try {
-                    mascotaFactory.crearMascota(escenario);
-                    mascota = escenario.getMascotaActual();
-                    mascotaInteractuable.setMascota(mascota);
-                    botonAdoptarMascota.setVisible(false);
-                    repaint();
+                mascotaFactory.crearMascota(escenario);
+                mascota = escenario.getMascotaActual();
+                mascotaInteractuable.setMascota(mascota);
+                botonAdoptarMascota.setVisible(false);
+                repaint();
+
+                crearHiloActualizadorDeEstado();
+
                 } catch (MascotaViviendoException ex) {
                     JOptionPane.showMessageDialog(this, "Ya hay una mascota viviendo en ese escenario.", "Error", JOptionPane.ERROR_MESSAGE);
                 } catch (TipoIncorrectoException ex) {
@@ -71,6 +74,11 @@ public class PanelEscenario extends JPanel {
             }
     }
 
+
+    private void crearHiloActualizadorDeEstado(){
+        Thread hiloActualizador = new Thread(new ActualizadorEstado(this));
+        hiloActualizador.start();
+    }
 
     private void crearBotonDeInicializarEscenario(){
         JButton botonInicializarEscenario = new JButton("Inicializar Escenario");
@@ -109,6 +117,10 @@ public class PanelEscenario extends JPanel {
         return escenario != null;
     }
 
+    public void actualizarVisualEstado(){
+        repaint(0,0,120,120);
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -122,9 +134,9 @@ public class PanelEscenario extends JPanel {
             g.setColor(Color.BLACK);
             g.setFont(new Font("Arial", Font.BOLD, 16));
             g.drawString(mascota.getNombrePropio() + " - " + mascota.getNombreAnimal(), 10, 20);
-            g.drawString("Salud: " + mascota.verSalud(), 10, 60);
-            g.drawString("Hambre: " + mascota.verHambre(), 10, 80);
-            g.drawString("Felicidad: " + mascota.verFelicidad(), 10, 100);
+            g.drawString("Salud: " + mascota.getEstado().verSalud(), 10, 60);
+            g.drawString("Hambre: " + mascota.getEstado().verHambre(), 10, 80);
+            g.drawString("Felicidad: " + mascota.getEstado().verFelicidad(), 10, 100);
         }
     }
 }
