@@ -1,9 +1,6 @@
 package org.udec.mascotas;
 
-import org.udec.util.CargadorDeImagenes;
-import org.udec.util.GeneradorNombreAleatorio;
-import org.udec.util.GestionDeSonido;
-import org.udec.util.MascotasEnum;
+import org.udec.util.*;
 
 
 public class PezDorado extends Mascota{
@@ -11,7 +8,7 @@ public class PezDorado extends Mascota{
         this.nombreAnimal = MascotasEnum.PEZDORADO.getNombre();
         this.tipo = MascotasEnum.PEZDORADO.getTipo();
         this.nombrePropio = GeneradorNombreAleatorio.obtenerNombreAleatorio();
-        this.estado = new Estado();
+        this.estado = new Estado(NivelDecrementoEnum.MEDIO, NivelDecrementoEnum.RAPIDO, NivelDecrementoEnum.MEDIO);
         this.imagenMascota = CargadorDeImagenes.cargarImagen(MascotasEnum.PEZDORADO.getRutaImagen());
         this.sonidoMascota = GestionDeSonido.cargarClip(MascotasEnum.PEZDORADO.getRutaSonido());
     }

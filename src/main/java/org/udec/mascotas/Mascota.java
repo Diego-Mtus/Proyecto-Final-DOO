@@ -1,5 +1,6 @@
 package org.udec.mascotas;
 
+import org.udec.util.NivelDecrementoEnum;
 import org.udec.util.TiposEnum;
 
 import javax.sound.sampled.Clip;
@@ -61,11 +62,18 @@ public abstract class Mascota {
         private int hambre;
         private int felicidad;
 
-        private final int saludMax = 100;
-        private final int hambreMax = 100;
-        private final int felicidadMax = 100;
+        private int decrementoHambre;
+        private int decrementoSalud;
+        private int decrementoFelicidad;
+
+        private final int estadoMax = 100;
+
         
-        public Estado(){
+        protected Estado(NivelDecrementoEnum decrementoHambre, NivelDecrementoEnum decrementoSalud, NivelDecrementoEnum decrementoFelicidad){
+
+            this.decrementoHambre = decrementoHambre.getValor();
+            this.decrementoSalud = decrementoSalud.getValor();
+            this.decrementoFelicidad = decrementoFelicidad.getValor();
 
             // Que los valores que ya tenga sean al azar por debajo de la mitad.
             Random random = new Random();
@@ -74,28 +82,27 @@ public abstract class Mascota {
             this.felicidad = random.nextInt(50);
         }
 
-
-
         public void setSalud(int salud){
-            if(salud >= 0 && salud <= saludMax){
+            if(salud >= 0 && salud <= estadoMax){
                 this.salud = salud;
-            } else if(salud > saludMax){
-                this.salud = saludMax;
+            } else if(salud > estadoMax){
+                this.salud = estadoMax;
             }
         }
 
         public void setHambre(int hambre){
-            if(hambre >= 0 && hambre <= hambreMax){
+            if(hambre >= 0 && hambre <= estadoMax){
                 this.hambre = hambre;
-            } else if(hambre > hambreMax){
-                this.hambre = hambreMax;
+            } else if(hambre > estadoMax){
+                this.hambre = estadoMax;
             }
         }
+
         public void setFelicidad(int felicidad){
-            if(felicidad >= 0 && felicidad <= felicidadMax){
+            if(felicidad >= 0 && felicidad <= estadoMax){
                 this.felicidad = felicidad;
-            } else if(felicidad > felicidadMax){
-                this.felicidad = felicidadMax;
+            } else if(felicidad > estadoMax){
+                this.felicidad = estadoMax;
             }
         }
 
