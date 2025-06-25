@@ -8,7 +8,7 @@ import java.util.Random;
 public class HiloCompradorInteresado implements Runnable{
 
     private volatile boolean corriendo = true;
-    private final int ESTADO_MASCOTA_ESPERADO = 80;
+    private final int ESTADO_MASCOTA_ESPERADO = 85;
 
 
     private PanelEscenario panelEscenario;
@@ -28,34 +28,38 @@ public class HiloCompradorInteresado implements Runnable{
 
     @Override
     public void run() {
+
         if(this.mascota.getEstado() != null){
             while(corriendo){
 
-                try {
-                    // Cada 5 segundos revisará.
-                    Thread.sleep(5000);
+                synchronized (mascota.getEstado()){
 
-                    // Si la mascota tiene todos los estados por sobre 85, se cumple un intervalo
-                    if(mascota.getEstado().verHambre() > 85 && mascota.getEstado().verSalud() > 85 && mascota.getEstado().verFelicidad() > 85){
-                        intervalosActuales++;
-                    }
+                    try {
+                        // Cada 5 segundos revisará.
+                        Thread.sleep(5000);
 
-                    // Una vez que hayan ocurrido INTERVALOS_ESPERADOS intervalos, se avisará a PanelEscenario para vender, y se terminará el hilo.
-                    if(intervalosActuales >= intervalosEsperados){
-                        System.out.println("Apto para venta");
+                        // Si la mascota tiene todos los estados por sobre 85, se cumple un intervalo
+                        if(mascota.getEstado().verHambre() > ESTADO_MASCOTA_ESPERADO &&
+                           mascota.getEstado().verSalud() > ESTADO_MASCOTA_ESPERADO &&
+                           mascota.getEstado().verFelicidad() > ESTADO_MASCOTA_ESPERADO){
+
+                            intervalosActuales++;
+                        }
+
+                        // Una vez que hayan ocurrido INTERVALOS_ESPERADOS intervalos, se avisará a PanelEscenario para vender, y se terminará el hilo.
+                        if(intervalosActuales >= intervalosEsperados){
+                            System.out.println("Apto para venta");
+                            Thread.currentThread().interrupt();
+                            corriendo = false;
+                        }
+
+                        System.out.println("Ciclo de comprador completado.");
+
+                    } catch (InterruptedException e) {
+                        System.out.println("Interrupción de hilo");
                         Thread.currentThread().interrupt();
                         corriendo = false;
                     }
-
-                    System.out.println("Ciclo de comprador completado.");
-
-                } catch (InterruptedException e) {
-                    System.out.println("Interrupción de hilo");
-                    Thread.currentThread().interrupt();
-                    corriendo = false;
-                }
-
-                synchronized (mascota.getEstado()){
 
                 }
             }

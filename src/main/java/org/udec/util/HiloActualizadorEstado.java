@@ -7,9 +7,9 @@ public class HiloActualizadorEstado implements Runnable{
 
     private PanelEscenario panelEscenario;
     private Mascota mascota;
-    private int decrementoHambre;
-    private int decrementoSalud;
-    private int decrementoFelicidad;
+    private final int decrementoHambre;
+    private final int decrementoSalud;
+    private final int decrementoFelicidad;
 
     private volatile boolean corriendo = true;
 
