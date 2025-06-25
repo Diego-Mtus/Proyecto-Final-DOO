@@ -1,8 +1,9 @@
-package org.udec.mascotas;
+package org.udec.util;
 
+import org.udec.mascotas.Mascota;
 import org.udec.visual.PanelEscenario;
 
-public class ActualizadorEstado implements Runnable{
+public class HiloActualizadorEstado implements Runnable{
 
     private PanelEscenario panelEscenario;
     private Mascota mascota;
@@ -13,7 +14,7 @@ public class ActualizadorEstado implements Runnable{
     private volatile boolean corriendo = true;
 
 
-    public ActualizadorEstado(PanelEscenario panelEscenario){
+    public HiloActualizadorEstado(PanelEscenario panelEscenario){
         this.panelEscenario = panelEscenario;
         this.mascota = panelEscenario.getEscenario().getMascotaActual();
         this.decrementoHambre = mascota.getEstado().getDecrementoHambre();
@@ -43,7 +44,7 @@ public class ActualizadorEstado implements Runnable{
                         decrementarFelicidad();
                     }
 
-                    System.out.println("a");
+                    System.out.println("Ciclo de estado completado.");
                     panelEscenario.actualizarVisualEstado();
                 }
 

@@ -3,10 +3,7 @@ package org.udec.visual;
 import org.udec.escenarios.Escenario;
 import org.udec.escenarios.EscenarioFactory;
 import org.udec.mascotas.*;
-import org.udec.util.CargadorDeImagenes;
-import org.udec.util.MascotaViviendoException;
-import org.udec.util.TipoIncorrectoException;
-import org.udec.util.TiposEnum;
+import org.udec.util.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,6 +18,9 @@ public class PanelEscenario extends JPanel {
     private MascotaFactory mascotaFactory;
     private BufferedImage imagenMascota;
     private MascotaInteractuable mascotaInteractuable;
+
+    private Thread hiloActualizador;
+    private Thread hiloComprador;
 
     private JButton botonAdoptarMascota; // Esto será su propia clase más adelante
 
@@ -63,8 +63,6 @@ public class PanelEscenario extends JPanel {
                 botonAdoptarMascota.setVisible(false);
                 repaint();
 
-                crearHiloActualizadorDeEstado();
-
                 } catch (MascotaViviendoException ex) {
                     JOptionPane.showMessageDialog(this, "Ya hay una mascota viviendo en ese escenario.", "Error", JOptionPane.ERROR_MESSAGE);
                 } catch (TipoIncorrectoException ex) {
@@ -75,9 +73,14 @@ public class PanelEscenario extends JPanel {
     }
 
 
-    private void crearHiloActualizadorDeEstado(){
-        Thread hiloActualizador = new Thread(new ActualizadorEstado(this));
+    private void inicializarHiloActualizadorDeEstado(){
+        hiloActualizador = new Thread(new HiloActualizadorEstado(this));
         hiloActualizador.start();
+    }
+
+    private void inicializarHiloCompradorInteresado(){
+        hiloComprador = new Thread(new HiloCompradorInteresado(this));
+        hiloComprador.start();
     }
 
     private void crearBotonDeInicializarEscenario(){
@@ -109,6 +112,8 @@ public class PanelEscenario extends JPanel {
             SelectorMascota selectorMascota = new SelectorMascota(this);
             if(selectorMascota.isMascotaSeleccionada()){
                 botonAdoptarMascota.setVisible(false);
+                inicializarHiloActualizadorDeEstado();
+                inicializarHiloCompradorInteresado();
             }
         });
     }
