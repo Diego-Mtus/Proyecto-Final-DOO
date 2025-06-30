@@ -1,4 +1,4 @@
-package org.udec.util;
+package org.udec.util.enumerations;
 
 public enum NivelDecrementoEnum {
     LENTO(2),

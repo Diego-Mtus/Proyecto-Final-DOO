@@ -1,4 +1,4 @@
-package org.udec.util;
+package org.udec.util.threads;
 
 import org.udec.mascotas.Mascota;
 import org.udec.visual.PanelEscenario;

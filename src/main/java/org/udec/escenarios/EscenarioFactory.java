@@ -1,6 +1,6 @@
 package org.udec.escenarios;
 
-import org.udec.util.TiposEnum;
+import org.udec.util.enumerations.TiposEnum;
 
 public class EscenarioFactory {
 

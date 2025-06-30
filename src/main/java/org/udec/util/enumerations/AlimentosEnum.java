@@ -1,6 +1,4 @@
-package org.udec.productos;
-
-import org.udec.util.MascotasEnum;
+package org.udec.util.enumerations;
 
 public enum AlimentosEnum {
 

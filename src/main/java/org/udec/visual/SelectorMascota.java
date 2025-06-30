@@ -1,8 +1,7 @@
 package org.udec.visual;
 
-import org.udec.escenarios.Escenario;
 import org.udec.mascotas.*;
-import org.udec.util.MascotasEnum;
+import org.udec.util.enumerations.MascotasEnum;
 
 import javax.swing.*;
 import java.awt.*;

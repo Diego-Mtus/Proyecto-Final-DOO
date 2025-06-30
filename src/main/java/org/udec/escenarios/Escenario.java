@@ -1,8 +1,8 @@
 package org.udec.escenarios;
 
 import org.udec.mascotas.Mascota;
-import org.udec.util.MascotasEnum;
-import org.udec.util.TiposEnum;
+import org.udec.util.enumerations.MascotasEnum;
+import org.udec.util.enumerations.TiposEnum;
 
 import java.awt.image.BufferedImage;
 

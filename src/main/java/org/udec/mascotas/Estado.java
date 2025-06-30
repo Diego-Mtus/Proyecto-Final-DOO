@@ -1,6 +1,6 @@
 package org.udec.mascotas;
 
-import org.udec.util.NivelDecrementoEnum;
+import org.udec.util.enumerations.NivelDecrementoEnum;
 
 import java.util.Random;
 

@@ -1,6 +1,8 @@
 package org.udec.mascotas;
 
 import org.udec.util.*;
+import org.udec.util.enumerations.MascotasEnum;
+import org.udec.util.enumerations.NivelDecrementoEnum;
 
 public class Perro extends Mascota{
     Perro(){

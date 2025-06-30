@@ -1,6 +1,6 @@
 package org.udec.visual;
 
-import org.udec.productos.AlimentosEnum;
+import org.udec.util.enumerations.AlimentosEnum;
 
 import javax.swing.*;
 

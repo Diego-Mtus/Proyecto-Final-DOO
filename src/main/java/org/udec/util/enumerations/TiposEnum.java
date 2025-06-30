@@ -1,4 +1,4 @@
-package org.udec.util;
+package org.udec.util.enumerations;
 
 import java.util.ArrayList;
 import java.util.List;

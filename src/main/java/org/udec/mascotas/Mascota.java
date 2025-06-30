@@ -1,11 +1,9 @@
 package org.udec.mascotas;
 
-import org.udec.util.NivelDecrementoEnum;
-import org.udec.util.TiposEnum;
+import org.udec.util.enumerations.TiposEnum;
 
 import javax.sound.sampled.Clip;
 import java.awt.image.BufferedImage;
-import java.util.Random;
 
 public abstract class Mascota {
 

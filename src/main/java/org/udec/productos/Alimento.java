@@ -2,7 +2,8 @@ package org.udec.productos;
 
 import org.udec.mascotas.Mascota;
 import org.udec.util.CargadorDeImagenes;
-import org.udec.util.MascotasEnum;
+import org.udec.util.enumerations.AlimentosEnum;
+import org.udec.util.enumerations.MascotasEnum;
 
 import java.awt.image.BufferedImage;
 import java.util.Objects;
