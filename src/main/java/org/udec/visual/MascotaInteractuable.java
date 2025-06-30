@@ -37,7 +37,6 @@ public class MascotaInteractuable extends JButton {
 
         this.addActionListener(e -> {
             if (panelEscenario.getEscenario().getMascotaActual() != null){
-                System.out.println("Interacción con la mascota: " + panelEscenario.getEscenario().getMascotaActual().getNombreAnimal());
                 this.animar();
                 this.interactuar();
             }

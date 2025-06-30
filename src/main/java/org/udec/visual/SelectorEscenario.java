@@ -27,6 +27,7 @@ public class SelectorEscenario extends JDialog {
 
         add(buttonPanel, BorderLayout.CENTER);
 
+        setResizable(false);
         setVisible(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
@@ -43,6 +44,7 @@ public class SelectorEscenario extends JDialog {
                 escenarioSeleccionado = true;
                 dispose();
             });
+            button.setFocusable(false);
             buttonPanel.add(button);
         }
     }
