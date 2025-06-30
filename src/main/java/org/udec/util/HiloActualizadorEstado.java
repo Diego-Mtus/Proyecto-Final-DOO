@@ -11,7 +11,7 @@ public class HiloActualizadorEstado implements Runnable{
     private final int decrementoSalud;
     private final int decrementoFelicidad;
 
-    private volatile boolean corriendo = true;
+    private boolean corriendo = true;
 
 
     public HiloActualizadorEstado(PanelEscenario panelEscenario){
@@ -25,34 +25,32 @@ public class HiloActualizadorEstado implements Runnable{
     @Override
     public void run() {
         while(corriendo){
-            try{
-                Thread.sleep(10000);
 
-                synchronized (mascota.getEstado()){
+            try {
+                Thread.sleep(10000); // Esperar 1 segundo entre ciclos
+            } catch (InterruptedException e) {
+                System.out.println("El hilo de actualización de estado fue interrumpido.");
+            }
 
-                    // Decrementar hambre
-                    if(mascota.getEstado().verHambre() > 0){
-                        decrementarHambre();
-                    }
-
-                    // Si el hambre es menor o igual a 20, empieza a decrementar salud
-                    if(mascota.getEstado().verHambre() <= 20 && mascota.getEstado().verSalud() > 0){
-                        decrementarSalud();
-                    }
-
-                    if(mascota.getEstado().verFelicidad() > 0) {
-                        decrementarFelicidad();
-                    }
-
-                    System.out.println("Ciclo de estado completado.");
-                    panelEscenario.actualizarVisualEstado();
+            synchronized (mascota.getEstado()){
+                // Decrementar hambre
+                if(mascota.getEstado().verHambre() > 0){
+                    decrementarHambre();
                 }
 
-            } catch (InterruptedException e) {
-                System.out.println("Interrupción de hilo");
-                Thread.currentThread().interrupt();
-                corriendo = false;
+                // Si el hambre es menor o igual a 20, empieza a decrementar salud
+                if(mascota.getEstado().verHambre() <= 20 && mascota.getEstado().verSalud() > 0){
+                    decrementarSalud();
+                }
+
+                if(mascota.getEstado().verFelicidad() > 0) {
+                    decrementarFelicidad();
+                }
+
+                System.out.println("Ciclo de estado completado.");
+                panelEscenario.actualizarVisualEstado();
             }
+
         }
 
     }

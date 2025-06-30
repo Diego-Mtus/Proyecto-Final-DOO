@@ -29,45 +29,33 @@ public class HiloCompradorInteresado implements Runnable{
     @Override
     public void run() {
 
-        if(this.mascota.getEstado() != null){
             while(corriendo){
 
+                // Cada 5 segundos revisará.
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    System.out.println("El hilo del comprador ha sido interrumpido.");
+                }
+
                 synchronized (mascota.getEstado()){
+                    // Si la mascota tiene todos los estados por sobre 85, se cumple un intervalo
+                    if(mascota.getEstado().verHambre() > ESTADO_MASCOTA_ESPERADO && mascota.getEstado().verSalud() > ESTADO_MASCOTA_ESPERADO && mascota.getEstado().verFelicidad() > ESTADO_MASCOTA_ESPERADO){
+                        intervalosActuales++;
+                    }
 
-                    try {
-                        // Cada 5 segundos revisará.
-                        Thread.sleep(5000);
-
-                        // Si la mascota tiene todos los estados por sobre 85, se cumple un intervalo
-                        if(mascota.getEstado().verHambre() > ESTADO_MASCOTA_ESPERADO &&
-                           mascota.getEstado().verSalud() > ESTADO_MASCOTA_ESPERADO &&
-                           mascota.getEstado().verFelicidad() > ESTADO_MASCOTA_ESPERADO){
-
-                            intervalosActuales++;
-                        }
-
-                        // Una vez que hayan ocurrido INTERVALOS_ESPERADOS intervalos, se avisará a PanelEscenario para vender, y se terminará el hilo.
-                        if(intervalosActuales >= intervalosEsperados){
-                            System.out.println("Apto para venta");
-                            Thread.currentThread().interrupt();
-                            corriendo = false;
-                        }
-
-                        System.out.println("Ciclo de comprador completado.");
-
-                    } catch (InterruptedException e) {
-                        System.out.println("Interrupción de hilo");
+                    // Una vez que hayan ocurrido INTERVALOS_ESPERADOS intervalos, se avisará a PanelEscenario para vender, y se terminará el hilo.
+                    if(intervalosActuales >= intervalosEsperados){
+                        System.out.println("Apto para venta");
                         Thread.currentThread().interrupt();
                         corriendo = false;
                     }
 
+                    System.out.println("Ciclo de comprador completado.");
                 }
-            }
-        }
-        else{
-            System.out.println("Interrupción de hilo; Estado no está inicializado");
-            Thread.currentThread().interrupt();
-            corriendo = false;
+
+
+
         }
 
     }
