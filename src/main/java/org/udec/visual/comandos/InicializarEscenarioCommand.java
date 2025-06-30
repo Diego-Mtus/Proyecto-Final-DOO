@@ -15,7 +15,8 @@ public class InicializarEscenarioCommand implements Command{
     public void execute() {
         System.out.println("Se abre panel de seleccion de escenario");
         SelectorEscenario selectorEscenario = new SelectorEscenario(panelEscenario);
-        if(selectorEscenario.isEscenarioSeleccionado()) {
+        if(selectorEscenario.getEscenarioSeleccionado() != null) {
+            panelEscenario.establecerEscenario(selectorEscenario.getEscenarioSeleccionado());
             panelEscenario.ocultarBotonInicializarEscenario();
             panelEscenario.mostrarBotonAdoptarMascota();
         }

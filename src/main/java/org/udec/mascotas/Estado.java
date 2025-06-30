@@ -24,9 +24,9 @@ public class Estado {
 
         // Que los valores que ya tenga sean al azar por debajo de la mitad.
         Random random = new Random();
-        this.salud = random.nextInt(50);
-        this.hambre = random.nextInt(50);
-        this.felicidad = random.nextInt(50);
+        this.salud = random.nextInt(35,60);
+        this.hambre = random.nextInt(35,60);
+        this.felicidad = random.nextInt(35,60);
     }
 
     public void setSalud(int salud){

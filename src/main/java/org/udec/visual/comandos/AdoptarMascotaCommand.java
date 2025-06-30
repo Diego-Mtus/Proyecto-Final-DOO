@@ -1,7 +1,13 @@
 package org.udec.visual.comandos;
 
+import org.udec.mascotas.MascotaFactory;
+import org.udec.util.enumerations.MascotasEnum;
 import org.udec.visual.PanelEscenario;
 import org.udec.visual.SelectorMascota;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 
 public class AdoptarMascotaCommand implements Command{
 
@@ -15,10 +21,24 @@ public class AdoptarMascotaCommand implements Command{
     public void execute() {
         System.out.println("Se abre panel de adopción de mascota");
         SelectorMascota selectorMascota = new SelectorMascota(panelEscenario);
-        if(selectorMascota.isMascotaSeleccionada()) {
+        if(selectorMascota.getMascotaSeleccionada() != null){
+
+            MascotaFactory mascotaFactory = seleccionDinamicaDeFactory(selectorMascota.getMascotaSeleccionada());
+            panelEscenario.establecerMascota(mascotaFactory);
             panelEscenario.ocultarBotonAdoptarMascota();
             panelEscenario.inicializarHiloActualizadorDeEstado();
             panelEscenario.inicializarHiloCompradorInteresado();
         }
+    }
+
+    private MascotaFactory seleccionDinamicaDeFactory(MascotasEnum mascotasEnum){
+        try {
+            Constructor<?>[] factories = Class.forName("org.udec.mascotas." + mascotasEnum.getNombreFactory()).getConstructors();
+            System.out.println(Arrays.toString(factories));
+            return (MascotaFactory) factories[0].newInstance();
+        } catch (ClassNotFoundException | InstantiationException | InvocationTargetException | IllegalAccessException e) {
+            e.getMessage();
+        }
+        return null;
     }
 }

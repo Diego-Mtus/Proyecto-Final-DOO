@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class SelectorEscenario extends JDialog {
 
-    private boolean escenarioSeleccionado = false;
+    private TiposEnum escenarioSeleccionado = null;
 
     public SelectorEscenario(PanelEscenario panelEscenario) {
         setTitle("Seleccionar Escenario");
@@ -23,7 +23,7 @@ public class SelectorEscenario extends JDialog {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(2, 2));
 
-        crearBotonesDeEscenario(panelEscenario, buttonPanel);
+        crearBotonesDeEscenario(buttonPanel);
 
         add(buttonPanel, BorderLayout.CENTER);
 
@@ -32,16 +32,15 @@ public class SelectorEscenario extends JDialog {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
-    public boolean isEscenarioSeleccionado() {
+    public TiposEnum getEscenarioSeleccionado() {
         return escenarioSeleccionado;
     }
 
-    private void crearBotonesDeEscenario(PanelEscenario panelEscenario, JPanel buttonPanel) {
+    private void crearBotonesDeEscenario(JPanel buttonPanel) {
         for(TiposEnum tipo : TiposEnum.values()) {
-            JButton button = new JButton(tipo.name());
+            JButton button = new JButton(tipo.getNombreEscenario());
             button.addActionListener(e -> {
-                panelEscenario.establecerEscenario(tipo);
-                escenarioSeleccionado = true;
+                escenarioSeleccionado = tipo;
                 dispose();
             });
             button.setFocusable(false);

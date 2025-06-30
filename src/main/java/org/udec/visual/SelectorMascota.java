@@ -12,7 +12,7 @@ import java.util.List;
 
 public class SelectorMascota extends JDialog {
 
-    private boolean mascotaSeleccionada = false;
+    private MascotasEnum mascotaSeleccionada = null;
     private final List<MascotasEnum> mascotasPosibles;
 
     public SelectorMascota(PanelEscenario panelEscenario) {
@@ -31,7 +31,7 @@ public class SelectorMascota extends JDialog {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(mascotasPosibles.size() / 3 + 1, 3));
 
-        crearBotonesDeMascota(panelEscenario, buttonPanel);
+        crearBotonesDeMascota(buttonPanel);
         add(buttonPanel, BorderLayout.CENTER);
 
         setVisible(true);
@@ -39,35 +39,19 @@ public class SelectorMascota extends JDialog {
 
     }
 
-    private void crearBotonesDeMascota(PanelEscenario panelEscenario, JPanel buttonPanel){
+    private void crearBotonesDeMascota(JPanel buttonPanel){
         for(MascotasEnum mascota : mascotasPosibles){
             System.out.println(mascota.getNombre());
             JButton button = new JButton(mascota.getNombre());
             button.addActionListener(e -> {
-                MascotaFactory mascotaFactory = seleccionDinamicaDeFactory(mascota);
-                if(mascotaFactory != null) {
-                    panelEscenario.establecerMascota(mascotaFactory);
-                    mascotaSeleccionada = true;
-                    dispose();
-                }
-
+                mascotaSeleccionada = mascota;
+                dispose();
             });
             buttonPanel.add(button);
         }
     }
 
-    private MascotaFactory seleccionDinamicaDeFactory(MascotasEnum mascotasEnum){
-        try {
-            Constructor<?>[] factories = Class.forName("org.udec.mascotas." + mascotasEnum.getNombreFactory()).getConstructors();
-            System.out.println(Arrays.toString(factories));
-            return (MascotaFactory) factories[0].newInstance();
-        } catch (ClassNotFoundException | InstantiationException | InvocationTargetException | IllegalAccessException e) {
-            e.getMessage();
-        }
-        return null;
-    }
-
-    public boolean isMascotaSeleccionada() {
+    public MascotasEnum getMascotaSeleccionada() {
         return mascotaSeleccionada;
     }
 }

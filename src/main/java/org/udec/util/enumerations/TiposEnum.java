@@ -4,10 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum TiposEnum {
-    VOLADOR,
-    ACUATICO,
-    ROEDOR,
-    COMUN;
+    VOLADOR("Pajarera"),
+    ACUATICO("Pecera"),
+    ROEDOR("Jaula"),
+    COMUN("Patio"),;
+
+    private final String nombreEscenario;
+
+    TiposEnum(String nombreEscenario) {
+        this.nombreEscenario = nombreEscenario;
+    }
+
+    public String getNombreEscenario() {
+        return nombreEscenario;
+    }
 
     public List<MascotasEnum> mascotasCompatibles(){
         List<MascotasEnum> lista = new ArrayList<>();
