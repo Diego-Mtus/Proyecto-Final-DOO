@@ -14,7 +14,7 @@ import java.util.List;
 public class SelectorMascota extends JDialog {
 
     private boolean mascotaSeleccionada = false;
-    private List<MascotasEnum> mascotasPosibles;
+    private final List<MascotasEnum> mascotasPosibles;
 
     public SelectorMascota(PanelEscenario panelEscenario) {
         setTitle("Seleccionar mascota");

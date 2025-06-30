@@ -50,6 +50,24 @@ public class Estado {
         else this.felicidad = Math.min(felicidad, estadoMax);
     }
 
+    public void addSalud(int salud){
+        if(salud > 0){
+            setSalud(this.salud + salud);
+        }
+    }
+
+    public void addHambre(int hambre){
+        if(hambre > 0){
+            setHambre(this.hambre + hambre);
+        }
+    }
+
+    public void addFelicidad(int felicidad){
+        if(felicidad > 0){
+            setFelicidad(this.felicidad + felicidad);
+        }
+    }
+
     public int verSalud(){
         return salud;
     }
