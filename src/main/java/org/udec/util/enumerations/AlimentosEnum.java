@@ -1,6 +1,6 @@
 package org.udec.util.enumerations;
 
-public enum AlimentosEnum {
+public enum AlimentosEnum implements ProductosEnum{
 
     ALIMENTO_PERRO("Croquetas para perro", MascotasEnum.PERRO, "imagenes/alimentos/croquetas_perro.png", 1),
     ALIMENTO_GATO("Croquetas para gato", MascotasEnum.GATO, "imagenes/alimentos/croquetas_gato.png", 1),

@@ -25,6 +25,7 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener{
     private JButton botonIzquierda;
     private JButton botonDerecha;
     private JLabel labelIndice;
+    private JButton botonTienda;
 
     public VentanaPrincipal(){
         this.setTitle("Simulador de mascota");
@@ -66,11 +67,18 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener{
         actualizarLabelIndice();
 
 
+        // Boton de tienda
+        botonTienda = new JButton("Tienda");
+        botonTienda.setBounds(20, ALTO - 60, 100, 40);
+        botonTienda.setFocusable(false);
+        botonTienda.addActionListener(_ -> new TiendaDialog(this));
+
         // Añadir componentes al layeredPane
         panelCapas.add(cardPanel, JLayeredPane.DEFAULT_LAYER);
         panelCapas.add(botonIzquierda, JLayeredPane.PALETTE_LAYER);
         panelCapas.add(botonDerecha, JLayeredPane.PALETTE_LAYER);
         panelCapas.add(labelIndice, JLayeredPane.PALETTE_LAYER);
+        panelCapas.add(botonTienda, JLayeredPane.PALETTE_LAYER);
 
         this.setContentPane(panelCapas);
         this.pack();
