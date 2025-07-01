@@ -1,15 +1,10 @@
 package org.udec.visual;
 
-import org.udec.escenarios.Escenario;
-import org.udec.escenarios.EscenarioFactory;
+import org.udec.escenarios.*;
 import org.udec.mascotas.*;
 import org.udec.util.*;
 import org.udec.util.enumerations.TiposEnum;
-import org.udec.util.threads.HiloActualizadorEstado;
-import org.udec.util.threads.HiloCompradorInteresado;
-import org.udec.visual.comandos.AdoptarMascotaCommand;
-import org.udec.visual.comandos.Command;
-import org.udec.visual.comandos.InicializarEscenarioCommand;
+import org.udec.util.threads.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,8 +21,8 @@ public class PanelEscenario extends JPanel {
     private Thread hiloActualizador;
     private Thread hiloComprador;
 
-    private JButton botonAdoptarMascota; // Esto será su propia clase más adelante
-    private JButton botonInicializarEscenario;
+    private final JButton botonAdoptarMascota; // Esto será su propia clase más adelante
+    private final JButton botonInicializarEscenario;
 
     private EscenarioListener escenarioListener;
 
@@ -36,8 +31,8 @@ public class PanelEscenario extends JPanel {
         this.setLayout(null);
         this.setBounds(0,0, VentanaPrincipal.ANCHO, VentanaPrincipal.ALTO);
         this.imagenEscenario = CargadorDeImagenes.cargarImagen("/escenarios/base.png");
-        crearBotonDeInicializarEscenario();
-        crearBotonAdoptarMascota();
+        botonInicializarEscenario = new BotonInicializarEscenario(this, VentanaPrincipal.ANCHO / 2 - 100, VentanaPrincipal.ALTO / 2 - 50);
+        botonAdoptarMascota = new BotonAdoptarMascota(this, VentanaPrincipal.ANCHO / 2 - 100, VentanaPrincipal.ALTO / 2 - 50);
         crearMascotaInteractuable();
     }
 
@@ -89,30 +84,6 @@ public class PanelEscenario extends JPanel {
             hiloComprador = new Thread(new HiloCompradorInteresado(this));
             hiloComprador.start();
         }
-    }
-
-    private void crearBotonDeInicializarEscenario(){
-        botonInicializarEscenario = new JButton("Inicializar Escenario");
-        botonInicializarEscenario.setFocusable(false);
-        botonInicializarEscenario.setBounds(getWidth() / 2 - 100, getHeight() / 2 - 50, 200, 50);
-
-        this.add(botonInicializarEscenario);
-
-        Command comando = new InicializarEscenarioCommand(this);
-        botonInicializarEscenario.addActionListener(e -> comando.execute());
-    }
-
-
-    private void crearBotonAdoptarMascota(){
-        botonAdoptarMascota = new JButton("Adoptar Mascota");
-        botonAdoptarMascota.setBounds(getWidth() / 2 - 100, getHeight() / 2 - 50, 200, 50);
-        botonAdoptarMascota.setVisible(false);
-        botonAdoptarMascota.setFocusable(false);
-
-        this.add(botonAdoptarMascota);
-
-        Command comando = new AdoptarMascotaCommand(this);
-        botonAdoptarMascota.addActionListener( e -> comando.execute());
     }
 
     public void ocultarBotonInicializarEscenario() {
