@@ -2,10 +2,14 @@ package org.udec.visual;
 
 import org.udec.util.CargadorDeImagenes;
 import org.udec.util.enumerations.AlimentosEnum;
+import org.udec.util.enumerations.MedicinasEnum;
 import org.udec.util.enumerations.ProductosEnum;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 
 public class TiendaDialog extends JDialog {
@@ -25,14 +29,23 @@ public class TiendaDialog extends JDialog {
 
         setLayout(null);
 
+
+        // Panel de pestañas
         JTabbedPane tabs = new JTabbedPane();
         tabs.addTab("Comida", crearPanelCategoria(AlimentosEnum.values()));
         tabs.addTab("Juguetes", crearPanelCategoria(AlimentosEnum.values()));
-        tabs.addTab("Medicina", crearPanelCategoria(AlimentosEnum.values()));
+        tabs.addTab("Medicina", crearPanelCategoria(MedicinasEnum.values()));
         add(tabs);
 
         tabs.setBounds(0, 0, 400, 500);
         tabs.setVisible(true);
+
+        tabs.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                panelDescripcion.actualizarDescripcionTab(tabs.getTitleAt(tabs.getSelectedIndex()));
+            }
+        });
 
         // Panel de descripción
         panelDescripcion = new PanelDescripcion(0,500, 400, 126);
@@ -57,7 +70,14 @@ public class TiendaDialog extends JDialog {
         for (int i = 0; i < items.length; i++) {
             ProductosEnum prod = items[i];
             JButton boton = new JButton();
-            boton.setIcon(new ImageIcon(CargadorDeImagenes.cargarImagen(prod.getRutaImagen()).getScaledInstance(widthHeightBoton, widthHeightBoton, Image.SCALE_SMOOTH)));
+            BufferedImage imagen = CargadorDeImagenes.cargarImagen(prod.getRutaImagen());
+            if(imagen != null) {
+                boton.setIcon(new ImageIcon(imagen.getScaledInstance(widthHeightBoton, widthHeightBoton, Image.SCALE_SMOOTH)));
+            } else {
+                boton.setText(prod.getNombre());
+            }
+            boton.setFocusable(false);
+            boton.setBorderPainted(false);
             int col = i % columnas;
             int fila = i / columnas;
             int x = espacio + col * (widthHeightBoton + espacio);
@@ -75,8 +95,6 @@ public class TiendaDialog extends JDialog {
     }
 
     private void actualizarDescripcion(ProductosEnum item) {
-        // TODO
-        System.out.println("PENDIENTE: " + item.getNombre());
         panelDescripcion.actualizarDescripcion(item);
     }
 

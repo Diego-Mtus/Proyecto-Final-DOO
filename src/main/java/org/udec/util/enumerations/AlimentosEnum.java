@@ -15,6 +15,7 @@ public enum AlimentosEnum implements ProductosEnum{
     private final MascotasEnum paraQueMascota;
     private final String rutaImagen;
     private final int precio;
+    private int inventario = 0;
 
     AlimentosEnum(String nombre, MascotasEnum paraQueMascota, String rutaImagen, int precio) {
         this.nombre = nombre;
@@ -27,8 +28,8 @@ public enum AlimentosEnum implements ProductosEnum{
         return nombre;
     }
 
-    public MascotasEnum getParaQueMascota() {
-        return paraQueMascota;
+    public MascotasEnum[] getParaQueMascota() {
+        return new MascotasEnum[]{paraQueMascota};
     }
 
     public String getRutaImagen() {
@@ -37,5 +38,13 @@ public enum AlimentosEnum implements ProductosEnum{
 
     public int getPrecio() {
         return precio;
+    }
+
+    public int getInventario() {
+        return inventario;
+    }
+
+    public void setInventario(int inventario) {
+        this.inventario = inventario;
     }
 }

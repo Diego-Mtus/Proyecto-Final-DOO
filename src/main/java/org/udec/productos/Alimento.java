@@ -11,7 +11,7 @@ public class Alimento extends Producto{
 
     public Alimento(AlimentosEnum alimento) {
         this.nombre = alimento.getNombre();
-        this.paraQueMascota = alimento.getParaQueMascota();
+        this.paraQueMascota = alimento.getParaQueMascota()[0];
         this.imagen = CargadorDeImagenes.cargarImagen(alimento.getRutaImagen());
         this.precio = alimento.getPrecio();
     }
