@@ -1,5 +1,6 @@
 package org.udec.visual;
 
+import org.udec.util.DineroNoSuficienteException;
 import org.udec.util.enumerations.TiposEnum;
 
 import javax.swing.*;
@@ -8,6 +9,7 @@ import java.awt.*;
 public class SelectorEscenario extends JDialog {
 
     private TiposEnum escenarioSeleccionado = null;
+    private CompraListener compraListener;
 
     public SelectorEscenario(PanelEscenario panelEscenario) {
         setTitle("Seleccionar Escenario");
@@ -27,6 +29,9 @@ public class SelectorEscenario extends JDialog {
 
         add(buttonPanel, BorderLayout.CENTER);
 
+        compraListener = (CompraListener) SwingUtilities.getWindowAncestor(panelEscenario);
+        System.out.println("CompraListener: " + compraListener);
+
         setResizable(false);
         setVisible(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -38,10 +43,18 @@ public class SelectorEscenario extends JDialog {
 
     private void crearBotonesDeEscenario(JPanel buttonPanel) {
         for(TiposEnum tipo : TiposEnum.values()) {
-            JButton button = new JButton(tipo.getNombreEscenario());
+            JButton button = new JButton();
+            button.setText(tipo.getNombreEscenario() + " - $" + tipo.getPrecioEscenario());
             button.addActionListener(e -> {
-                escenarioSeleccionado = tipo;
-                dispose();
+                if (compraListener != null) {
+                    try {
+                        compraListener.comprar(tipo.getPrecioEscenario());
+                        escenarioSeleccionado = tipo;
+                        dispose();
+                    } catch (DineroNoSuficienteException ex) {
+                        JOptionPane.showMessageDialog((Component) compraListener, "No tienes suficiente dinero para comprar este escenario.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
             });
             button.setFocusable(false);
             buttonPanel.add(button);
