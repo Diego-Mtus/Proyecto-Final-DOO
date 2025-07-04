@@ -36,7 +36,7 @@ public class PanelEscenario extends JPanel {
         botonInicializarEscenario = new BotonInicializarEscenario(this, VentanaPrincipal.ANCHO / 2 - 100, VentanaPrincipal.ALTO / 2 - 50);
         botonAdoptarMascota = new BotonAdoptarMascota(this, VentanaPrincipal.ANCHO / 2 - 100, VentanaPrincipal.ALTO / 2 - 50);
         panelAcciones = new PanelAcciones(this, VentanaPrincipal.ANCHO / 2 - 100, VentanaPrincipal.ALTO - 140);
-        panelEstado = new PanelEstado(this, VentanaPrincipal.ANCHO / 2 - 130, 10);
+        panelEstado = new PanelEstado(this, VentanaPrincipal.ANCHO / 2 - 130, 6);
         crearMascotaInteractuable();
 
     }
