@@ -1,11 +1,14 @@
 package org.udec.visual;
 
+import org.udec.util.Dinero;
+import org.udec.util.DineroNoSuficienteException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VentanaPrincipal extends JFrame implements EscenarioListener{
+public class VentanaPrincipal extends JFrame implements EscenarioListener, CompraListener{
 
     public static final int ANCHO = 640;
     public static final int ALTO = 860;
@@ -24,8 +27,12 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener{
     private JLayeredPane panelCapas;
     private JButton botonIzquierda;
     private JButton botonDerecha;
+
+    // Distintos componentes de la ventana
     private JLabel labelIndice;
     private JButton botonTienda;
+    private Dinero dinero;
+    private JLabel labelDinero;
 
     public VentanaPrincipal(){
         this.setTitle("Simulador de mascota");
@@ -66,6 +73,14 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener{
         labelIndice.setBounds(10, 10, ANCHO, 30);
         actualizarLabelIndice();
 
+        // Label pare mostrar el dinero actualmente disponible
+        dinero = new Dinero(200); // Inicializar con $200
+        labelDinero = new JLabel();
+        labelDinero.setFont(new Font("Arial", Font.BOLD, 24));
+        labelDinero.setHorizontalAlignment(SwingConstants.RIGHT);
+        labelDinero.setBounds(ANCHO - 200, 10, 180, 30);
+        labelDinero.setText("$" + dinero.getCantidad());
+
 
         // Boton de tienda
         botonTienda = new JButton("Tienda");
@@ -78,6 +93,7 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener{
         panelCapas.add(botonIzquierda, JLayeredPane.PALETTE_LAYER);
         panelCapas.add(botonDerecha, JLayeredPane.PALETTE_LAYER);
         panelCapas.add(labelIndice, JLayeredPane.PALETTE_LAYER);
+        panelCapas.add(labelDinero, JLayeredPane.PALETTE_LAYER);
         panelCapas.add(botonTienda, JLayeredPane.PALETTE_LAYER);
 
         this.setContentPane(panelCapas);
@@ -106,6 +122,10 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener{
         actualizarLabelIndice();
     }
 
+    private void actualizarLabelDinero(){
+        labelDinero.setText("Dinero: $" + dinero.getCantidad());
+    }
+
 
     private boolean todosTienenEscenario() {
         for (PanelEscenario p : panelesEscenario) {
@@ -123,4 +143,10 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener{
         }
     }
 
+
+    @Override
+    public void comprar(int precio) throws DineroNoSuficienteException {
+        dinero.restar(precio);
+        actualizarLabelDinero();
+    }
 }

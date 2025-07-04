@@ -50,6 +50,7 @@ public class TiendaDialog extends JDialog {
         // Panel de descripción
         panelDescripcion = new PanelDescripcion(0,500, 400, 126);
         add(panelDescripcion);
+        panelDescripcion.setCompraListener((CompraListener) parent);
 
         setResizable(false);
         setDefaultCloseOperation(HIDE_ON_CLOSE);

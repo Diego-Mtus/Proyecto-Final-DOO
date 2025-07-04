@@ -8,7 +8,7 @@ import javax.swing.*;
 public class BotonInicializarEscenario extends JButton {
 
     public BotonInicializarEscenario(PanelEscenario panelEscenario, int x, int y) {
-        super("Inicializar Escenario");
+        super("Comprar Escenario");
         setBounds(x, y, 200, 50);
         setFocusable(false);
         setVisible(true);
