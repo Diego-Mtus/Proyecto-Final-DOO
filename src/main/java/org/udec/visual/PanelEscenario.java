@@ -18,11 +18,13 @@ public class PanelEscenario extends JPanel {
     private Mascota mascota;
     private MascotaInteractuable mascotaInteractuable;
 
-    private Thread hiloActualizador;
     private Thread hiloComprador;
 
-    private final JButton botonAdoptarMascota; // Esto será su propia clase más adelante
+    private final JButton botonAdoptarMascota;
     private final JButton botonInicializarEscenario;
+
+    private final PanelAcciones panelAcciones;
+    private final PanelEstado panelEstado;
 
     private EscenarioListener escenarioListener;
 
@@ -33,13 +35,15 @@ public class PanelEscenario extends JPanel {
         this.imagenEscenario = CargadorDeImagenes.cargarImagen("/escenarios/base.png");
         botonInicializarEscenario = new BotonInicializarEscenario(this, VentanaPrincipal.ANCHO / 2 - 100, VentanaPrincipal.ALTO / 2 - 50);
         botonAdoptarMascota = new BotonAdoptarMascota(this, VentanaPrincipal.ANCHO / 2 - 100, VentanaPrincipal.ALTO / 2 - 50);
+        panelAcciones = new PanelAcciones(this, VentanaPrincipal.ANCHO / 2 - 100, VentanaPrincipal.ALTO - 140);
+        panelEstado = new PanelEstado(this, VentanaPrincipal.ANCHO / 2 - 130, 10);
         crearMascotaInteractuable();
+
     }
 
     public void setEscenarioListener(EscenarioListener escenarioListener) {
         this.escenarioListener = escenarioListener;
     }
-
 
     public Escenario getEscenario() {
         return escenario;
@@ -60,6 +64,8 @@ public class PanelEscenario extends JPanel {
                 mascotaFactory.crearMascota(escenario);
                 mascota = escenario.getMascotaActual();
                 mascotaInteractuable.setMascota(mascota);
+                panelAcciones.setVisible(true);
+                panelEstado.inicializarEstado(mascota);
                 repaint();
 
                 } catch (MascotaViviendoException ex) {
@@ -69,14 +75,6 @@ public class PanelEscenario extends JPanel {
                 }
 
             }
-    }
-
-
-    public void inicializarHiloActualizadorDeEstado(){
-        System.out.println("Inicializando hilo actualizador de estado para la mascota: " + mascota.getNombrePropio());
-        hiloActualizador = new Thread(new HiloActualizadorEstado(this));
-        hiloActualizador.start();
-
     }
 
     public void inicializarHiloCompradorInteresado(){
@@ -103,9 +101,12 @@ public class PanelEscenario extends JPanel {
         this.add(mascotaInteractuable);
     }
 
-
     public boolean tieneEscenario() {
         return escenario != null;
+    }
+
+    public boolean tieneMascota() {
+        return mascota != null;
     }
 
     public void actualizarVisualEstado(){
@@ -115,16 +116,6 @@ public class PanelEscenario extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
         g.drawImage(imagenEscenario, 0, 0, imagenEscenario.getWidth(), imagenEscenario.getHeight(), this);
-
-        if (mascota != null) {
-            g.setColor(Color.BLACK);
-            g.setFont(new Font("Arial", Font.BOLD, 16));
-            g.drawString(mascota.getNombrePropio() + " - " + mascota.getNombreAnimal(), 10, 20);
-            g.drawString("Salud: " + mascota.getEstado().verSalud(), 10, 60);
-            g.drawString("Hambre: " + mascota.getEstado().verHambre(), 10, 80);
-            g.drawString("Felicidad: " + mascota.getEstado().verFelicidad(), 10, 100);
-        }
     }
 }

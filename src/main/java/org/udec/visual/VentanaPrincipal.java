@@ -62,8 +62,8 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener{
         // Label para mostrar el índice actual
         labelIndice = new JLabel();
         labelIndice.setFont(new Font("Arial", Font.BOLD, 16));
-        labelIndice.setHorizontalAlignment(SwingConstants.CENTER);
-        labelIndice.setBounds(0, 10, ANCHO, 30);
+        labelIndice.setHorizontalAlignment(SwingConstants.LEFT);
+        labelIndice.setBounds(10, 10, ANCHO, 30);
         actualizarLabelIndice();
 
 

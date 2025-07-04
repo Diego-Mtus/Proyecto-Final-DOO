@@ -2,10 +2,11 @@ package org.udec.util.threads;
 
 import org.udec.mascotas.Mascota;
 import org.udec.visual.PanelEscenario;
+import org.udec.visual.PanelEstado;
 
 public class HiloActualizadorEstado implements Runnable{
 
-    private PanelEscenario panelEscenario;
+    private PanelEstado panelEstado;
     private Mascota mascota;
     private final int decrementoHambre;
     private final int decrementoSalud;
@@ -14,9 +15,10 @@ public class HiloActualizadorEstado implements Runnable{
     private boolean corriendo = true;
 
 
-    public HiloActualizadorEstado(PanelEscenario panelEscenario){
-        this.panelEscenario = panelEscenario;
-        this.mascota = panelEscenario.getEscenario().getMascotaActual();
+    public HiloActualizadorEstado(PanelEstado panelEstado, Mascota mascota) {
+
+        this.panelEstado = panelEstado;
+        this.mascota = mascota;
         this.decrementoHambre = mascota.getEstado().getDecrementoHambre();
         this.decrementoSalud = mascota.getEstado().getDecrementoSalud();
         this.decrementoFelicidad = mascota.getEstado().getDecrementoFelicidad();
@@ -48,7 +50,7 @@ public class HiloActualizadorEstado implements Runnable{
                 }
 
                 System.out.println("Ciclo de estado completado.");
-                panelEscenario.actualizarVisualEstado();
+                panelEstado.repaint(); // Actualizar el panel de estado
             }
 
         }

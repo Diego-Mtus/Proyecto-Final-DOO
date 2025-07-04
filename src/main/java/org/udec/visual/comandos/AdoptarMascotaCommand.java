@@ -22,11 +22,9 @@ public class AdoptarMascotaCommand implements Command{
         System.out.println("Se abre panel de adopción de mascota");
         SelectorMascota selectorMascota = new SelectorMascota(panelEscenario);
         if(selectorMascota.getMascotaSeleccionada() != null){
-
             MascotaFactory mascotaFactory = seleccionDinamicaDeFactory(selectorMascota.getMascotaSeleccionada());
             panelEscenario.establecerMascota(mascotaFactory);
             panelEscenario.ocultarBotonAdoptarMascota();
-            panelEscenario.inicializarHiloActualizadorDeEstado();
             panelEscenario.inicializarHiloCompradorInteresado();
         }
     }
