@@ -10,10 +10,12 @@ import java.awt.*;
 
 public class TiendaDialog extends JDialog {
 
+    private static TiendaDialog singletonTienda;
+    private final PanelDescripcion panelDescripcion;
 
-    public TiendaDialog(JFrame parent) {
+    private TiendaDialog(JFrame parent) {
         super(parent, "Tienda", true);
-        setSize(400, 660);
+        setSize(414, 660);
 
         // Para ubicarlo a la derecha de la ventana principal
         Point puntosPadre = parent.getLocationOnScreen();
@@ -33,12 +35,11 @@ public class TiendaDialog extends JDialog {
         tabs.setVisible(true);
 
         // Panel de descripción
-        JPanel panelDescripcion = new JPanel(new BorderLayout());
-        panelDescripcion.setBounds(0,500, 400, 160);
+        panelDescripcion = new PanelDescripcion(0,500, 400, 126);
         add(panelDescripcion);
 
         setResizable(false);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(HIDE_ON_CLOSE);
         setVisible(true);
     }
 
@@ -56,6 +57,7 @@ public class TiendaDialog extends JDialog {
         for (int i = 0; i < items.length; i++) {
             ProductosEnum prod = items[i];
             JButton boton = new JButton();
+            boton.setIcon(new ImageIcon(CargadorDeImagenes.cargarImagen(prod.getRutaImagen()).getScaledInstance(widthHeightBoton, widthHeightBoton, Image.SCALE_SMOOTH)));
             int col = i % columnas;
             int fila = i / columnas;
             int x = espacio + col * (widthHeightBoton + espacio);
@@ -75,7 +77,16 @@ public class TiendaDialog extends JDialog {
     private void actualizarDescripcion(ProductosEnum item) {
         // TODO
         System.out.println("PENDIENTE: " + item.getNombre());
+        panelDescripcion.actualizarDescripcion(item);
     }
 
+    public static TiendaDialog getInstance(JFrame parent) {
+        if (singletonTienda == null) {
+            singletonTienda = new TiendaDialog(parent);
+        } else {
+            singletonTienda.setVisible(true);
+        }
+        return singletonTienda;
+    }
 
 }

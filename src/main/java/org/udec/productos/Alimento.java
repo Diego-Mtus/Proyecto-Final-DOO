@@ -23,7 +23,7 @@ public class Alimento extends Producto{
             mascota.getEstado().addHambre(10);
         } else {
             mascota.getEstado().addHambre(5);
-            mascota.getEstado().setHambre(mascota.getEstado().verHambre() - 5);
+            mascota.getEstado().setSalud(mascota.getEstado().verSalud() - 5);
         }
     }
 

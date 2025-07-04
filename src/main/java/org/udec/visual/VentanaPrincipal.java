@@ -71,7 +71,7 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener{
         botonTienda = new JButton("Tienda");
         botonTienda.setBounds(20, ALTO - 60, 100, 40);
         botonTienda.setFocusable(false);
-        botonTienda.addActionListener(_ -> new TiendaDialog(this));
+        botonTienda.addActionListener(_ -> TiendaDialog.getInstance(this));
 
         // Añadir componentes al layeredPane
         panelCapas.add(cardPanel, JLayeredPane.DEFAULT_LAYER);
