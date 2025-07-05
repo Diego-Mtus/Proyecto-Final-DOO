@@ -17,7 +17,7 @@ public class PanelAcciones extends JPanel {
     private CardLayout cardLayout;
     private int indicePanelActual = 0; // Indice del panel actual, comienza en 0
     private PanelAlimentar panelAlimento;
-    private JPanel panelMedicamento;
+    private PanelMedicar panelMedicamento;
     private PanelJuguete panelJuguete;
     private JPanel panelJuegos;
 
@@ -47,7 +47,7 @@ public class PanelAcciones extends JPanel {
         panelAlimento.add(new JLabel("Alimentos"));
         cardPanel.add(panelAlimento, "0");
 
-        panelMedicamento = new JPanel();
+        panelMedicamento = new PanelMedicar(this);
         panelMedicamento.setOpaque(false);
         panelMedicamento.add(new JLabel("Medicamentos"));
         cardPanel.add(panelMedicamento, "1");
@@ -90,6 +90,7 @@ public class PanelAcciones extends JPanel {
         this.panelEscenario = panelEscenario;
         this.panelJuguete.setMascotaActual(panelEscenario);
         this.panelAlimento.setMascotaActual(panelEscenario);
+        this.panelMedicamento.setMascotaActual(panelEscenario);
     }
 
     public void reiniciarPelota() {
@@ -98,9 +99,12 @@ public class PanelAcciones extends JPanel {
         }
     }
 
-    public void actualizarListaAlimentos() {
+    public void actualizarListas() {
         if (panelAlimento != null) {
             panelAlimento.actualizarListaAlimentos();
+        }
+        if (panelMedicamento != null) {
+            panelMedicamento.actualizarListaMedicamentos();
         }
     }
 

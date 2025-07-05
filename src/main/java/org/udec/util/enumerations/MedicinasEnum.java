@@ -1,12 +1,16 @@
 package org.udec.util.enumerations;
 
+import org.udec.mascotas.Mascota;
+
+import java.util.Arrays;
+
 public enum MedicinasEnum implements ProductosEnum{
 
     MEDICINA_VOLADOR("Medicamento para aves", TiposEnum.VOLADOR.mascotasCompatibles().toArray(new MascotasEnum[0]) , "/mascotas/pezpayaso.png", 5),
     MEDICINA_COMUN("Medicamento para mascotas comúnes", TiposEnum.COMUN.mascotasCompatibles().toArray(new MascotasEnum[0]), "/mascotas/pezpayaso.png", 5),
     MEDICINA_ROEDOR("Medicamento para roedores", TiposEnum.ROEDOR.mascotasCompatibles().toArray(new MascotasEnum[0]), "/mascotas/pezpayaso.png", 5),
-    MEDICINA_PECES("Medicamento para peces", TiposEnum.ACUATICO.mascotasCompatibles().toArray(new MascotasEnum[0]), "/mascotas/pezpayaso.png", 5);
-
+    MEDICINA_PECES("Medicamento para peces", TiposEnum.ACUATICO.mascotasCompatibles().toArray(new MascotasEnum[0]), "/mascotas/pezpayaso.png", 5),
+    CURITA_HERIDAS("Curita para heridas", TiposEnum.COMUN.mascotasCompatibles().toArray(new MascotasEnum[0]), "/mascotas/pezpayaso.png", 2);
 
     private final String nombre;
     private final MascotasEnum[] paraQueMascota;
@@ -43,5 +47,19 @@ public enum MedicinasEnum implements ProductosEnum{
 
     public void setInventario(int inventario) {
         this.inventario = inventario;
+    }
+
+    public void curar(Mascota mascota){
+        if(this == CURITA_HERIDAS){
+            // Curita solo cura heridas hecha por juegos
+            return;
+        }
+        else{
+            if(Arrays.stream(paraQueMascota).anyMatch(m -> m.getNombre().equals(mascota.getNombreAnimal()))){
+                mascota.getEstado().addSalud(20);
+            } else{
+                mascota.getEstado().setSalud(mascota.getEstado().verSalud() - 5);
+            }
+        }
     }
 }

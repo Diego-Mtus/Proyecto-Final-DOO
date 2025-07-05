@@ -2,7 +2,7 @@ package org.udec.visual.acciones;
 
 import org.udec.mascotas.Mascota;
 import org.udec.util.CargadorDeImagenes;
-import org.udec.util.enumerations.AlimentosEnum;
+import org.udec.util.enumerations.MedicinasEnum;
 import org.udec.visual.PanelEscenario;
 import org.udec.visual.VentanaPrincipal;
 
@@ -13,21 +13,21 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public class PanelAlimentar extends JPanel {
+public class PanelMedicar extends JPanel {
 
     private final int posicionInicialX = VentanaPrincipal.ANCHO / 2 - 40;
     private final int posicionInicialY = VentanaPrincipal.ALTO - 124;
-    private int comidaX = posicionInicialX;
-    private int comidaY = posicionInicialY;
-    private final int comidaSize = 80;
-    private final int comidaRadio = comidaSize / 2;
+    private int medicinaX = posicionInicialX;
+    private int medicinaY = posicionInicialY;
+    private final int medicinaSize = 80;
+    private final int medicinaRadio = medicinaSize / 2;
 
-    private ArrayList<AlimentosEnum> alimentosDisponibles = new ArrayList<>();
-    private ArrayList<BufferedImage> imagenesComida = new ArrayList<>();
+    private ArrayList<MedicinasEnum> medicinasDisponibles = new ArrayList<>();
+    private ArrayList<BufferedImage> imagenesMedicina = new ArrayList<>();
     private Mascota mascotaActual;
 
     private final PanelAcciones panelAcciones;
-    private int indiceComida = 0;
+    private int indiceMedicina = 0;
     private JButton botonIzquierda;
     private JButton botonDerecha;
 
@@ -40,35 +40,35 @@ public class PanelAlimentar extends JPanel {
     private int mouseX, mouseY;
     private boolean isDragging = false;
 
-    public PanelAlimentar(PanelAcciones panelAcciones) {
+    public PanelMedicar(PanelAcciones panelAcciones) {
         this.setLayout(null);
         this.setBounds(0, 0, VentanaPrincipal.ANCHO, VentanaPrincipal.ALTO);
         this.panelAcciones = panelAcciones;
 
         botonIzquierda = new JButton("<");
         botonIzquierda.setBounds(VentanaPrincipal.ANCHO / 2 - 64, VentanaPrincipal.ALTO - 40, 40, 30);
-        botonIzquierda.addActionListener(e -> cambiarMedicamento(-1));
-        botonIzquierda.setVisible(alimentosDisponibles.size() > 1);
+        botonIzquierda.addActionListener(e -> cambiarMedicina(-1));
+        botonIzquierda.setVisible(medicinasDisponibles.size() > 1);
         this.add(botonIzquierda);
 
         botonDerecha = new JButton(">");
         botonDerecha.setBounds(VentanaPrincipal.ANCHO / 2 + 24, VentanaPrincipal.ALTO - 40, 40, 30);
-        botonDerecha.addActionListener(e -> cambiarMedicamento(1));
-        botonDerecha.setVisible(alimentosDisponibles.size() > 1);
+        botonDerecha.addActionListener(e -> cambiarMedicina(1));
+        botonDerecha.setVisible(medicinasDisponibles.size() > 1);
         this.add(botonDerecha);
 
-        actualizarListaAlimentos();
+        actualizarListaMedicamentos();
 
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                if (alimentosDisponibles.isEmpty()) return;
-                int centerX = comidaX + comidaRadio;
-                int centerY = comidaY + comidaRadio;
+                if (medicinasDisponibles.isEmpty()) return;
+                int centerX = medicinaX + medicinaRadio;
+                int centerY = medicinaY + medicinaRadio;
                 int distanciaCuadrado = (e.getX() - centerX) * (e.getX() - centerX)
                         + (e.getY() - centerY) * (e.getY() - centerY);
 
-                if(distanciaCuadrado <= comidaRadio * comidaRadio) {
+                if(distanciaCuadrado <= medicinaRadio * medicinaRadio) {
                     isDragging = true;
                     mouseX = e.getX();
                     mouseY = e.getY();
@@ -77,27 +77,27 @@ public class PanelAlimentar extends JPanel {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                if (alimentosDisponibles.isEmpty()) return;
+                if (medicinasDisponibles.isEmpty()) return;
                 if(isDragging){
                     if(e.getX() >= mascotaPosX && e.getX() <= mascotaPosX + mascotaSize &&
                             e.getY() >= mascotaPosY && e.getY() <= mascotaPosY + mascotaSize) {
-                        System.out.println("Alimentando "+ alimentosDisponibles.get(indiceComida).getNombre() + " a la mascota en: " + mouseX + ", " + mouseY);
+                        System.out.println("Medicando "+ medicinasDisponibles.get(indiceMedicina).getNombre() + " a la mascota en: " + mouseX + ", " + mouseY);
                         if (mascotaActual != null) {
-                            alimentosDisponibles.get(indiceComida).alimentar(mascotaActual);
-                        // Regresa la comida a la posición inicial
-                            alimentosDisponibles.get(indiceComida).setInventario(
-                                alimentosDisponibles.get(indiceComida).getInventario() - 1);
+                            medicinasDisponibles.get(indiceMedicina).curar(mascotaActual);
 
-                            comidaX = posicionInicialX;
-                            comidaY = posicionInicialY;
+                            medicinasDisponibles.get(indiceMedicina).setInventario(
+                                    medicinasDisponibles.get(indiceMedicina).getInventario() - 1);
+                            // Regresa la medicina a la posición inicial
+                            medicinaX = posicionInicialX;
+                            medicinaY = posicionInicialY;
                         }
-                        actualizarListaAlimentos();
-                        cambiarMedicamento(0);
+                        actualizarListaMedicamentos();
+                        cambiarMedicina(0);
 
                     } else {
-                        System.out.println("La comida no llegó a la mascota.");
+                        System.out.println("La medicina no llegó a la mascota.");
                         // Regresa la comida a la posición inicial con animación
-                        animarRegresoComida();
+                        animarRegresoMedicina();
                     }
                     isDragging = false;
                     repaint();
@@ -108,11 +108,11 @@ public class PanelAlimentar extends JPanel {
         this.addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                if (alimentosDisponibles.isEmpty()) return;
+                if (medicinasDisponibles.isEmpty()) return;
                 if (isDragging) {
                     // Mueve la comida con el mouse
-                    comidaX = e.getX() - comidaRadio;
-                    comidaY = e.getY() - comidaRadio;
+                    medicinaX = e.getX() - medicinaRadio;
+                    medicinaY = e.getY() - medicinaRadio;
                     repaint();
                 }
             }
@@ -126,62 +126,62 @@ public class PanelAlimentar extends JPanel {
         this.mascotaActual = panelEscenario.getEscenario().getMascotaActual();
     }
 
-    public void actualizarListaAlimentos() {
-        alimentosDisponibles.clear();
-        imagenesComida.clear();
-        for(AlimentosEnum alimento : AlimentosEnum.values()) {
-            if(alimento.getInventario() > 0){
-                alimentosDisponibles.add(alimento);
-                imagenesComida.add(CargadorDeImagenes.cargarImagen(alimento.getRutaImagen()));
+    public void actualizarListaMedicamentos() {
+        medicinasDisponibles.clear();
+        imagenesMedicina.clear();
+        for(MedicinasEnum medicina : MedicinasEnum.values()) {
+            if(medicina.getInventario() > 0){
+                medicinasDisponibles.add(medicina);
+                imagenesMedicina.add(CargadorDeImagenes.cargarImagen(medicina.getRutaImagen()));
             }
 
         }
-        System.out.println(alimentosDisponibles);
-        botonIzquierda.setVisible(alimentosDisponibles.size() > 1);
-        botonDerecha.setVisible(alimentosDisponibles.size() > 1);
-        indiceComida = 0; // Reinicia el índice al actualizar la lista
+        System.out.println(medicinasDisponibles);
+        botonIzquierda.setVisible(medicinasDisponibles.size() > 1);
+        botonDerecha.setVisible(medicinasDisponibles.size() > 1);
+        indiceMedicina = 0; // Reinicia el índice al actualizar la lista
         repaint();
 
     }
 
-    private void cambiarMedicamento(int direccion) {
-        if (alimentosDisponibles.isEmpty()) return;
-        indiceComida = (indiceComida + direccion + alimentosDisponibles.size()) % alimentosDisponibles.size();
-        comidaX = posicionInicialX;
-        comidaY = posicionInicialY;
+    private void cambiarMedicina(int direccion) {
+        if (medicinasDisponibles.isEmpty()) return;
+        indiceMedicina = (indiceMedicina + direccion + medicinasDisponibles.size()) % medicinasDisponibles.size();
+        medicinaX = posicionInicialX;
+        medicinaY = posicionInicialY;
         repaint();
     }
 
-    private void animarRegresoComida() {
+    private void animarRegresoMedicina() {
         final int pasos = 10;
-        final int inicioX = comidaX;
-        final int inicioY = comidaY;
+        final int inicioX = medicinaX;
+        final int inicioY = medicinaY;
         final int deltaX = posicionInicialX - inicioX;
         final int deltaY = posicionInicialY - inicioY;
 
         new Thread(() -> {
             for (int i = 1; i <= pasos; i++) {
-                comidaX = inicioX + deltaX * i / pasos;
-                comidaY = inicioY + deltaY * i / pasos;
+                medicinaX = inicioX + deltaX * i / pasos;
+                medicinaY = inicioY + deltaY * i / pasos;
                 repaint();
                 try {
                     Thread.sleep(16);
                 } catch (InterruptedException ignored) {}
             }
-            comidaX = posicionInicialX;
-            comidaY = posicionInicialY;
+            medicinaX = posicionInicialX;
+            medicinaY = posicionInicialY;
             repaint();
         }).start();
     }
 
     @Override
     public boolean contains(int x, int y) {
-        int centerX = comidaX + comidaRadio;
-        int centerY = comidaY + comidaRadio;
+        int centerX = medicinaX + medicinaRadio;
+        int centerY = medicinaY + medicinaRadio;
         int distanciaCuadrado = (x - centerX) * (x - centerX) + (y - centerY) * (y - centerY);
 
         // Verifica si el mouse está dentro del área de la comida o sobre los botones
-        return distanciaCuadrado <= comidaRadio * comidaRadio || x >= botonIzquierda.getX() && x <= botonDerecha.getX() + botonDerecha.getWidth()
+        return distanciaCuadrado <= medicinaRadio * medicinaRadio || x >= botonIzquierda.getX() && x <= botonDerecha.getX() + botonDerecha.getWidth()
                 && y >= botonIzquierda.getY() && y <= botonIzquierda.getY() + botonIzquierda.getHeight();
     }
 
@@ -189,12 +189,13 @@ public class PanelAlimentar extends JPanel {
     protected void paintComponent(java.awt.Graphics g) {
         super.paintComponent(g);
 
-        if (alimentosDisponibles.isEmpty()) {
+        if (medicinasDisponibles.isEmpty()) {
             return;
         }
 
         // Dibuja la comida
-        g.drawImage(imagenesComida.get(indiceComida), comidaX, comidaY, comidaSize, comidaSize, this);
+        g.drawImage(imagenesMedicina.get(indiceMedicina), medicinaX, medicinaY, medicinaSize, medicinaSize, this);
+
 
         // Dibujar texto de cantidad y nombre de la comida
         Graphics2D g2d = (Graphics2D) g;
@@ -203,14 +204,14 @@ public class PanelAlimentar extends JPanel {
         g2d.setFont(fuente);
         FontMetrics fontMetrics = g2d.getFontMetrics();
 
-        String nombreComida = alimentosDisponibles.get(indiceComida).getNombre();
-        int textoX = posicionInicialX + comidaRadio - fontMetrics.stringWidth(nombreComida) / 2;
+        String nombreComida = medicinasDisponibles.get(indiceMedicina).getNombre();
+        int textoX = posicionInicialX + medicinaRadio - fontMetrics.stringWidth(nombreComida) / 2;
         int textoY = posicionInicialY - 12; // Ajusta la posición del texto arriba de la comida
         g2d.drawString(nombreComida, textoX, textoY);
 
-        String cantidad = "x " + alimentosDisponibles.get(indiceComida).getInventario();
-        textoX = posicionInicialX + comidaRadio - fontMetrics.stringWidth(cantidad) / 2;
-        textoY = posicionInicialY + comidaSize + 24; // Ajusta la posición del texto debajo de la comida
+        String cantidad = "x " + medicinasDisponibles.get(indiceMedicina).getInventario();
+        textoX = posicionInicialX + medicinaRadio - fontMetrics.stringWidth(cantidad) / 2;
+        textoY = posicionInicialY + medicinaSize + 24; // Ajusta la posición del texto debajo de la comida
         g2d.drawString(cantidad, textoX, textoY);
 
 

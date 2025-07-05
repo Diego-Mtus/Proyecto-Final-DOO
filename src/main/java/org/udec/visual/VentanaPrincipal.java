@@ -166,7 +166,7 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener, Compr
         new Thread(() -> {
             try {
                 Thread.sleep(100);
-                SwingUtilities.invokeLater(() -> panelAcciones.actualizarListaAlimentos());
+                SwingUtilities.invokeLater(() -> panelAcciones.actualizarListas());
             } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
             }

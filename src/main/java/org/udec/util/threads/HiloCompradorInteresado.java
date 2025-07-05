@@ -42,6 +42,7 @@ public class HiloCompradorInteresado implements Runnable{
                     // Si la mascota tiene todos los estados por sobre 85, se cumple un intervalo
                     if(mascota.getEstado().verHambre() > ESTADO_MASCOTA_ESPERADO && mascota.getEstado().verSalud() > ESTADO_MASCOTA_ESPERADO && mascota.getEstado().verFelicidad() > ESTADO_MASCOTA_ESPERADO){
                         intervalosActuales++;
+                        System.out.println("Invervalo cumplido satisfactoriamente");
                     }
 
                     // Una vez que hayan ocurrido INTERVALOS_ESPERADOS intervalos, se avisará a PanelEscenario para vender, y se terminará el hilo.
