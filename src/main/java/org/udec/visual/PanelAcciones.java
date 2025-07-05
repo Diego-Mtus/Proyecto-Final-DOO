@@ -1,5 +1,7 @@
 package org.udec.visual;
 
+import org.udec.visual.acciones.PanelJuguete;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -9,24 +11,26 @@ public class PanelAcciones extends JPanel {
     private static PanelAcciones instance; // Instancia del panel de acciones
     private PanelEscenario panelEscenario; // Referencia al panel del escenario
 
+    private JLayeredPane layeredPane; // Panel para contener los componentes
     private JPanel cardPanel;
     private CardLayout cardLayout;
     private int indicePanelActual = 0; // Indice del panel actual, comienza en 0
     private JPanel panelAlimento;
     private JPanel panelMedicamento;
-    private JPanel panelJuguete;
+    private PanelJuguete panelJuguete;
     private JPanel panelJuegos;
 
     private PanelAcciones(PanelEscenario panel, int x, int y) {
 
+        setBounds(0, 0, VentanaPrincipal.ANCHO, VentanaPrincipal.ALTO);
+        setLayout(null);
 
-        setBounds(x, y, 200, 120);
-        this.setLayout(null);
+        layeredPane = new JLayeredPane();
+        layeredPane.setBounds(0, 0, VentanaPrincipal.ANCHO, VentanaPrincipal.ALTO);
+        layeredPane.setLayout(null);
 
         cardPanel = new JPanel();
-        cardPanel.setBounds(50, 0, 100, 120);
-        this.add(cardPanel);
-
+        cardPanel.setBounds(0, 0, VentanaPrincipal.ANCHO, VentanaPrincipal.ALTO);
         cardLayout = new CardLayout();
         cardPanel.setLayout(cardLayout);
 
@@ -34,45 +38,62 @@ public class PanelAcciones extends JPanel {
         setOpaque(false);
         setFocusable(false);
         setBorder(BorderFactory.createLineBorder(Color.black, 1)); // Para verlo mientras se desarrolla
-
+        cardPanel.setOpaque(false); // Hacer el panel de tarjetas transparente
 
         // Inicializar los paneles de acciones
         panelAlimento = new JPanel();
+        panelAlimento.setOpaque(false);
         panelAlimento.add(new JLabel("Alimentos"));
         cardPanel.add(panelAlimento, "0");
 
         panelMedicamento = new JPanel();
+        panelMedicamento.setOpaque(false);
         panelMedicamento.add(new JLabel("Medicamentos"));
         cardPanel.add(panelMedicamento, "1");
 
-        panelJuguete = new JPanel();
-        panelJuguete.add(new JLabel("Juguetes"));
+        panelJuguete = new PanelJuguete();
+        panelJuguete.setOpaque(false);
         cardPanel.add(panelJuguete, "2");
 
         panelJuegos = new JPanel();
+        panelJuegos.setOpaque(false);
         panelJuegos.add(new JLabel("Juegos"));
         cardPanel.add(panelJuegos, "3");
 
         // Flechas para cambiar de panel
         JButton flechaIzquierda = new JButton("<");
-        flechaIzquierda.setBounds(0, 40, 40, 40);
+        flechaIzquierda.setBounds(x, y + 40, 40, 40);
         flechaIzquierda.addActionListener(e -> cambiarPanel(-1));
         this.add(flechaIzquierda);
 
         JButton flechaDerecha = new JButton(">");
-        flechaDerecha.setBounds(160, 40, 40, 40);
+        flechaDerecha.setBounds(x + 160, y + 40, 40, 40);
         flechaDerecha.addActionListener(e -> cambiarPanel(1));
         this.add(flechaDerecha);
+
+        // Agregar el panel de tarjetas al panel principal
+        layeredPane.add(cardPanel, JLayeredPane.DEFAULT_LAYER);
+        layeredPane.add(flechaIzquierda, JLayeredPane.PALETTE_LAYER);
+        layeredPane.add(flechaDerecha, JLayeredPane.PALETTE_LAYER);
+        this.add(layeredPane);
 
     }
 
     private void cambiarPanel(int direccion){
         indicePanelActual = (indicePanelActual + 4 + direccion) % 4;
         cardLayout.show(cardPanel, String.valueOf(indicePanelActual));
+        panelJuguete.reiniciarPelota();
     }
 
     public void setPanelEscenario(PanelEscenario panelEscenario){
         this.panelEscenario = panelEscenario;
+        this.panelJuguete.setMascotaActual(panelEscenario);
+    }
+
+    public void reiniciarPelota() {
+        if (panelJuguete != null) {
+            panelJuguete.reiniciarPelota();
+        }
     }
 
     public static PanelAcciones getInstance(PanelEscenario panelEscenario, int x, int y) {
@@ -83,6 +104,4 @@ public class PanelAcciones extends JPanel {
         }
         return instance;
     }
-
-
 }

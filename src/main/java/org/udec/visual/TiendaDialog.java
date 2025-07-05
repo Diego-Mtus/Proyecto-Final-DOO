@@ -33,7 +33,6 @@ public class TiendaDialog extends JDialog {
         // Panel de pestañas
         JTabbedPane tabs = new JTabbedPane();
         tabs.addTab("Comida", crearPanelCategoria(AlimentosEnum.values()));
-        tabs.addTab("Juguetes", crearPanelCategoria(AlimentosEnum.values()));
         tabs.addTab("Medicina", crearPanelCategoria(MedicinasEnum.values()));
         add(tabs);
 

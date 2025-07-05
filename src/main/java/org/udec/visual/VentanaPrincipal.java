@@ -99,7 +99,7 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener, Compr
         panelCapas.add(labelIndice, JLayeredPane.PALETTE_LAYER);
         panelCapas.add(labelDinero, JLayeredPane.PALETTE_LAYER);
         panelCapas.add(botonTienda, JLayeredPane.PALETTE_LAYER);
-        panelCapas.add(panelAcciones, JLayeredPane.PALETTE_LAYER);
+        panelCapas.add(panelAcciones, JLayeredPane.DRAG_LAYER);
 
         this.setContentPane(panelCapas);
         this.pack();
@@ -129,6 +129,7 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener, Compr
         if(panelesEscenario.get(indiceActual).tieneMascota()) {
             panelAcciones.setPanelEscenario(panelesEscenario.get(indiceActual));
             panelAcciones.setVisible(true);
+            panelAcciones.reiniciarPelota();
         } else {
             panelAcciones.setVisible(false);
         }
