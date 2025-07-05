@@ -9,7 +9,8 @@ import java.awt.*;
 public class PanelEstado extends JPanel {
 
     private Mascota mascota;
-    private Thread hiloActualizador;
+    private HiloActualizadorEstado Actualizador;
+    private Thread hiloActualizadorEstado;
 
     public PanelEstado(PanelEscenario panel, int x, int y) {
         setBounds(x, y, 260, 120);
@@ -24,8 +25,9 @@ public class PanelEstado extends JPanel {
         if (mascota != null){
             this.mascota = mascota;
             System.out.println("Inicializando hilo actualizador de estado para la mascota: " + mascota.getNombrePropio());
-            hiloActualizador = new Thread(new HiloActualizadorEstado(this, mascota));
-            hiloActualizador.start();
+            Actualizador = new HiloActualizadorEstado(this, mascota);
+            hiloActualizadorEstado = new Thread(Actualizador);
+            hiloActualizadorEstado.start();
             this.setVisible(true);
         }
     }
@@ -65,6 +67,15 @@ public class PanelEstado extends JPanel {
         g2d.drawString(nombre, nombreX, y - 5);
 
 
+    }
+
+    public void detenerEstado() {
+        if (hiloActualizadorEstado != null && hiloActualizadorEstado.isAlive()) {
+            System.out.println("Deteniendo hilo actualizador de estado para la mascota: " + mascota.getNombrePropio());
+            Actualizador.detener();
+        }
+        this.setVisible(false);
+        this.mascota = null;
     }
 
     @Override

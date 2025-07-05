@@ -10,7 +10,6 @@ public class HiloCompradorInteresado implements Runnable{
     private volatile boolean corriendo = true;
     private final int ESTADO_MASCOTA_ESPERADO = 85;
 
-
     private PanelEscenario panelEscenario;
     private Mascota mascota;
     private int intervalosActuales = 0;
@@ -48,6 +47,7 @@ public class HiloCompradorInteresado implements Runnable{
                     // Una vez que hayan ocurrido INTERVALOS_ESPERADOS intervalos, se avisará a PanelEscenario para vender, y se terminará el hilo.
                     if(intervalosActuales >= intervalosEsperados){
                         System.out.println("Apto para venta");
+                        panelEscenario.mostrarBotonVenderMascota();
                         Thread.currentThread().interrupt();
                         corriendo = false;
                     }

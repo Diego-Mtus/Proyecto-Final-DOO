@@ -12,5 +12,6 @@ public class PezPayaso extends Mascota{
         this.estado = new Estado(NivelDecrementoEnum.LENTO, NivelDecrementoEnum.RAPIDO, NivelDecrementoEnum.RAPIDO);
         this.imagenMascota = CargadorDeImagenes.cargarImagen(MascotasEnum.PEZPAYASO.getRutaImagen());
         this.sonidoMascota = GestionDeSonido.cargarClip(MascotasEnum.PEZPAYASO.getRutaSonido());
+        this.precioVenta = MascotasEnum.PEZPAYASO.getPrecioVenta();
     }
 }

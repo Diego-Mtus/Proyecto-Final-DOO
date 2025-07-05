@@ -12,6 +12,7 @@ public abstract class Mascota {
     protected BufferedImage imagenMascota;
     protected Clip sonidoMascota;
     protected TiposEnum tipo;
+    protected int precioVenta;
     protected Estado estado;
 
     public TiposEnum getTipo(){
@@ -45,5 +46,10 @@ public abstract class Mascota {
     public Estado getEstado(){
         return estado;
     }
+
+    public int getPrecioVenta() {
+        return precioVenta;
+    }
+
 
 }

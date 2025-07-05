@@ -22,6 +22,7 @@ public class PanelEscenario extends JPanel {
 
     private final JButton botonAdoptarMascota;
     private final JButton botonInicializarEscenario;
+    private final JButton botonVenderMascota;
 
     private final PanelEstado panelEstado;
 
@@ -36,6 +37,7 @@ public class PanelEscenario extends JPanel {
         botonInicializarEscenario = new BotonInicializarEscenario(this, VentanaPrincipal.ANCHO / 2 - 100, VentanaPrincipal.ALTO / 2 - 50);
         botonAdoptarMascota = new BotonAdoptarMascota(this, VentanaPrincipal.ANCHO / 2 - 100, VentanaPrincipal.ALTO / 2 - 50);
         panelEstado = new PanelEstado(this, VentanaPrincipal.ANCHO / 2 - 130, 6);
+        botonVenderMascota = new BotonVenderMascota(this, VentanaPrincipal.ANCHO - 70, VentanaPrincipal.ALTO - 140);
         crearMascotaInteractuable();
 
     }
@@ -95,6 +97,10 @@ public class PanelEscenario extends JPanel {
         botonAdoptarMascota.setVisible(true);
     }
 
+    public void mostrarBotonVenderMascota() {
+        botonVenderMascota.setVisible(true);
+    }
+
     public void ocultarBotonAdoptarMascota() {
         botonAdoptarMascota.setVisible(false);
     }
@@ -112,8 +118,16 @@ public class PanelEscenario extends JPanel {
         return mascota != null;
     }
 
-    public void actualizarVisualEstado(){
-        repaint(0,0,120,120);
+    public void venderMascota(){
+        escenario.venderMascota();
+        mascota = null;
+        mascotaInteractuable.removerMascota();
+        panelEstado.detenerEstado();
+        adopcionListener.ventaMascotaRealizada();
+        if (hiloComprador != null && hiloComprador.isAlive()) {
+            hiloComprador.interrupt();
+        }
+
     }
 
     @Override

@@ -12,6 +12,7 @@ public class Gato extends Mascota{
         this.estado = new Estado(NivelDecrementoEnum.MEDIO, NivelDecrementoEnum.MEDIO, NivelDecrementoEnum.RAPIDO);
         this.imagenMascota = CargadorDeImagenes.cargarImagen(MascotasEnum.GATO.getRutaImagen());
         this.sonidoMascota = GestionDeSonido.cargarClip(MascotasEnum.GATO.getRutaSonido());
+        this.precioVenta = MascotasEnum.GATO.getPrecioVenta();
     }
 
 

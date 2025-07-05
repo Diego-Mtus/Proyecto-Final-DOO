@@ -179,4 +179,9 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener, Compr
         panelAcciones = PanelAcciones.getInstance(panelEscenario, ANCHO / 2 - 100, ALTO - 140);
         panelAcciones.setVisible(true);
     }
+
+    @Override
+    public void ventaMascotaRealizada() {
+        panelAcciones.setVisible(false);
+    }
 }
