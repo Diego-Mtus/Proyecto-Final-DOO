@@ -1,6 +1,7 @@
-package org.udec.visual;
+package org.udec.visual.acciones;
 
-import org.udec.visual.acciones.PanelJuguete;
+import org.udec.visual.PanelEscenario;
+import org.udec.visual.VentanaPrincipal;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +16,7 @@ public class PanelAcciones extends JPanel {
     private JPanel cardPanel;
     private CardLayout cardLayout;
     private int indicePanelActual = 0; // Indice del panel actual, comienza en 0
-    private JPanel panelAlimento;
+    private PanelAlimentar panelAlimento;
     private JPanel panelMedicamento;
     private PanelJuguete panelJuguete;
     private JPanel panelJuegos;
@@ -41,7 +42,7 @@ public class PanelAcciones extends JPanel {
         cardPanel.setOpaque(false); // Hacer el panel de tarjetas transparente
 
         // Inicializar los paneles de acciones
-        panelAlimento = new JPanel();
+        panelAlimento = new PanelAlimentar(this);
         panelAlimento.setOpaque(false);
         panelAlimento.add(new JLabel("Alimentos"));
         cardPanel.add(panelAlimento, "0");
@@ -88,11 +89,18 @@ public class PanelAcciones extends JPanel {
     public void setPanelEscenario(PanelEscenario panelEscenario){
         this.panelEscenario = panelEscenario;
         this.panelJuguete.setMascotaActual(panelEscenario);
+        this.panelAlimento.setMascotaActual(panelEscenario);
     }
 
     public void reiniciarPelota() {
         if (panelJuguete != null) {
             panelJuguete.reiniciarPelota();
+        }
+    }
+
+    public void actualizarListaAlimentos() {
+        if (panelAlimento != null) {
+            panelAlimento.actualizarListaAlimentos();
         }
     }
 

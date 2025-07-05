@@ -2,6 +2,7 @@ package org.udec.visual;
 
 import org.udec.util.Dinero;
 import org.udec.util.DineroNoSuficienteException;
+import org.udec.visual.acciones.PanelAcciones;
 
 import javax.swing.*;
 import java.awt.*;
@@ -161,6 +162,16 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener, Compr
     public void comprar(int precio) throws DineroNoSuficienteException {
         dinero.restar(precio);
         actualizarLabelDinero();
+
+        new Thread(() -> {
+            try {
+                Thread.sleep(100);
+                SwingUtilities.invokeLater(() -> panelAcciones.actualizarListaAlimentos());
+            } catch (InterruptedException ex) {
+                Thread.currentThread().interrupt();
+            }
+        }).start();
+
     }
 
     @Override

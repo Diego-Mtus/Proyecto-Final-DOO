@@ -10,6 +10,8 @@ import java.awt.*;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
+
 public class PanelDescripcion extends JPanel {
 
     private String descripcionString;
@@ -47,14 +49,20 @@ public class PanelDescripcion extends JPanel {
         repaint();
     }
 
+    public void reiniciarDescripcion() {
+        descripcionString = "¡Bienvenidos a la tienda!\nSeleccione un producto para ver su descripción.";
+        ultimoProductoSeleccionado = null;
+        botonComprar.setVisible(false);
+        repaint();
+    }
 
 
     private void comprarProducto() {
         if (compraListener != null && ultimoProductoSeleccionado != null) {
             try {
                 compraListener.comprar(ultimoProductoSeleccionado.getPrecio());
-
                 ultimoProductoSeleccionado.setInventario(ultimoProductoSeleccionado.getInventario() + 1);
+
                 actualizarDescripcion(ultimoProductoSeleccionado);
 
             } catch (DineroNoSuficienteException e) {

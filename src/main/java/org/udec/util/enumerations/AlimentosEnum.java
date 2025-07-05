@@ -1,5 +1,9 @@
 package org.udec.util.enumerations;
 
+import org.udec.mascotas.Mascota;
+
+import java.util.Objects;
+
 public enum AlimentosEnum implements ProductosEnum{
 
     ALIMENTO_PERRO("Croquetas para perro", MascotasEnum.PERRO, "/mascotas/pezpayaso.png", 1),
@@ -47,4 +51,16 @@ public enum AlimentosEnum implements ProductosEnum{
     public void setInventario(int inventario) {
         this.inventario = inventario;
     }
+
+    public void alimentar(Mascota mascota){
+        if (Objects.equals(mascota.getNombreAnimal(), paraQueMascota.getNombre())){
+            mascota.getEstado().addHambre(20);
+        } else if(mascota.getTipo() == paraQueMascota.getTipo()){
+            mascota.getEstado().addHambre(10);
+        } else {
+            mascota.getEstado().addHambre(5);
+            mascota.getEstado().setSalud(mascota.getEstado().verSalud() - 5);
+        }
+    }
+
 }
