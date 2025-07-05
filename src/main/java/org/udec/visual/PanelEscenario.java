@@ -23,10 +23,10 @@ public class PanelEscenario extends JPanel {
     private final JButton botonAdoptarMascota;
     private final JButton botonInicializarEscenario;
 
-    private final PanelAcciones panelAcciones;
     private final PanelEstado panelEstado;
 
     private EscenarioListener escenarioListener;
+    private AdopcionListener adopcionListener;
 
     public PanelEscenario(){
         this.setVisible(true);
@@ -35,7 +35,6 @@ public class PanelEscenario extends JPanel {
         this.imagenEscenario = CargadorDeImagenes.cargarImagen("/escenarios/base.png");
         botonInicializarEscenario = new BotonInicializarEscenario(this, VentanaPrincipal.ANCHO / 2 - 100, VentanaPrincipal.ALTO / 2 - 50);
         botonAdoptarMascota = new BotonAdoptarMascota(this, VentanaPrincipal.ANCHO / 2 - 100, VentanaPrincipal.ALTO / 2 - 50);
-        panelAcciones = new PanelAcciones(this, VentanaPrincipal.ANCHO / 2 - 100, VentanaPrincipal.ALTO - 140);
         panelEstado = new PanelEstado(this, VentanaPrincipal.ANCHO / 2 - 130, 6);
         crearMascotaInteractuable();
 
@@ -43,6 +42,10 @@ public class PanelEscenario extends JPanel {
 
     public void setEscenarioListener(EscenarioListener escenarioListener) {
         this.escenarioListener = escenarioListener;
+    }
+
+    public void setAdopcionListener(AdopcionListener adopcionListener) {
+        this.adopcionListener = adopcionListener;
     }
 
     public Escenario getEscenario() {
@@ -64,8 +67,8 @@ public class PanelEscenario extends JPanel {
                 mascotaFactory.crearMascota(escenario);
                 mascota = escenario.getMascotaActual();
                 mascotaInteractuable.setMascota(mascota);
-                panelAcciones.setVisible(true);
                 panelEstado.inicializarEstado(mascota);
+                adopcionListener.adopcionRealizada(this);
                 repaint();
 
                 } catch (MascotaViviendoException ex) {

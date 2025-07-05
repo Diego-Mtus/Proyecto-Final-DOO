@@ -8,7 +8,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VentanaPrincipal extends JFrame implements EscenarioListener, CompraListener{
+public class VentanaPrincipal extends JFrame implements EscenarioListener, CompraListener, AdopcionListener{
 
     public static final int ANCHO = 640;
     public static final int ALTO = 860;
@@ -33,6 +33,7 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener, Compr
     private JButton botonTienda;
     private Dinero dinero;
     private JLabel labelDinero;
+    private PanelAcciones panelAcciones;
 
     public VentanaPrincipal(){
         this.setTitle("Simulador de mascota");
@@ -88,6 +89,9 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener, Compr
         botonTienda.setFocusable(false);
         botonTienda.addActionListener(_ -> TiendaDialog.getInstance(this));
 
+        // Panel de acciones
+        panelAcciones = PanelAcciones.getInstance(panelInicial, ANCHO / 2 - 100, ALTO - 140);
+
         // Añadir componentes al layeredPane
         panelCapas.add(cardPanel, JLayeredPane.DEFAULT_LAYER);
         panelCapas.add(botonIzquierda, JLayeredPane.PALETTE_LAYER);
@@ -95,6 +99,7 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener, Compr
         panelCapas.add(labelIndice, JLayeredPane.PALETTE_LAYER);
         panelCapas.add(labelDinero, JLayeredPane.PALETTE_LAYER);
         panelCapas.add(botonTienda, JLayeredPane.PALETTE_LAYER);
+        panelCapas.add(panelAcciones, JLayeredPane.PALETTE_LAYER);
 
         this.setContentPane(panelCapas);
         this.pack();
@@ -105,6 +110,7 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener, Compr
     // Métod o auxiliar para añadir paneles y mantener el contador
     private void addPanelToCardLayout(PanelEscenario panel) {
         panel.setEscenarioListener(this);
+        panel.setAdopcionListener(this);
         panelesEscenario.add(panel);
         cardPanel.add(panel, "Panel" + contadorPaneles);
         contadorPaneles++;
@@ -120,10 +126,16 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener, Compr
         indiceActual = (indiceActual + direccion + totalPaneles) % totalPaneles;
         cardLayout.show(cardPanel, "Panel" + indiceActual);
         actualizarLabelIndice();
+        if(panelesEscenario.get(indiceActual).tieneMascota()) {
+            panelAcciones.setPanelEscenario(panelesEscenario.get(indiceActual));
+            panelAcciones.setVisible(true);
+        } else {
+            panelAcciones.setVisible(false);
+        }
     }
 
     private void actualizarLabelDinero(){
-        labelDinero.setText("Dinero: $" + dinero.getCantidad());
+        labelDinero.setText("$" + dinero.getCantidad());
     }
 
 
@@ -148,5 +160,11 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener, Compr
     public void comprar(int precio) throws DineroNoSuficienteException {
         dinero.restar(precio);
         actualizarLabelDinero();
+    }
+
+    @Override
+    public void adopcionRealizada(PanelEscenario panelEscenario) {
+        panelAcciones = PanelAcciones.getInstance(panelEscenario, ANCHO / 2 - 100, ALTO - 140);
+        panelAcciones.setVisible(true);
     }
 }
