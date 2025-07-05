@@ -119,11 +119,12 @@ public class PanelEscenario extends JPanel {
     }
 
     public void venderMascota(){
+        int dineroObtenido = mascota.getPrecioVenta();
         escenario.venderMascota();
         mascota = null;
         mascotaInteractuable.removerMascota();
         panelEstado.detenerEstado();
-        adopcionListener.ventaMascotaRealizada();
+        adopcionListener.ventaMascotaRealizada(dineroObtenido);
         if (hiloComprador != null && hiloComprador.isAlive()) {
             hiloComprador.interrupt();
         }

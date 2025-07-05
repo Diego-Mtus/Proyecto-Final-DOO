@@ -181,7 +181,9 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener, Compr
     }
 
     @Override
-    public void ventaMascotaRealizada() {
+    public void ventaMascotaRealizada(int dineroObtenido) {
+        dinero.agregar(dineroObtenido);
+        actualizarLabelDinero();
         panelAcciones.setVisible(false);
     }
 }

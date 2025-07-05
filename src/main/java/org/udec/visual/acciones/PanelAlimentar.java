@@ -187,19 +187,22 @@ public class PanelAlimentar extends JPanel {
     protected void paintComponent(java.awt.Graphics g) {
         super.paintComponent(g);
 
-        if (alimentosDisponibles.isEmpty()) {
-            return;
-        }
-
-        // Dibuja la comida
-        g.drawImage(imagenesComida.get(indiceComida), comidaX, comidaY, comidaSize, comidaSize, this);
-
         // Dibujar texto de cantidad y nombre de la comida
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setColor(Color.BLACK);
         g2d.setFont(fuente);
         FontMetrics fontMetrics = g2d.getFontMetrics();
+
+        if (alimentosDisponibles.isEmpty()) {
+            g2d.drawString("COMIDA", posicionInicialX + comidaRadio - fontMetrics.stringWidth("COMIDA") / 2, posicionInicialY + comidaRadio + 6);
+            return;
+        }
+
+        // Dibuja la comida
+        g.drawImage(imagenesComida.get(indiceComida), comidaX, comidaY, comidaSize, comidaSize, this);
+
+
 
         String nombreComida = alimentosDisponibles.get(indiceComida).getNombre();
         int textoX = posicionInicialX + comidaRadio - fontMetrics.stringWidth(nombreComida) / 2;

@@ -4,7 +4,7 @@ import org.udec.mascotas.MascotaFactory;
 import org.udec.util.enumerations.MascotasEnum;
 import org.udec.visual.PanelEscenario;
 import org.udec.visual.SelectorMascota;
-import org.udec.visual.VentanaPrincipal;
+
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

@@ -187,7 +187,14 @@ public class PanelMedicar extends JPanel {
     protected void paintComponent(java.awt.Graphics g) {
         super.paintComponent(g);
 
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setColor(Color.BLACK);
+        g2d.setFont(fuente);
+        FontMetrics fontMetrics = g2d.getFontMetrics();
+
         if (medicinasDisponibles.isEmpty()) {
+            g2d.drawString("MEDICINA", posicionInicialX + medicinaRadio - fontMetrics.stringWidth("MEDICINA") / 2, posicionInicialY + medicinaRadio + 6);
             return;
         }
 
@@ -196,12 +203,6 @@ public class PanelMedicar extends JPanel {
 
 
         // Dibujar texto de cantidad y nombre de la comida
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setColor(Color.BLACK);
-        g2d.setFont(fuente);
-        FontMetrics fontMetrics = g2d.getFontMetrics();
-
         String nombreComida = medicinasDisponibles.get(indiceMedicina).getNombre();
         int textoX = posicionInicialX + medicinaRadio - fontMetrics.stringWidth(nombreComida) / 2;
         int textoY = posicionInicialY - 12; // Ajusta la posición del texto arriba de la comida

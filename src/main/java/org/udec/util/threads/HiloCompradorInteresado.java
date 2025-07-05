@@ -8,7 +8,7 @@ import java.util.Random;
 public class HiloCompradorInteresado implements Runnable{
 
     private volatile boolean corriendo = true;
-    private final int ESTADO_MASCOTA_ESPERADO = 85;
+    private final int ESTADO_MASCOTA_ESPERADO = 80;
 
     private PanelEscenario panelEscenario;
     private Mascota mascota;
