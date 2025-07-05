@@ -26,7 +26,6 @@ public class PanelAlimentar extends JPanel {
     private ArrayList<BufferedImage> imagenesComida = new ArrayList<>();
     private Mascota mascotaActual;
 
-    private final PanelAcciones panelAcciones;
     private int indiceComida = 0;
     private JButton botonIzquierda;
     private JButton botonDerecha;
@@ -40,10 +39,9 @@ public class PanelAlimentar extends JPanel {
     private int mouseX, mouseY;
     private boolean isDragging = false;
 
-    public PanelAlimentar(PanelAcciones panelAcciones) {
+    public PanelAlimentar() {
         this.setLayout(null);
         this.setBounds(0, 0, VentanaPrincipal.ANCHO, VentanaPrincipal.ALTO);
-        this.panelAcciones = panelAcciones;
 
         botonIzquierda = new JButton("<");
         botonIzquierda.setBounds(VentanaPrincipal.ANCHO / 2 - 64, VentanaPrincipal.ALTO - 40, 40, 30);

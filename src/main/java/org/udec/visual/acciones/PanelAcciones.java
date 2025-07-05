@@ -19,7 +19,7 @@ public class PanelAcciones extends JPanel {
     private PanelAlimentar panelAlimento;
     private PanelMedicar panelMedicamento;
     private PanelJuguete panelJuguete;
-    private JPanel panelJuegos;
+    private PanelJuegos panelJuegos;
 
     private PanelAcciones(PanelEscenario panel, int x, int y) {
 
@@ -42,12 +42,12 @@ public class PanelAcciones extends JPanel {
         cardPanel.setOpaque(false); // Hacer el panel de tarjetas transparente
 
         // Inicializar los paneles de acciones
-        panelAlimento = new PanelAlimentar(this);
+        panelAlimento = new PanelAlimentar();
         panelAlimento.setOpaque(false);
         panelAlimento.add(new JLabel("Alimentos"));
         cardPanel.add(panelAlimento, "0");
 
-        panelMedicamento = new PanelMedicar(this);
+        panelMedicamento = new PanelMedicar();
         panelMedicamento.setOpaque(false);
         panelMedicamento.add(new JLabel("Medicamentos"));
         cardPanel.add(panelMedicamento, "1");
@@ -56,7 +56,7 @@ public class PanelAcciones extends JPanel {
         panelJuguete.setOpaque(false);
         cardPanel.add(panelJuguete, "2");
 
-        panelJuegos = new JPanel();
+        panelJuegos = new PanelJuegos();
         panelJuegos.setOpaque(false);
         panelJuegos.add(new JLabel("Juegos"));
         cardPanel.add(panelJuegos, "3");
@@ -91,6 +91,7 @@ public class PanelAcciones extends JPanel {
         this.panelJuguete.setMascotaActual(panelEscenario);
         this.panelAlimento.setMascotaActual(panelEscenario);
         this.panelMedicamento.setMascotaActual(panelEscenario);
+        this.panelJuegos.setMascotaActual(panelEscenario);
     }
 
     public void reiniciarPelota() {
