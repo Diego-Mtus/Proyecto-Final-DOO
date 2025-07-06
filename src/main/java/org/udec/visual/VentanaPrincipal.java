@@ -2,6 +2,7 @@ package org.udec.visual;
 
 import org.udec.util.Dinero;
 import org.udec.util.DineroNoSuficienteException;
+import org.udec.util.enumerations.ImagenesUI;
 import org.udec.visual.acciones.PanelAcciones;
 
 import javax.swing.*;
@@ -57,12 +58,16 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener, Compr
         addPanelToCardLayout(panelInicial);
 
         // Botones de navegación
-        botonIzquierda = new JButton("<");
+        botonIzquierda = new JButton(new ImageIcon(ImagenesUI.BOTON_IZQUIERDAGRANDE.getImagen()));
+        botonIzquierda.setContentAreaFilled(false);
+        botonIzquierda.setBorderPainted(false);
         botonIzquierda.setBounds(20, ALTO / 2 - 40, 60, 40);
         botonIzquierda.setFocusable(false);
         botonIzquierda.addActionListener(e -> cambiarPanel(-1));
 
-        botonDerecha = new JButton(">");
+        botonDerecha = new JButton(new ImageIcon(ImagenesUI.BOTON_DERECHAGRANDE.getImagen()));
+        botonDerecha.setContentAreaFilled(false);
+        botonDerecha.setBorderPainted(false);
         botonDerecha.setBounds(ANCHO - 80, ALTO / 2 - 40, 60, 40);
         botonDerecha.setFocusable(false);
         botonDerecha.addActionListener(e -> cambiarPanel(1));
@@ -70,7 +75,7 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener, Compr
 
         // Label para mostrar el índice actual
         labelIndice = new JLabel();
-        labelIndice.setFont(new Font("Arial", Font.BOLD, 16));
+        labelIndice.setFont(new Font("Comic Sans MS", Font.BOLD, 24));
         labelIndice.setHorizontalAlignment(SwingConstants.LEFT);
         labelIndice.setBounds(10, 10, ANCHO, 30);
         actualizarLabelIndice();
@@ -78,15 +83,17 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener, Compr
         // Label pare mostrar el dinero actualmente disponible
         dinero = new Dinero(200); // Inicializar con $200
         labelDinero = new JLabel();
-        labelDinero.setFont(new Font("Arial", Font.BOLD, 24));
+        labelDinero.setFont(new Font("Comic Sans MS", Font.BOLD, 24));
         labelDinero.setHorizontalAlignment(SwingConstants.RIGHT);
-        labelDinero.setBounds(ANCHO - 200, 10, 180, 30);
+        labelDinero.setBounds(ANCHO - 190, 10, 180, 30);
         labelDinero.setText("$" + dinero.getCantidad());
 
 
         // Boton de tienda
-        botonTienda = new JButton("Tienda");
-        botonTienda.setBounds(20, ALTO - 60, 100, 40);
+        botonTienda = new JButton(new ImageIcon(ImagenesUI.BOTON_TIENDA.getImagen()));
+        botonTienda.setContentAreaFilled(false);
+        botonTienda.setBorderPainted(false);
+        botonTienda.setBounds(20, ALTO - 80, 60, 60);
         botonTienda.setFocusable(false);
         botonTienda.addActionListener(_ -> TiendaDialog.getInstance(this));
 
@@ -120,7 +127,7 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener, Compr
 
     // Método para actualizar el texto del label
     private void actualizarLabelIndice() {
-        labelIndice.setText((indiceActual + 1) + " / " + panelesEscenario.size());
+        labelIndice.setText((indiceActual + 1) + "/" + panelesEscenario.size());
     }
 
     private void cambiarPanel(int direccion) {

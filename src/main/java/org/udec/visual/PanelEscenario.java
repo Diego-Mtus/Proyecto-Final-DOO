@@ -34,7 +34,7 @@ public class PanelEscenario extends JPanel {
         this.setLayout(null);
         this.setBounds(0,0, VentanaPrincipal.ANCHO, VentanaPrincipal.ALTO);
         this.imagenEscenario = CargadorDeImagenes.cargarImagen("/escenarios/base.png");
-        botonInicializarEscenario = new BotonInicializarEscenario(this, VentanaPrincipal.ANCHO / 2 - 100, VentanaPrincipal.ALTO / 2 - 50);
+        botonInicializarEscenario = new BotonInicializarEscenario(this, VentanaPrincipal.ANCHO / 2 - 120, VentanaPrincipal.ALTO / 2 - 60);
         botonAdoptarMascota = new BotonAdoptarMascota(this, VentanaPrincipal.ANCHO / 2 - 100, VentanaPrincipal.ALTO / 2 - 50);
         panelEstado = new PanelEstado(this, VentanaPrincipal.ANCHO / 2 - 130, 6);
         botonVenderMascota = new BotonVenderMascota(this, VentanaPrincipal.ANCHO - 70, VentanaPrincipal.ALTO - 140);
@@ -136,6 +136,8 @@ public class PanelEscenario extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(imagenEscenario, 0, 0, imagenEscenario.getWidth(), imagenEscenario.getHeight(), this);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.drawImage(imagenEscenario, 0, 0, imagenEscenario.getWidth(), imagenEscenario.getHeight(), this);
     }
 }

@@ -12,6 +12,7 @@ public class PanelEstado extends JPanel {
     private Mascota mascota;
     private HiloActualizadorEstado Actualizador;
     private Thread hiloActualizadorEstado;
+    private final Font fuente = new Font("Comic Sans MS", Font.BOLD, 18);
 
     public PanelEstado(PanelEscenario panel, int x, int y) {
         setBounds(x, y, 260, 120);
@@ -87,8 +88,10 @@ public class PanelEstado extends JPanel {
         if(mascota != null) {
             Graphics2D g2d = (Graphics2D) g;
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2d.setColor(Color.WHITE);
+            g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 10, 10);
             g2d.setColor(Color.BLACK);
-            g2d.setFont(new Font("Comic Sans MS", Font.BOLD, 18));
+            g2d.setFont(fuente);
 
             String estado = mascota.getNombrePropio() + " - " + mascota.getNombreAnimal();
 

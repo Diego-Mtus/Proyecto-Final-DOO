@@ -3,6 +3,7 @@ package org.udec.visual.acciones;
 import org.udec.mascotas.Mascota;
 import org.udec.util.CargadorDeImagenes;
 import org.udec.util.enumerations.AlimentosEnum;
+import org.udec.util.enumerations.ImagenesUI;
 import org.udec.visual.PanelEscenario;
 import org.udec.visual.VentanaPrincipal;
 
@@ -43,15 +44,19 @@ public class PanelAlimentar extends JPanel {
         this.setLayout(null);
         this.setBounds(0, 0, VentanaPrincipal.ANCHO, VentanaPrincipal.ALTO);
 
-        botonIzquierda = new JButton("<");
+        botonIzquierda = new JButton(new ImageIcon(ImagenesUI.BOTON_IZQUIERDAGRANDE.getImagen()));
+        botonIzquierda.setContentAreaFilled(false);
+        botonIzquierda.setBorderPainted(false);
         botonIzquierda.setBounds(VentanaPrincipal.ANCHO / 2 - 64, VentanaPrincipal.ALTO - 40, 40, 30);
-        botonIzquierda.addActionListener(e -> cambiarMedicamento(-1));
+        botonIzquierda.addActionListener(e -> cambiarAlimento(-1));
         botonIzquierda.setVisible(alimentosDisponibles.size() > 1);
         this.add(botonIzquierda);
 
-        botonDerecha = new JButton(">");
+        botonDerecha = new JButton(new ImageIcon(ImagenesUI.BOTON_DERECHAGRANDE.getImagen()));
+        botonDerecha.setContentAreaFilled(false);
+        botonDerecha.setBorderPainted(false);
         botonDerecha.setBounds(VentanaPrincipal.ANCHO / 2 + 24, VentanaPrincipal.ALTO - 40, 40, 30);
-        botonDerecha.addActionListener(e -> cambiarMedicamento(1));
+        botonDerecha.addActionListener(e -> cambiarAlimento(1));
         botonDerecha.setVisible(alimentosDisponibles.size() > 1);
         this.add(botonDerecha);
 
@@ -90,7 +95,7 @@ public class PanelAlimentar extends JPanel {
                             comidaY = posicionInicialY;
                         }
                         actualizarListaAlimentos();
-                        cambiarMedicamento(0);
+                        cambiarAlimento(0);
 
                     } else {
                         System.out.println("La comida no llegó a la mascota.");
@@ -142,7 +147,7 @@ public class PanelAlimentar extends JPanel {
 
     }
 
-    private void cambiarMedicamento(int direccion) {
+    private void cambiarAlimento(int direccion) {
         if (alimentosDisponibles.isEmpty()) return;
         indiceComida = (indiceComida + direccion + alimentosDisponibles.size()) % alimentosDisponibles.size();
         comidaX = posicionInicialX;

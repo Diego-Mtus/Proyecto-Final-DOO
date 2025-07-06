@@ -1,5 +1,6 @@
 package org.udec.visual;
 
+import org.udec.util.enumerations.ImagenesUI;
 import org.udec.visual.comandos.Command;
 import org.udec.visual.comandos.InicializarEscenarioCommand;
 import javax.swing.*;
@@ -8,8 +9,10 @@ import javax.swing.*;
 public class BotonInicializarEscenario extends JButton {
 
     public BotonInicializarEscenario(PanelEscenario panelEscenario, int x, int y) {
-        super("Comprar Escenario");
-        setBounds(x, y, 200, 50);
+        super(new ImageIcon(ImagenesUI.BOTON_COMPRARESCENARIO.getImagen()));
+        setContentAreaFilled(false);
+        setBorderPainted(false);
+        setBounds(x, y, 240, 90);
         setFocusable(false);
         setVisible(true);
 
