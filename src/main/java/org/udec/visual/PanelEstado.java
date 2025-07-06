@@ -1,11 +1,13 @@
 package org.udec.visual;
 
 import org.udec.mascotas.Mascota;
-import org.udec.util.enumerations.ImagenesUI;
+import org.udec.util.CargadorDeImagenes;
+import org.udec.util.enumerations.BotonesUI;
 import org.udec.util.threads.HiloActualizadorEstado;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class PanelEstado extends JPanel {
 
@@ -13,6 +15,8 @@ public class PanelEstado extends JPanel {
     private HiloActualizadorEstado Actualizador;
     private Thread hiloActualizadorEstado;
     private final Font fuente = new Font("Comic Sans MS", Font.BOLD, 18);
+    private final BufferedImage estadoHerido = CargadorDeImagenes.cargarImagen("/interfaz/iconoIsHerido.png");
+    private final BufferedImage estadoQuiereJugar = CargadorDeImagenes.cargarImagen("/interfaz/iconoQuiereJugar.png");
 
     public PanelEstado(PanelEscenario panel, int x, int y) {
         setBounds(x, y, 260, 120);
@@ -107,11 +111,11 @@ public class PanelEstado extends JPanel {
 
 
             if (mascota.getEstado().isHerido()) {
-                g2d.drawImage(ImagenesUI.ICONO_ISHERIDO.getImagen(), 80, 64, 30, 30, this);
+                g2d.drawImage(estadoHerido, 80, 64, 30, 30, this);
             }
 
             if (mascota.getEstado().quiereJugar()) {
-                g2d.drawImage(ImagenesUI.ICONO_QUIEREJUGAR.getImagen(), 154, 64, 30, 30, this);
+                g2d.drawImage(estadoQuiereJugar, 154, 64, 30, 30, this);
             }
 
             g2d.dispose();

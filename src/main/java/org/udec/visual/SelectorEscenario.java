@@ -30,7 +30,6 @@ public class SelectorEscenario extends JDialog {
         add(buttonPanel, BorderLayout.CENTER);
 
         compraListener = (CompraListener) SwingUtilities.getWindowAncestor(panelEscenario);
-        System.out.println("CompraListener: " + compraListener);
 
         setResizable(false);
         setVisible(true);

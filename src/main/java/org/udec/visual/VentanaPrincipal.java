@@ -2,7 +2,7 @@ package org.udec.visual;
 
 import org.udec.util.Dinero;
 import org.udec.util.DineroNoSuficienteException;
-import org.udec.util.enumerations.ImagenesUI;
+import org.udec.util.enumerations.BotonesUI;
 import org.udec.visual.acciones.PanelAcciones;
 
 import javax.swing.*;
@@ -27,12 +27,12 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener, Compr
 
     // Panel que permite poner botones superpuestos a los paneles de escenario
     private JLayeredPane panelCapas;
-    private JButton botonIzquierda;
-    private JButton botonDerecha;
+    private JButtonAnimado botonIzquierda;
+    private JButtonAnimado botonDerecha;
 
     // Distintos componentes de la ventana
     private JLabel labelIndice;
-    private JButton botonTienda;
+    private JButtonAnimado botonTienda;
     private Dinero dinero;
     private JLabel labelDinero;
     private PanelAcciones panelAcciones;
@@ -43,6 +43,7 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener, Compr
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+
 
         panelCapas = new JLayeredPane();
         panelCapas.setPreferredSize(new Dimension(ANCHO, ALTO));
@@ -58,18 +59,10 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener, Compr
         addPanelToCardLayout(panelInicial);
 
         // Botones de navegación
-        botonIzquierda = new JButton(new ImageIcon(ImagenesUI.BOTON_IZQUIERDAGRANDE.getImagen()));
-        botonIzquierda.setContentAreaFilled(false);
-        botonIzquierda.setBorderPainted(false);
-        botonIzquierda.setBounds(20, ALTO / 2 - 40, 60, 40);
-        botonIzquierda.setFocusable(false);
-        botonIzquierda.addActionListener(e -> cambiarPanel(-1));
+        botonIzquierda = new JButtonAnimado(BotonesUI.BOTON_IZQUIERDAGRANDE.getImagen(), 20, ALTO / 2 - 40, 60, 40);
+        botonIzquierda.addActionListener(_ -> cambiarPanel(-1));
 
-        botonDerecha = new JButton(new ImageIcon(ImagenesUI.BOTON_DERECHAGRANDE.getImagen()));
-        botonDerecha.setContentAreaFilled(false);
-        botonDerecha.setBorderPainted(false);
-        botonDerecha.setBounds(ANCHO - 80, ALTO / 2 - 40, 60, 40);
-        botonDerecha.setFocusable(false);
+        botonDerecha = new JButtonAnimado(BotonesUI.BOTON_DERECHAGRANDE.getImagen(), ANCHO - 80, ALTO / 2 - 40, 60, 40);
         botonDerecha.addActionListener(e -> cambiarPanel(1));
 
 
@@ -90,11 +83,7 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener, Compr
 
 
         // Boton de tienda
-        botonTienda = new JButton(new ImageIcon(ImagenesUI.BOTON_TIENDA.getImagen()));
-        botonTienda.setContentAreaFilled(false);
-        botonTienda.setBorderPainted(false);
-        botonTienda.setBounds(20, ALTO - 80, 60, 60);
-        botonTienda.setFocusable(false);
+        botonTienda = new JButtonAnimado(BotonesUI.BOTON_TIENDA.getImagen(), 20, ALTO - 80, 60, 60);
         botonTienda.addActionListener(_ -> TiendaDialog.getInstance(this));
 
         // Panel de acciones

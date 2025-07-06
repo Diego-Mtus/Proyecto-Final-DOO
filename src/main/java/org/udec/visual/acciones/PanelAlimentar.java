@@ -3,7 +3,7 @@ package org.udec.visual.acciones;
 import org.udec.mascotas.Mascota;
 import org.udec.util.CargadorDeImagenes;
 import org.udec.util.enumerations.AlimentosEnum;
-import org.udec.util.enumerations.ImagenesUI;
+import org.udec.util.enumerations.BotonesUI;
 import org.udec.visual.PanelEscenario;
 import org.udec.visual.VentanaPrincipal;
 
@@ -44,7 +44,7 @@ public class PanelAlimentar extends JPanel {
         this.setLayout(null);
         this.setBounds(0, 0, VentanaPrincipal.ANCHO, VentanaPrincipal.ALTO);
 
-        botonIzquierda = new JButton(new ImageIcon(ImagenesUI.BOTON_IZQUIERDAGRANDE.getImagen()));
+        botonIzquierda = new JButton(BotonesUI.BOTON_IZQUIERDAGRANDE.getImagen());
         botonIzquierda.setContentAreaFilled(false);
         botonIzquierda.setBorderPainted(false);
         botonIzquierda.setBounds(VentanaPrincipal.ANCHO / 2 - 64, VentanaPrincipal.ALTO - 40, 40, 30);
@@ -52,7 +52,7 @@ public class PanelAlimentar extends JPanel {
         botonIzquierda.setVisible(alimentosDisponibles.size() > 1);
         this.add(botonIzquierda);
 
-        botonDerecha = new JButton(new ImageIcon(ImagenesUI.BOTON_DERECHAGRANDE.getImagen()));
+        botonDerecha = new JButton(BotonesUI.BOTON_DERECHAGRANDE.getImagen());
         botonDerecha.setContentAreaFilled(false);
         botonDerecha.setBorderPainted(false);
         botonDerecha.setBounds(VentanaPrincipal.ANCHO / 2 + 24, VentanaPrincipal.ALTO - 40, 40, 30);

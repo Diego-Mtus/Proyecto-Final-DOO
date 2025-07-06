@@ -1,6 +1,7 @@
 package org.udec.visual.acciones;
 
-import org.udec.util.enumerations.ImagenesUI;
+import org.udec.util.enumerations.BotonesUI;
+import org.udec.visual.JButtonAnimado;
 import org.udec.visual.PanelEscenario;
 import org.udec.visual.DineroObtenidoListener;
 import org.udec.visual.VentanaPrincipal;
@@ -64,17 +65,11 @@ public class PanelAcciones extends JPanel {
         cardPanel.add(panelJuegos, "3");
 
         // Flechas para cambiar de panel
-        JButton flechaIzquierda = new JButton(new ImageIcon(ImagenesUI.BOTON_IZQUIERDASMALL.getImagen()));
-        flechaIzquierda.setContentAreaFilled(false);
-        flechaIzquierda.setBorderPainted(false);
-        flechaIzquierda.setBounds(x, y + 40, 40, 40);
+        JButtonAnimado flechaIzquierda = new JButtonAnimado(BotonesUI.BOTON_IZQUIERDASMALL.getImagen(), x, y + 40, 40, 40);
         flechaIzquierda.addActionListener(e -> cambiarPanel(-1));
         this.add(flechaIzquierda);
 
-        JButton flechaDerecha = new JButton(new ImageIcon(ImagenesUI.BOTON_DERECHASMALL.getImagen()));
-        flechaDerecha.setContentAreaFilled(false);
-        flechaDerecha.setBorderPainted(false);
-        flechaDerecha.setBounds(x + 160, y + 40, 40, 40);
+        JButtonAnimado flechaDerecha = new JButtonAnimado(BotonesUI.BOTON_DERECHASMALL.getImagen(), x + 160, y + 40, 40, 40);
         flechaDerecha.addActionListener(e -> cambiarPanel(1));
         this.add(flechaDerecha);
 

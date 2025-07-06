@@ -2,12 +2,11 @@ package org.udec.util.enumerations;
 
 import org.udec.util.CargadorDeImagenes;
 
+import javax.swing.*;
 import java.awt.image.BufferedImage;
 
-public enum ImagenesUI {
+public enum BotonesUI {
 
-    ICONO_ISHERIDO("/interfaz/iconoIsHerido.png"),
-    ICONO_QUIEREJUGAR("/interfaz/iconoQuiereJugar.png"),
     BOTON_IZQUIERDAGRANDE("/interfaz/botonIzquierdaGrande.png"),
     BOTON_DERECHAGRANDE("/interfaz/botonDerechaGrande.png"),
     BOTON_IZQUIERDASMALL("/interfaz/botonIzquierdaSmall.png"),
@@ -15,13 +14,13 @@ public enum ImagenesUI {
     BOTON_COMPRARESCENARIO("/interfaz/botonComprarEscenario.png"),
     BOTON_TIENDA("/interfaz/botonTienda.png");
 
-    private final BufferedImage imagen;
+    private final ImageIcon imagen;
 
-    ImagenesUI(String ruta) {
-        this.imagen = CargadorDeImagenes.cargarImagen(ruta);
+    BotonesUI(String ruta) {
+        this.imagen = new ImageIcon(CargadorDeImagenes.cargarImagen(ruta));
     }
 
-    public BufferedImage getImagen() {
+    public ImageIcon getImagen() {
         return imagen;
     }
 }

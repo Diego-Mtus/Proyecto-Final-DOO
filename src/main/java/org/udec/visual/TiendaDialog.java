@@ -114,5 +114,4 @@ public class TiendaDialog extends JDialog {
         }
         return singletonTienda;
     }
-
 }
