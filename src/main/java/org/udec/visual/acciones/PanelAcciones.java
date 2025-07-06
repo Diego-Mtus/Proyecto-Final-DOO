@@ -1,6 +1,7 @@
 package org.udec.visual.acciones;
 
 import org.udec.visual.PanelEscenario;
+import org.udec.visual.DineroObtenidoListener;
 import org.udec.visual.VentanaPrincipal;
 
 import javax.swing.*;
@@ -92,6 +93,12 @@ public class PanelAcciones extends JPanel {
         this.panelAlimento.setMascotaActual(panelEscenario);
         this.panelMedicamento.setMascotaActual(panelEscenario);
         this.panelJuegos.setMascotaActual(panelEscenario);
+    }
+
+    public void setDineroObtenidoListenerJuegos(DineroObtenidoListener dineroObtenidoListener){
+        if(panelJuegos != null) {
+            panelJuegos.setDineroObtenidoListener(dineroObtenidoListener);
+        }
     }
 
     public void reiniciarPelota() {

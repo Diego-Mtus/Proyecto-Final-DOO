@@ -2,6 +2,7 @@ package org.udec.visual.acciones;
 
 import org.udec.mascotas.Mascota;
 import org.udec.visual.PanelEscenario;
+import org.udec.visual.DineroObtenidoListener;
 import org.udec.visual.VentanaPrincipal;
 
 import javax.swing.*;
@@ -10,6 +11,8 @@ public class PanelJuegos extends JPanel {
 
     private Mascota mascotaActual;
     private JButton botonJugar;
+
+    private DineroObtenidoListener dineroObtenidoListener;
 
     public PanelJuegos(){
         this.setLayout(null);
@@ -29,12 +32,15 @@ public class PanelJuegos extends JPanel {
         this.mascotaActual = panelEscenario.getEscenario().getMascotaActual();
     }
 
+    public void setDineroObtenidoListener(DineroObtenidoListener dineroObtenidoListener) {
+        this.dineroObtenidoListener = dineroObtenidoListener;
+    }
+
     private void jugar() {
         if (mascotaActual != null) {
             System.out.println("Jugando con la mascota: " + mascotaActual.getNombreAnimal());
-
             switch (mascotaActual.getTipo()) {
-                case COMUN -> System.out.println("Jugando con una mascota común.");
+                case COMUN -> new JuegoComun(mascotaActual.getImagenMascota(), this);
                 case ROEDOR -> System.out.println("Jugando con una mascota roedor.");
                 case VOLADOR -> System.out.println("Jugando con una mascota voladora.");
                 case ACUATICO -> System.out.println("Jugando con una mascota acuática.");
@@ -42,6 +48,22 @@ public class PanelJuegos extends JPanel {
 
         } else {
             JOptionPane.showMessageDialog(this, "No hay mascota seleccionada.");
+        }
+    }
+
+    void victoriaJuego(){
+        if (mascotaActual != null) {
+            mascotaActual.getEstado().addFelicidad(40);
+
+            dineroObtenidoListener.dineroObtenido(30);
+            repaint();
+        }
+    }
+
+    void derrotaJuego(){
+        if (mascotaActual != null) {
+            mascotaActual.getEstado().setSalud(mascotaActual.getEstado().verSalud() - 10);
+            repaint();
         }
     }
 

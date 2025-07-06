@@ -9,7 +9,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VentanaPrincipal extends JFrame implements EscenarioListener, CompraListener, AdopcionListener{
+public class VentanaPrincipal extends JFrame implements EscenarioListener, CompraListener, AdopcionListener, DineroObtenidoListener {
 
     public static final int ANCHO = 640;
     public static final int ALTO = 860;
@@ -92,6 +92,7 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener, Compr
 
         // Panel de acciones
         panelAcciones = PanelAcciones.getInstance(panelInicial, ANCHO / 2 - 100, ALTO - 140);
+        panelAcciones.setDineroObtenidoListenerJuegos(this);
 
         // Añadir componentes al layeredPane
         panelCapas.add(cardPanel, JLayeredPane.DEFAULT_LAYER);
@@ -185,5 +186,11 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener, Compr
         dinero.agregar(dineroObtenido);
         actualizarLabelDinero();
         panelAcciones.setVisible(false);
+    }
+
+    @Override
+    public void dineroObtenido(int dineroObtenido) {
+        dinero.agregar(dineroObtenido);
+        actualizarLabelDinero();
     }
 }

@@ -17,7 +17,7 @@ public class SelectorMascota extends JDialog {
 
     public SelectorMascota(PanelEscenario panelEscenario) {
         setTitle("Seleccionar mascota");
-        setSize(500, 500);
+        setSize(500, 200);
         setLocationRelativeTo(panelEscenario);
         setLayout(new BorderLayout());
         setModal(true);

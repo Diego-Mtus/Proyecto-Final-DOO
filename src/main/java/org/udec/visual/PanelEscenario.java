@@ -46,6 +46,8 @@ public class PanelEscenario extends JPanel {
         this.escenarioListener = escenarioListener;
     }
 
+
+
     public void setAdopcionListener(AdopcionListener adopcionListener) {
         this.adopcionListener = adopcionListener;
     }
