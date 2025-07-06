@@ -4,11 +4,11 @@ public enum MascotasEnum {
 
     // Nombre, Tipo, rutaImagen
     GATO( "Gato", TiposEnum.COMUN, 80,"/mascotas/gato.png", "/mascotas/gato.png", "/sonidos/gato.wav", "GatoFactory"),
-    PERRO( "Perro", TiposEnum.COMUN, 100,"/mascotas/perro.png", "/perro.png", "/sonidos/rand.wav", "PerroFactory"),
+    PERRO( "Perro", TiposEnum.COMUN, 100,"/mascotas/perro.png", "/perro.png", "/sonidos/perro.wav", "PerroFactory"),
     HAMSTER( "Hamster", TiposEnum.ROEDOR, 150,"/mascotas/hamster.png", "/mascotas/hamster.png", "/sonidos/hamster.wav", "HamsterFactory"),
     RATON( "Ratón", TiposEnum.ROEDOR, 120,"/mascotas/raton.png", "/mascotas/raton.png", "/sonidos/raton.wav", "RatonFactory"),
-    LORO( "Loro", TiposEnum.VOLADOR, 140,"/mascotas/loro.png", "/mascotas/loro.png", "/sonidos/loro.wav", "LoroFactory"),
-    GOLONDRINA( "Golondrina", TiposEnum.VOLADOR, 130,"/mascotas/golondrina.png", "/mascotas/golondrina.png", "/sonidos/golondrina.wav", "GolondrinaFactory"),
+    LORO( "Loro", TiposEnum.VOLADOR, 140,"/mascotas/loro.png", "/mascotas/loro.png", "/sonidos/pajaro.wav", "LoroFactory"),
+    GOLONDRINA( "Golondrina", TiposEnum.VOLADOR, 130,"/mascotas/golondrina.png", "/mascotas/golondrina.png", "/sonidos/pajaro.wav", "GolondrinaFactory"),
     PEZDORADO( "Pez dorado", TiposEnum.ACUATICO, 100,"/mascotas/pezdorado.png", "/mascotas/pezdorado.png", "/sonidos/pez.wav", "PezDoradoFactory"),
     PEZPAYASO( "Pez payaso", TiposEnum.ACUATICO, 90,"/mascotas/pezpayaso.png", "/mascotas/pezPayaso.png", "/sonidos/pez.wav", "PezPayasoFactory");
 

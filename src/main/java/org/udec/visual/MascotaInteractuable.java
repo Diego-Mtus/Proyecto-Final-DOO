@@ -5,7 +5,7 @@ import org.udec.util.GestionDeSonido;
 
 import javax.sound.sampled.Clip;
 import javax.swing.*;
-
+import java.util.Random;
 
 
 public class MascotaInteractuable extends JButton {
@@ -13,6 +13,8 @@ public class MascotaInteractuable extends JButton {
     private ImageIcon imagenMascota;
 
     private Clip sonidoMascota;
+    private final Clip sonidoEasterEgg = GestionDeSonido.cargarClip("/sonidos/easteregg.wav");
+
     private PanelEscenario panelEscenario;
 
     // Variables para animación
@@ -67,7 +69,13 @@ public class MascotaInteractuable extends JButton {
 
     private void interactuar() {
         if (sonidoMascota != null) {
+            Random random = new Random();
+            if (random.nextInt(100) < 2) { // 2% de probabilidad de sonar el easter egg
+                GestionDeSonido.reproducirClipEnHilo(sonidoEasterEgg);
+            }
+            else{
             GestionDeSonido.reproducirClipEnHilo(sonidoMascota);
+            }
         }
     }
 

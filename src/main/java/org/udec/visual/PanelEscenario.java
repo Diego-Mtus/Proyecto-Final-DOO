@@ -37,7 +37,7 @@ public class PanelEscenario extends JPanel {
         botonInicializarEscenario = new BotonInicializarEscenario(this, VentanaPrincipal.ANCHO / 2 - 120, VentanaPrincipal.ALTO / 2 - 60);
         botonAdoptarMascota = new BotonAdoptarMascota(this, VentanaPrincipal.ANCHO / 2 - 100, VentanaPrincipal.ALTO / 2 - 50);
         panelEstado = new PanelEstado(this, VentanaPrincipal.ANCHO / 2 - 130, 6);
-        botonVenderMascota = new BotonVenderMascota(this, VentanaPrincipal.ANCHO - 70, VentanaPrincipal.ALTO - 140);
+        botonVenderMascota = new BotonVenderMascota(this, VentanaPrincipal.ANCHO - 70, VentanaPrincipal.ALTO - 160);
         crearMascotaInteractuable();
 
     }
@@ -130,6 +130,8 @@ public class PanelEscenario extends JPanel {
         if (hiloComprador != null && hiloComprador.isAlive()) {
             hiloComprador.interrupt();
         }
+
+        botonVenderMascota.setVisible(false);
 
     }
 

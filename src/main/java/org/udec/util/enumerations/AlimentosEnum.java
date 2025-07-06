@@ -1,7 +1,9 @@
 package org.udec.util.enumerations;
 
 import org.udec.mascotas.Mascota;
+import org.udec.util.GestionDeSonido;
 
+import javax.sound.sampled.Clip;
 import java.util.Objects;
 
 public enum AlimentosEnum implements ProductosEnum{
@@ -20,6 +22,7 @@ public enum AlimentosEnum implements ProductosEnum{
     private final String rutaImagen;
     private final int precio;
     private int inventario = 0;
+    private final Clip clipComer = GestionDeSonido.cargarClip("/sonidos/comer.wav");
 
     AlimentosEnum(String nombre, MascotasEnum paraQueMascota, String rutaImagen, int precio) {
         this.nombre = nombre;
@@ -61,6 +64,8 @@ public enum AlimentosEnum implements ProductosEnum{
             mascota.getEstado().addHambre(5);
             mascota.getEstado().setSalud(mascota.getEstado().verSalud() - 5);
         }
+        GestionDeSonido.reproducirClipEnHilo(clipComer);
+
     }
 
 }
