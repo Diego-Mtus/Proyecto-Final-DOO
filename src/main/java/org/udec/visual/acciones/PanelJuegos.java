@@ -54,7 +54,7 @@ public class PanelJuegos extends JPanel {
     void victoriaJuego(){
         if (mascotaActual != null) {
             mascotaActual.getEstado().addFelicidad(40);
-
+            mascotaActual.getEstado().setQuiereJugar(false);
             dineroObtenidoListener.dineroObtenido(30);
             repaint();
         }
@@ -63,6 +63,8 @@ public class PanelJuegos extends JPanel {
     void derrotaJuego(){
         if (mascotaActual != null) {
             mascotaActual.getEstado().setSalud(mascotaActual.getEstado().verSalud() - 10);
+            mascotaActual.getEstado().setQuiereJugar(false);
+            mascotaActual.getEstado().setHerido(true);
             repaint();
         }
     }

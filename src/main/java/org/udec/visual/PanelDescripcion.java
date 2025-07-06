@@ -40,10 +40,17 @@ public class PanelDescripcion extends JPanel {
     }
 
     public void actualizarDescripcion(ProductosEnum item) {
-        descripcionString = item.getNombre() + "\nPara "
-                + Arrays.stream(item.getParaQueMascota()).map(MascotasEnum::getNombre).collect(Collectors.joining(", "))
-                + "\n$" + item.getPrecio()
-                + "\nActualmente tienes: " + item.getInventario();
+
+        if(item.getParaQueMascota() == null){
+            descripcionString = item.getNombre() + "\nPara todos los animales"
+                    + "\n$" + item.getPrecio()
+                    + "\nActualmente tienes: " + item.getInventario();
+        } else {
+            descripcionString = item.getNombre() + "\nPara "
+                    + Arrays.stream(item.getParaQueMascota()).map(MascotasEnum::getNombre).collect(Collectors.joining(", "))
+                    + "\n$" + item.getPrecio()
+                    + "\nActualmente tienes: " + item.getInventario();
+        }
         ultimoProductoSeleccionado = item;
         botonComprar.setVisible(true);
         repaint();

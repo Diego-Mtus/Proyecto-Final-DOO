@@ -8,6 +8,8 @@ public class Estado {
     private volatile int salud;
     private volatile int hambre;
     private volatile int felicidad;
+    private volatile boolean isHerido = false;
+    private volatile boolean quiereJugar = true;
 
     private int decrementoHambre;
     private int decrementoSalud;
@@ -90,6 +92,22 @@ public class Estado {
 
     public int getDecrementoFelicidad() {
         return decrementoFelicidad;
+    }
+
+    public boolean isHerido() {
+        return isHerido;
+    }
+
+    public void setHerido(boolean herido) {
+        isHerido = herido;
+    }
+
+    public boolean quiereJugar() {
+        return quiereJugar;
+    }
+
+    public void setQuiereJugar(boolean quiereJugar) {
+        this.quiereJugar = quiereJugar;
     }
 }
 

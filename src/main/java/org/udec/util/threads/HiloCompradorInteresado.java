@@ -39,7 +39,11 @@ public class HiloCompradorInteresado implements Runnable{
 
                 synchronized (mascota.getEstado()){
                     // Si la mascota tiene todos los estados por sobre 85, se cumple un intervalo
-                    if(mascota.getEstado().verHambre() > ESTADO_MASCOTA_ESPERADO && mascota.getEstado().verSalud() > ESTADO_MASCOTA_ESPERADO && mascota.getEstado().verFelicidad() > ESTADO_MASCOTA_ESPERADO){
+                    if(mascota.getEstado().verHambre() > ESTADO_MASCOTA_ESPERADO
+                            && mascota.getEstado().verSalud() > ESTADO_MASCOTA_ESPERADO
+                            && mascota.getEstado().verFelicidad() > ESTADO_MASCOTA_ESPERADO
+                            && !mascota.getEstado().isHerido() && !mascota.getEstado().quiereJugar()){
+
                         intervalosActuales++;
                         System.out.println("Invervalo cumplido satisfactoriamente");
                     }

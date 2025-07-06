@@ -10,7 +10,7 @@ public enum MedicinasEnum implements ProductosEnum{
     MEDICINA_COMUN("Medicamento para mascotas comúnes", TiposEnum.COMUN.mascotasCompatibles().toArray(new MascotasEnum[0]), "/mascotas/pezpayaso.png", 5),
     MEDICINA_ROEDOR("Medicamento para roedores", TiposEnum.ROEDOR.mascotasCompatibles().toArray(new MascotasEnum[0]), "/mascotas/pezpayaso.png", 5),
     MEDICINA_PECES("Medicamento para peces", TiposEnum.ACUATICO.mascotasCompatibles().toArray(new MascotasEnum[0]), "/mascotas/pezpayaso.png", 5),
-    CURITA_HERIDAS("Curita para heridas", TiposEnum.COMUN.mascotasCompatibles().toArray(new MascotasEnum[0]), "/mascotas/pezpayaso.png", 2);
+    CURITA_HERIDAS("Curita para heridas", null, "/mascotas/pezpayaso.png", 2);
 
     private final String nombre;
     private final MascotasEnum[] paraQueMascota;
@@ -51,7 +51,7 @@ public enum MedicinasEnum implements ProductosEnum{
 
     public void curar(Mascota mascota){
         if(this == CURITA_HERIDAS){
-            // Curita solo cura heridas hecha por juegos
+            mascota.getEstado().setHerido(false);
             return;
         }
         else{

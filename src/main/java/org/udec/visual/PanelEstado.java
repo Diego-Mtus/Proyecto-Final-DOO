@@ -1,6 +1,7 @@
 package org.udec.visual;
 
 import org.udec.mascotas.Mascota;
+import org.udec.util.enumerations.ImagenesUI;
 import org.udec.util.threads.HiloActualizadorEstado;
 
 import javax.swing.*;
@@ -19,6 +20,7 @@ public class PanelEstado extends JPanel {
         setOpaque(false);
         setFocusable(false);
         panel.add(this);
+
     }
 
     public void inicializarEstado(Mascota mascota){
@@ -99,6 +101,15 @@ public class PanelEstado extends JPanel {
             dibujarBarraEstado(g, mascota.getEstado().verHambre(), "Hambre", 44, fontMetrics.getHeight() + 32);
             dibujarBarraEstado(g, mascota.getEstado().verSalud(), "Salud", 124, fontMetrics.getHeight() + 32);
             dibujarBarraEstado(g, mascota.getEstado().verFelicidad(), "Felicidad", 204, fontMetrics.getHeight() + 32);
+
+
+            if (mascota.getEstado().isHerido()) {
+                g2d.drawImage(ImagenesUI.ICONO_ISHERIDO.getImagen(), 80, 64, 30, 30, this);
+            }
+
+            if (mascota.getEstado().quiereJugar()) {
+                g2d.drawImage(ImagenesUI.ICONO_QUIEREJUGAR.getImagen(), 154, 64, 30, 30, this);
+            }
 
             g2d.dispose();
         }
