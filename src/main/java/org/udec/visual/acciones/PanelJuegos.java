@@ -40,9 +40,9 @@ public class PanelJuegos extends JPanel {
         if (mascotaActual != null) {
             System.out.println("Jugando con la mascota: " + mascotaActual.getNombreAnimal());
             switch (mascotaActual.getTipo()) {
-                case COMUN -> new JuegoComun(mascotaActual.getImagenMascota(), this);
+                case COMUN -> SwingUtilities.invokeLater(() ->  new JuegoComun(mascotaActual.getImagenMascota(), this));
                 case ROEDOR -> System.out.println("Jugando con una mascota roedor.");
-                case VOLADOR -> System.out.println("Jugando con una mascota voladora.");
+                case VOLADOR -> SwingUtilities.invokeLater(() -> new JuegoVolador(mascotaActual.getImagenMascota(), this));
                 case ACUATICO -> System.out.println("Jugando con una mascota acuática.");
             }
 
@@ -51,11 +51,11 @@ public class PanelJuegos extends JPanel {
         }
     }
 
-    void victoriaJuego(){
+    void victoriaJuego(int dineroObtenido){
         if (mascotaActual != null) {
             mascotaActual.getEstado().addFelicidad(40);
             mascotaActual.getEstado().setQuiereJugar(false);
-            dineroObtenidoListener.dineroObtenido(30);
+            dineroObtenidoListener.dineroObtenido(dineroObtenido);
             repaint();
         }
     }

@@ -26,16 +26,18 @@ public class JuegoComun extends JPanel implements ActionListener, KeyListener {
     private int mascotaVelY = 0;
     private boolean jumping = false;
 
+    // Obstáculo
     private int obstaculoX = 800; // Posición inicial del obstáculo
     private int anchoObstaculo = 20;
     private int altoObstaculo = 40;
 
+    // Variables de estado
     private boolean mainMenu = true; // Indica si estamos en el menú principal
     private boolean gameOver = false;
     private boolean gameWon = false;
+    private int puntos = 0;
 
     private int velObstaculo = 8; // Velocidad inicial de obstáculo
-    private int puntos = 0;
     private final int MAX_VEL = 20; // Velocidad máxima del obstáculo
     private final int PUNTOS_WIN = 30; // Puntos necesarios para ganar el juego
 
@@ -144,7 +146,7 @@ public class JuegoComun extends JPanel implements ActionListener, KeyListener {
             if(puntos == PUNTOS_WIN){
                 gameWon = true;
                 timer.stop();
-                panelJuegos.victoriaJuego();
+                panelJuegos.victoriaJuego(35); // Gana $35
             }
 
             // Aumentar velocidad gradualmente

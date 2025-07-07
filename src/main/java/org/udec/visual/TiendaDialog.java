@@ -61,7 +61,6 @@ public class TiendaDialog extends JDialog {
             }
         });
 
-        setVisible(true);
     }
 
     // Se hizo así pensando en que se pueden agregar más productos a futuro.

@@ -44,7 +44,6 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener, Compr
         this.setResizable(false);
         this.setLocationRelativeTo(null);
 
-
         panelCapas = new JLayeredPane();
         panelCapas.setPreferredSize(new Dimension(ANCHO, ALTO));
         panelCapas.setLayout(null);
@@ -103,6 +102,7 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener, Compr
         this.pack();
         this.setVisible(true);
 
+        TiendaDialog.getInstance(this); // Inicializar la tienda para que esté lista al abrir la ventana
     }
 
     // Métod o auxiliar para añadir paneles y mantener el contador
