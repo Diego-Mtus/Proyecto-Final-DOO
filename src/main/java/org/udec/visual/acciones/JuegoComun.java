@@ -1,6 +1,8 @@
 package org.udec.visual.acciones;
 
 
+import org.udec.util.CargadorDeImagenes;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,6 +20,9 @@ public class JuegoComun extends JPanel implements ActionListener, KeyListener {
     private JDialog ventanaJuego;
     private PanelJuegos panelJuegos;
 
+    private final int ANCHO = 800;
+    private final int ALTO = 400;
+
     private final BufferedImage imagenMascota;
     private final Font fuente = new Font("Arial", Font.BOLD, 20);
 
@@ -29,9 +34,17 @@ public class JuegoComun extends JPanel implements ActionListener, KeyListener {
     private final int MASCOTA_SIZE = 40; // Tamaño de la mascota
 
     // Obstáculo
+    private final BufferedImage IMAGEN_OBSTACULO = CargadorDeImagenes.cargarImagen("/juegos/obstaculoComun.png");
     private int obstaculoX = 800; // Posición inicial del obstáculo
-    private int anchoObstaculo = 20;
+    private final int ANCHO_OBSTACULO = 20;
     private int altoObstaculo = 40;
+
+    // Imagen del piso
+    private final BufferedImage IMAGEN_PISO = CargadorDeImagenes.cargarImagen("/juegos/pisoComun.png");
+    private int pisoOffset = 0;
+
+    // Imagen del fondo
+    private final BufferedImage IMAGEN_FONDO = CargadorDeImagenes.cargarImagen("/juegos/fondoComun.png");
 
     // Variables de estado
     private boolean mainMenu = true; // Indica si estamos en el menú principal
@@ -49,9 +62,9 @@ public class JuegoComun extends JPanel implements ActionListener, KeyListener {
         ventanaJuego.setContentPane(this);
         ventanaJuego.setLayout(null);
         ventanaJuego.setResizable(false);
-        ventanaJuego.setTitle("Juego común");
+        ventanaJuego.setTitle("Juego común: salta los obstáculos");
         ventanaJuego.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        ventanaJuego.setSize(800, 400);
+        ventanaJuego.setSize(ANCHO, ALTO);
         ventanaJuego.setLocationRelativeTo(null);
 
         this.panelJuegos = panelJuegos;
@@ -76,16 +89,17 @@ public class JuegoComun extends JPanel implements ActionListener, KeyListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        // Dibujar fondo
-        g.setColor(Color.cyan);
-        g.fillRect(0, 0, getWidth(), getHeight());
-
-        // Dibujar suelo
-        g.setColor(Color.green);
-        g.fillRect(0, 300, getWidth(), 100);
-
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        // Dibujar fondo
+        g2d.drawImage(IMAGEN_FONDO, 0, 0, ANCHO, ALTO - 100, this);
+
+        // Dibujar piso con desplazamiento
+       for(int x = -pisoOffset; x < ANCHO; x += IMAGEN_PISO.getWidth()) {
+            g.drawImage(IMAGEN_PISO, x, 300, this);
+        }
+
         g2d.setColor(Color.BLACK);
         g2d.setFont(fuente);
 
@@ -123,8 +137,10 @@ public class JuegoComun extends JPanel implements ActionListener, KeyListener {
         }
 
         // Dibujar obstáculo
-        g.setColor(Color.BLACK);
-        g.fillRect(obstaculoX, 300 - altoObstaculo, anchoObstaculo, altoObstaculo);
+        g2d.drawImage(IMAGEN_OBSTACULO, obstaculoX, 316 - altoObstaculo, // Esquina superior izquierda destino
+                obstaculoX + ANCHO_OBSTACULO, 316, // Esquina inferior derecha destino
+                0, 0 // Esquina superior izquierda de la imagen original
+                ,ANCHO_OBSTACULO, altoObstaculo, this); // Parte cortada de acuerdo al tamaño del obstáculo
 
         // Dibujar puntos
         g2d.drawString("Puntos: " + puntos, 10, 20);
@@ -156,10 +172,10 @@ public class JuegoComun extends JPanel implements ActionListener, KeyListener {
 
         // ====== Movimiento de obstáculo ======
         obstaculoX -= velObstaculo;
-        if(obstaculoX + anchoObstaculo < 0){
+        if(obstaculoX + ANCHO_OBSTACULO < 0){
             // Reiniciar obstáculo
-            obstaculoX = getWidth();
-            altoObstaculo = 30 + (int)(Math.random() * 50); // Altura aleatoria entre 30 y 80
+            obstaculoX = ANCHO;
+            altoObstaculo = 40 + (int)(Math.random() * 50); // Altura aleatoria entre 40 y 90
 
             puntos++;
 
@@ -179,17 +195,23 @@ public class JuegoComun extends JPanel implements ActionListener, KeyListener {
 
         mascotaY += mascotaVelY;
 
-        if(mascotaY >= 260){
-            mascotaY = 260; // Asegurarse de que la mascota no caiga por debajo del suelo
+        if(mascotaY >= 270){
+            mascotaY = 270; // Asegurarse de que la mascota no caiga por debajo del suelo
             mascotaVelY = 0; // Detener la caída
             jumping = false;
         } else {
             mascotaVelY += 1; // Gravedad
         }
 
+        // Movimiento del piso
+        pisoOffset += velObstaculo;
+        if(pisoOffset >= IMAGEN_PISO.getWidth()) {
+            pisoOffset = 0; // Reiniciar el offset del piso
+        }
+
         // ====== Colisión con obstáculo ======
 
-        if(new Rectangle(100, mascotaY, 30, 30).intersects(new Rectangle(obstaculoX, 300 - altoObstaculo, anchoObstaculo, altoObstaculo))) {
+        if(new Rectangle(100, mascotaY, 30, 30).intersects(new Rectangle(obstaculoX, 310 - altoObstaculo, ANCHO_OBSTACULO, altoObstaculo))) {
             // Colisión detectada
             gameOver = true;
             timer.stop();
