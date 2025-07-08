@@ -2,6 +2,7 @@ package org.udec.visual;
 
 import org.udec.util.DineroNoSuficienteException;
 import org.udec.util.enumerations.TiposEnum;
+import org.udec.visual.listeners.CompraListener;
 
 import javax.swing.*;
 import java.awt.*;

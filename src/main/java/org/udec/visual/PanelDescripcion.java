@@ -4,13 +4,12 @@ package org.udec.visual;
 import org.udec.util.DineroNoSuficienteException;
 import org.udec.util.enumerations.MascotasEnum;
 import org.udec.util.enumerations.ProductosEnum;
+import org.udec.visual.listeners.CompraListener;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
 import java.util.stream.Collectors;
-
-import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
 
 public class PanelDescripcion extends JPanel {
 

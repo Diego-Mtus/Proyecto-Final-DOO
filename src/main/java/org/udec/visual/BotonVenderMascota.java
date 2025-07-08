@@ -11,7 +11,7 @@ public class BotonVenderMascota extends JButton{
         super("Vender Mascota");
         setBounds(x, y, 50, 140);
         setFocusable(false);
-        setVisible(true);
+        setVisible(false);
 
         panelEscenario.add(this);
 

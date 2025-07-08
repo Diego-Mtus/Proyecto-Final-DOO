@@ -84,7 +84,7 @@ public class JuegoVolador extends JPanel implements ActionListener, KeyListener 
         g.setColor(Color.CYAN);
         g.fillRect(0, 0, getWidth(), getHeight());
 
-        // Dibujar mascota con rotación;
+        // Dibujar mascota con rotación
         Graphics2D g2d = (Graphics2D) g;
         dibujarMascota(g2d);
 

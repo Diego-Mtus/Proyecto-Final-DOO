@@ -1,4 +1,4 @@
-package org.udec.visual;
+package org.udec.visual.listeners;
 
 import org.udec.util.DineroNoSuficienteException;
 

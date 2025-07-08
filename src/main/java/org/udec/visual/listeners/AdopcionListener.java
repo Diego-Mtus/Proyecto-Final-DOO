@@ -1,5 +1,7 @@
-package org.udec.visual;
+package org.udec.visual.listeners;
 
+
+import org.udec.visual.PanelEscenario;
 
 public interface AdopcionListener {
     void adopcionRealizada(PanelEscenario panelEscenario);

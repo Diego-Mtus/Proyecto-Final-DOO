@@ -5,6 +5,8 @@ import org.udec.mascotas.*;
 import org.udec.util.*;
 import org.udec.util.enumerations.TiposEnum;
 import org.udec.util.threads.*;
+import org.udec.visual.listeners.AdopcionListener;
+import org.udec.visual.listeners.EscenarioListener;
 
 import javax.swing.*;
 import java.awt.*;
