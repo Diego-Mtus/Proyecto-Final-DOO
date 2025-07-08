@@ -24,14 +24,13 @@ public class MascotaInteractuable extends JButton {
     private ImageIcon imagenGrandeMascota;
     private int anchoOriginal;
     private int altoOriginal;
+    private int xOriginal;
+    private int yOriginal;
 
-    public MascotaInteractuable(PanelEscenario panelEscenario, int x, int y, int ancho, int alto) {
+    public MascotaInteractuable(PanelEscenario panelEscenario) {
         super();
         this.panelEscenario = panelEscenario;
-        this.anchoOriginal = ancho;
-        this.altoOriginal = alto;
 
-        this.setBounds(x, y, ancho, alto);
         this.setVisible(false);
         this.setBorderPainted(false);
         this.setContentAreaFilled(false);
@@ -50,6 +49,12 @@ public class MascotaInteractuable extends JButton {
     public void setMascota(Mascota mascota) {
         this.imagenMascota = new ImageIcon(mascota.getImagenMascota());
 
+        this.anchoOriginal = imagenMascota.getIconWidth();
+        this.altoOriginal = imagenMascota.getIconHeight();
+        this.xOriginal = (VentanaPrincipal.ANCHO - anchoOriginal) / 2;
+        this.yOriginal = (VentanaPrincipal.ALTO - altoOriginal) / 2;
+        this.setBounds(xOriginal, yOriginal, anchoOriginal, altoOriginal);
+
         this.imagenGrandeMascota = new ImageIcon(
                 imagenMascota.getImage().getScaledInstance(anchoOriginal + CRECIMIENTO, altoOriginal + CRECIMIENTO, java.awt.Image.SCALE_SMOOTH)
         );
@@ -58,6 +63,10 @@ public class MascotaInteractuable extends JButton {
         this.setIcon(this.imagenMascota);
         this.setEnabled(true);
         this.setVisible(true);
+    }
+
+    public int[] getPosicionMascota() {
+        return new int[]{xOriginal, yOriginal, xOriginal + anchoOriginal, altoOriginal + yOriginal};
     }
 
     public void removerMascota() {
@@ -84,7 +93,7 @@ public class MascotaInteractuable extends JButton {
     private void animarMascota() {
         setIcon(imagenGrandeMascota); // Cambia el icono a la versión grande
         setSize(anchoOriginal + CRECIMIENTO, altoOriginal + CRECIMIENTO);
-        setLocation(getX() - CRECIMIENTO / 2, getY() - CRECIMIENTO / 2);
+        setLocation(xOriginal - CRECIMIENTO / 2, yOriginal - CRECIMIENTO / 2);
 
         Timer timer = new Timer(TIEMPO_ANIMACION_MS, e -> restaurarMascota());
         timer.setRepeats(false);
@@ -93,8 +102,8 @@ public class MascotaInteractuable extends JButton {
 
     private void restaurarMascota(){
         setIcon(imagenMascota); // Restaura el icono original
-        setSize(anchoOriginal, anchoOriginal);
-        setLocation(getX() + CRECIMIENTO / 2, getY() + CRECIMIENTO / 2);
+        setSize(anchoOriginal, altoOriginal);
+        setLocation(xOriginal, yOriginal);
     }
 
 }

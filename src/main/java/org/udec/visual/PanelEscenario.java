@@ -60,7 +60,7 @@ public class PanelEscenario extends JPanel {
     }
 
     private void crearMascotaInteractuable() {
-        this.mascotaInteractuable = new MascotaInteractuable(this, VentanaPrincipal.ANCHO / 2 - 150, VentanaPrincipal.ALTO / 2 - 150, 300, 300);
+        this.mascotaInteractuable = new MascotaInteractuable(this);
         this.add(mascotaInteractuable);
     }
 
@@ -81,6 +81,13 @@ public class PanelEscenario extends JPanel {
 
     public Escenario getEscenario() {
         return escenario;
+    }
+
+    public int[] getPosicionMascota() {
+        if (mascota != null) {
+            return mascotaInteractuable.getPosicionMascota();
+        }
+        return new int[]{0, 0, 0, 0};
     }
 
     public void establecerEscenario(TiposEnum escenarioTipo) {

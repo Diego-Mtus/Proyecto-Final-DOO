@@ -1,6 +1,5 @@
 package org.udec.visual;
 
-import org.udec.util.DineroNoSuficienteException;
 import org.udec.util.enumerations.TiposEnum;
 import org.udec.visual.comandos.Command;
 import org.udec.visual.comandos.SelecionarEscenarioCommand;
@@ -12,7 +11,7 @@ import java.awt.*;
 public class SelectorEscenario extends JDialog {
 
     private TiposEnum escenarioSeleccionado = null;
-    private CompraListener compraListener;
+    private final CompraListener compraListener;
 
     private final int ANCHO = 300;
     private final int ALTO = 200;

@@ -31,10 +31,7 @@ public class PanelAlimentar extends JPanel {
     private JButton botonIzquierda;
     private JButton botonDerecha;
 
-    // Posicion de la mascota
-    private final int mascotaPosX = VentanaPrincipal.ANCHO / 2 - 150;
-    private final int mascotaPosY = VentanaPrincipal.ALTO / 2 - 150;
-    private final int mascotaSize = 300;
+    private int[] posicionMascota; // x, y, x + ancho, y + alto
 
     private Font fuente = new Font("Arial", Font.BOLD, 14);
     private int mouseX, mouseY;
@@ -68,8 +65,10 @@ public class PanelAlimentar extends JPanel {
                 if (alimentosDisponibles.isEmpty()) return;
                 int centerX = comidaX + comidaRadio;
                 int centerY = comidaY + comidaRadio;
+
                 int distanciaCuadrado = (e.getX() - centerX) * (e.getX() - centerX)
                         + (e.getY() - centerY) * (e.getY() - centerY);
+
 
                 if(distanciaCuadrado <= comidaRadio * comidaRadio) {
                     isDragging = true;
@@ -82,8 +81,8 @@ public class PanelAlimentar extends JPanel {
             public void mouseReleased(MouseEvent e) {
                 if (alimentosDisponibles.isEmpty()) return;
                 if(isDragging){
-                    if(e.getX() >= mascotaPosX && e.getX() <= mascotaPosX + mascotaSize &&
-                            e.getY() >= mascotaPosY && e.getY() <= mascotaPosY + mascotaSize) {
+                    if(e.getX() >= posicionMascota[0] && e.getX() <= posicionMascota[2] &&
+                            e.getY() >= posicionMascota[1] && e.getY() <= posicionMascota[3]) {
                         System.out.println("Alimentando "+ alimentosDisponibles.get(indiceComida).getNombre() + " a la mascota en: " + mouseX + ", " + mouseY);
                         if (mascotaActual != null) {
                             alimentosDisponibles.get(indiceComida).alimentar(mascotaActual);
@@ -127,6 +126,7 @@ public class PanelAlimentar extends JPanel {
 
     public void setMascotaActual(PanelEscenario panelEscenario){
         this.mascotaActual = panelEscenario.getEscenario().getMascotaActual();
+        this.posicionMascota = panelEscenario.getPosicionMascota();
     }
 
     public void actualizarListaAlimentos() {
