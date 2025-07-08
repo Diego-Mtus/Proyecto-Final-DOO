@@ -12,53 +12,58 @@ public class SelectorEscenario extends JDialog {
     private TiposEnum escenarioSeleccionado = null;
     private CompraListener compraListener;
 
+    private final int ANCHO = 300;
+    private final int ALTO = 200;
+    private final int FILAS = 2;
+    private final int COLUMNAS = 2;
+
     public SelectorEscenario(PanelEscenario panelEscenario) {
         setTitle("Seleccionar Escenario");
-        setSize(300, 200);
+        setSize(ANCHO, ALTO);
         setLocationRelativeTo(panelEscenario);
-        setLayout(new BorderLayout());
         setModal(true);
+        setResizable(false);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
+        compraListener = (CompraListener) SwingUtilities.getWindowAncestor(panelEscenario);
+
+        setLayout(new BorderLayout());
         JLabel label = new JLabel("Seleccione un escenario:");
         label.setHorizontalAlignment(SwingConstants.CENTER);
         add(label, BorderLayout.NORTH);
 
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(2, 2));
-
-        crearBotonesDeEscenario(buttonPanel);
-
+        JPanel buttonPanel  = crearPanelBotones();
         add(buttonPanel, BorderLayout.CENTER);
 
-        compraListener = (CompraListener) SwingUtilities.getWindowAncestor(panelEscenario);
-
-        setResizable(false);
         setVisible(true);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }
+
+    private JPanel crearPanelBotones() {
+        JPanel buttonPanel = new JPanel(new GridLayout(FILAS, COLUMNAS));
+        for (TiposEnum tipo : TiposEnum.values()){
+            buttonPanel.add(crearBotonesDeEscenario(tipo));
+        }
+        return buttonPanel;
+    }
+
+
+    private JButton crearBotonesDeEscenario(TiposEnum tipo) {
+        JButton button = new JButton(tipo.getNombreEscenario() + " - $" + tipo.getPrecioEscenario());
+        button.setFocusable(false);
+        button.addActionListener(e -> {
+            try {
+                compraListener.comprar(tipo.getPrecioEscenario());
+                escenarioSeleccionado = tipo;
+                dispose();
+            } catch (DineroNoSuficienteException ex) {
+                JOptionPane.showMessageDialog(this, "Dinero insuficiente para comprar este escenario.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+        return button;
     }
 
     public TiposEnum getEscenarioSeleccionado() {
         return escenarioSeleccionado;
-    }
-
-    private void crearBotonesDeEscenario(JPanel buttonPanel) {
-        for(TiposEnum tipo : TiposEnum.values()) {
-            JButton button = new JButton();
-            button.setText(tipo.getNombreEscenario() + " - $" + tipo.getPrecioEscenario());
-            button.addActionListener(e -> {
-                if (compraListener != null) {
-                    try {
-                        compraListener.comprar(tipo.getPrecioEscenario());
-                        escenarioSeleccionado = tipo;
-                        dispose();
-                    } catch (DineroNoSuficienteException ex) {
-                        JOptionPane.showMessageDialog((Component) compraListener, "No tienes suficiente dinero para comprar este escenario.", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                }
-            });
-            button.setFocusable(false);
-            buttonPanel.add(button);
-        }
     }
 
 }

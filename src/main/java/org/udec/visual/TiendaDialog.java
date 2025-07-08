@@ -1,5 +1,6 @@
 package org.udec.visual;
 
+import org.jetbrains.annotations.NotNull;
 import org.udec.util.CargadorDeImagenes;
 import org.udec.util.enumerations.AlimentosEnum;
 import org.udec.util.enumerations.MedicinasEnum;
@@ -17,6 +18,10 @@ public class TiendaDialog extends JDialog {
 
     private static TiendaDialog singletonTienda;
     private final PanelDescripcion panelDescripcion;
+
+    private final int COLUMNAS = 3;
+    private final int TAM_BOTON = 100;
+    private final int ESPACIO = 20;
 
     private TiendaDialog(JFrame parent) {
         super(parent, "Tienda", true);
@@ -67,31 +72,15 @@ public class TiendaDialog extends JDialog {
     // Se hizo así pensando en que se pueden agregar más productos a futuro.
     private JScrollPane crearPanelCategoria(ProductosEnum[] items) {
         JPanel panel = new JPanel(null);
-        int columnas = 3;
-        int widthHeightBoton = 100; // Ancho de los botones
-        int espacio = 20;
-        int filas = (int) Math.ceil(items.length / (double) columnas);
-        int panelWidth = columnas * (widthHeightBoton + espacio) + espacio;
-        int panelHeight = filas * (widthHeightBoton + espacio) + espacio;
+
+        int filas = (int) Math.ceil(items.length / (double) COLUMNAS);
+        int panelWidth = COLUMNAS * (TAM_BOTON + ESPACIO) + ESPACIO;
+        int panelHeight = filas * (TAM_BOTON + ESPACIO) + ESPACIO;
         panel.setPreferredSize(new Dimension(panelWidth, panelHeight));
 
         for (int i = 0; i < items.length; i++) {
             ProductosEnum prod = items[i];
-            JButton boton = new JButton();
-            BufferedImage imagen = CargadorDeImagenes.cargarImagen(prod.getRutaImagen());
-            if(imagen != null) {
-                boton.setIcon(new ImageIcon(imagen.getScaledInstance(widthHeightBoton, widthHeightBoton, Image.SCALE_SMOOTH)));
-            } else {
-                boton.setText(prod.getNombre());
-            }
-            boton.setFocusable(false);
-            boton.setBorderPainted(false);
-            int col = i % columnas;
-            int fila = i / columnas;
-            int x = espacio + col * (widthHeightBoton + espacio);
-            int y = espacio + fila * (widthHeightBoton + espacio);
-            boton.setBounds(x, y, widthHeightBoton, widthHeightBoton);
-            boton.addActionListener(e -> actualizarDescripcion(prod));
+            JButton boton = crearBotonProducto(prod, i);
             panel.add(boton);
         }
 
@@ -100,6 +89,25 @@ public class TiendaDialog extends JDialog {
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.getVerticalScrollBar().setUnitIncrement(10);
         return scrollPane;
+    }
+
+    private JButton crearBotonProducto(ProductosEnum prod, int i) {
+        JButton boton = new JButton();
+        BufferedImage imagen = CargadorDeImagenes.cargarImagen(prod.getRutaImagen());
+        if(imagen != null) {
+            boton.setIcon(new ImageIcon(imagen.getScaledInstance(TAM_BOTON, TAM_BOTON, Image.SCALE_SMOOTH)));
+        } else {
+            boton.setText(prod.getNombre());
+        }
+        boton.setFocusable(false);
+        boton.setBorderPainted(false);
+        int col = i % COLUMNAS;
+        int fila = i / COLUMNAS;
+        int x = ESPACIO + col * (TAM_BOTON + ESPACIO);
+        int y = ESPACIO + fila * (TAM_BOTON + ESPACIO);
+        boton.setBounds(x, y, TAM_BOTON, TAM_BOTON);
+        boton.addActionListener(_ -> actualizarDescripcion(prod));
+        return boton;
     }
 
     private void actualizarDescripcion(ProductosEnum item) {

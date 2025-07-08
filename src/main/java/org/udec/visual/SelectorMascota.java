@@ -15,40 +15,50 @@ public class SelectorMascota extends JDialog {
     private MascotasEnum mascotaSeleccionada = null;
     private final List<MascotasEnum> mascotasPosibles;
 
+    private final int ANCHO = 500;
+    private final int ALTO = 200;
+    private final int COLUMNAS = 3;
+
     public SelectorMascota(PanelEscenario panelEscenario) {
         setTitle("Seleccionar mascota");
-        setSize(500, 200);
+        setSize(ANCHO, ALTO);
         setLocationRelativeTo(panelEscenario);
-        setLayout(new BorderLayout());
         setModal(true);
+        setResizable(false);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
+        setLayout(new BorderLayout());
         JLabel label = new JLabel("Seleccione una mascota:");
         label.setHorizontalAlignment(SwingConstants.CENTER);
         add(label, BorderLayout.NORTH);
 
         mascotasPosibles = panelEscenario.getEscenario().getTipoEscenario().mascotasCompatibles();
 
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(mascotasPosibles.size() / 3 + 1, 3));
-
-        crearBotonesDeMascota(buttonPanel);
-        add(buttonPanel, BorderLayout.CENTER);
+        JPanel buttonPanel = crearPanelBotones();
+        this.add(buttonPanel, BorderLayout.CENTER);
 
         setVisible(true);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
     }
 
-    private void crearBotonesDeMascota(JPanel buttonPanel){
-        for(MascotasEnum mascota : mascotasPosibles){
-            System.out.println(mascota.getNombre());
-            JButton button = new JButton(mascota.getNombre());
-            button.addActionListener(e -> {
-                mascotaSeleccionada = mascota;
-                dispose();
-            });
-            buttonPanel.add(button);
+    private JPanel crearPanelBotones() {
+        int filas = (int) Math.ceil(mascotasPosibles.size() / (double) COLUMNAS);
+        JPanel buttonPanel = new JPanel(new GridLayout(filas, COLUMNAS));
+
+        for (MascotasEnum mascota : mascotasPosibles) {
+            buttonPanel.add(crearBotonDeMascota(mascota));
         }
+
+        return buttonPanel;
+    }
+
+    private JButton crearBotonDeMascota(MascotasEnum mascota){
+        JButton button = new JButton(mascota.getNombre());
+        button.setFocusable(false);
+        button.addActionListener(e -> {
+            mascotaSeleccionada = mascota;
+            dispose();
+        });
+        return button;
     }
 
     public MascotasEnum getMascotaSeleccionada() {
