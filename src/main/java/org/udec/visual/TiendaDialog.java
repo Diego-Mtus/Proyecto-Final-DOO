@@ -1,6 +1,5 @@
 package org.udec.visual;
 
-import org.jetbrains.annotations.NotNull;
 import org.udec.util.CargadorDeImagenes;
 import org.udec.util.enumerations.AlimentosEnum;
 import org.udec.util.enumerations.MedicinasEnum;

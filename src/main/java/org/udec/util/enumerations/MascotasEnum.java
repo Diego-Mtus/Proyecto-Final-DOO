@@ -10,7 +10,7 @@ public enum MascotasEnum {
     LORO( "Loro", TiposEnum.VOLADOR, 140,"/mascotas/loro.png", "/mascotas/loro.png", "/sonidos/pajaro.wav", "LoroFactory"),
     GOLONDRINA( "Golondrina", TiposEnum.VOLADOR, 130,"/mascotas/golondrina.png", "/mascotas/golondrina.png", "/sonidos/pajaro.wav", "GolondrinaFactory"),
     PEZDORADO( "Pez dorado", TiposEnum.ACUATICO, 100,"/mascotas/pezdorado.png", "/mascotas/pezdorado.png", "/sonidos/pez.wav", "PezDoradoFactory"),
-    PEZPAYASO( "Pez payaso", TiposEnum.ACUATICO, 90,"/mascotas/pezpayaso.png", "/mascotas/pezPayaso.png", "/sonidos/pez.wav", "PezPayasoFactory");
+    PEZPAYASO( "Pez payaso", TiposEnum.ACUATICO, 90,"/mascotas/pezpayaso.png", "/mascotas/pezpayaso.png", "/sonidos/pez.wav", "PezPayasoFactory");
 
     private final String nombre;
     private final TiposEnum tipo;

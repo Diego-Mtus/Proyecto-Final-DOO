@@ -39,10 +39,14 @@ public class PanelJuegos extends JPanel {
     private void jugar() {
         if (mascotaActual != null) {
             System.out.println("Jugando con la mascota: " + mascotaActual.getNombreAnimal());
+
             switch (mascotaActual.getTipo()) {
-                case COMUN -> SwingUtilities.invokeLater(() ->  new JuegoComun(mascotaActual.getImagenMascotaJuego(), this));
-                case ROEDOR -> SwingUtilities.invokeLater(() -> new JuegoRoedor(mascotaActual.getImagenMascotaJuego(), this));
-                case VOLADOR -> SwingUtilities.invokeLater(() -> new JuegoVolador(mascotaActual.getImagenMascotaJuego(), this));
+                case COMUN ->
+                        SwingUtilities.invokeLater(() -> new JuegoComun(mascotaActual.getImagenMascotaJuego(), this));
+                case ROEDOR ->
+                        SwingUtilities.invokeLater(() -> new JuegoRoedor(mascotaActual.getImagenMascotaJuego(), this));
+                case VOLADOR ->
+                        SwingUtilities.invokeLater(() -> new JuegoVolador(mascotaActual.getImagenMascotaJuego(), this));
                 case ACUATICO -> System.out.println("Jugando con una mascota acuática.");
             }
 

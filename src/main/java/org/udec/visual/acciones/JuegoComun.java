@@ -44,9 +44,6 @@ public class JuegoComun extends JPanel implements ActionListener, KeyListener {
     private final BufferedImage IMAGEN_PISO = CargadorDeImagenes.cargarImagen("/juegos/pisoComun.png");
     private int pisoOffset = 0;
 
-    // Imagen del fondo
-    private final BufferedImage IMAGEN_FONDO = CargadorDeImagenes.cargarImagen("/juegos/fondoComun.png");
-
     // Variables de estado
     private EstadoJuego estadoJuego = EstadoJuego.MENU;
     private int puntos = 0;
@@ -113,8 +110,10 @@ public class JuegoComun extends JPanel implements ActionListener, KeyListener {
     }
 
     private void dibujarEntorno(Graphics2D g2d) {
-        // Dibujar fondo
-        g2d.drawImage(IMAGEN_FONDO, 0, 0, ANCHO, ALTO - 100, this);
+
+        // Dibujar cielo
+        g2d.setColor(Color.cyan);
+        g2d.fillRect(0, 0, ANCHO, ALTO);
 
         // Dibujar piso con desplazamiento
         for (int x = -pisoOffset; x < ANCHO; x += IMAGEN_PISO.getWidth()) {

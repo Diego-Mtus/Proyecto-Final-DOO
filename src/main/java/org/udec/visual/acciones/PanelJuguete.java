@@ -1,6 +1,6 @@
 package org.udec.visual.acciones;
 
-import org.jetbrains.annotations.NotNull;
+
 import org.udec.mascotas.Mascota;
 import org.udec.util.CargadorDeImagenes;
 import org.udec.visual.PanelEscenario;
@@ -88,7 +88,7 @@ public class PanelJuguete extends JPanel {
 
     }
 
-    private @NotNull Thread getAnimacionThread() {
+    private Thread getAnimacionThread() {
         Thread animacionThread = new Thread(() -> {
             while (true) {
                 if (!isDragging) {
