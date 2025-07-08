@@ -10,8 +10,11 @@ import java.util.Random;
 
 public class MascotaInteractuable extends JButton {
 
-    private ImageIcon imagenMascota;
+    private final int PROBABILIDAD_EASTER_EGG = 2; // %
+    private final int TIEMPO_ANIMACION_MS = 120;
+    private final int CRECIMIENTO = 20;
 
+    private ImageIcon imagenMascota;
     private Clip sonidoMascota;
     private final Clip sonidoEasterEgg = GestionDeSonido.cargarClip("/sonidos/easteregg.wav");
 
@@ -21,12 +24,13 @@ public class MascotaInteractuable extends JButton {
     private ImageIcon imagenGrandeMascota;
     private int anchoOriginal;
     private int altoOriginal;
-    private int crecimiento = 20;
 
     public MascotaInteractuable(PanelEscenario panelEscenario, int x, int y, int ancho, int alto) {
         super();
+        this.panelEscenario = panelEscenario;
         this.anchoOriginal = ancho;
         this.altoOriginal = alto;
+
         this.setBounds(x, y, ancho, alto);
         this.setVisible(false);
         this.setBorderPainted(false);
@@ -34,13 +38,11 @@ public class MascotaInteractuable extends JButton {
         this.setFocusPainted(false);
         this.setOpaque(false);
         this.setEnabled(false);
-        this.panelEscenario = panelEscenario;
-
 
         this.addActionListener(e -> {
             if (panelEscenario.getEscenario().getMascotaActual() != null){
-                this.animar();
-                this.interactuar();
+                this.animarMascota();
+                this.reproducirSonido();
             }
         });
     }
@@ -49,7 +51,7 @@ public class MascotaInteractuable extends JButton {
         this.imagenMascota = new ImageIcon(mascota.getImagenMascota());
 
         this.imagenGrandeMascota = new ImageIcon(
-                imagenMascota.getImage().getScaledInstance(anchoOriginal + crecimiento, altoOriginal + crecimiento, java.awt.Image.SCALE_SMOOTH)
+                imagenMascota.getImage().getScaledInstance(anchoOriginal + CRECIMIENTO, altoOriginal + CRECIMIENTO, java.awt.Image.SCALE_SMOOTH)
         );
 
         this.sonidoMascota = panelEscenario.getEscenario().getMascotaActual().getSonidoMascota();
@@ -67,10 +69,10 @@ public class MascotaInteractuable extends JButton {
         this.sonidoMascota = null;
     }
 
-    private void interactuar() {
+    private void reproducirSonido() {
         if (sonidoMascota != null) {
             Random random = new Random();
-            if (random.nextInt(100) < 2) { // 2% de probabilidad de sonar el easter egg
+            if (random.nextInt(100) < PROBABILIDAD_EASTER_EGG) { // 2% de probabilidad de sonar el easter egg
                 GestionDeSonido.reproducirClipEnHilo(sonidoEasterEgg);
             }
             else{
@@ -79,20 +81,20 @@ public class MascotaInteractuable extends JButton {
         }
     }
 
-    private void animar() {
-
+    private void animarMascota() {
         setIcon(imagenGrandeMascota); // Cambia el icono a la versión grande
-        setSize(anchoOriginal + crecimiento, altoOriginal + crecimiento);
-        setLocation(getX() - crecimiento / 2, getY() - crecimiento / 2);
+        setSize(anchoOriginal + CRECIMIENTO, altoOriginal + CRECIMIENTO);
+        setLocation(getX() - CRECIMIENTO / 2, getY() - CRECIMIENTO / 2);
 
-        Timer timer = new Timer(120, e -> {
-            setIcon(imagenMascota); // Restaura el icono original
-            setSize(anchoOriginal, anchoOriginal);
-            setLocation(getX() + crecimiento / 2, getY() + crecimiento / 2);
-        });
-
+        Timer timer = new Timer(TIEMPO_ANIMACION_MS, e -> restaurarMascota());
         timer.setRepeats(false);
         timer.start();
+    }
+
+    private void restaurarMascota(){
+        setIcon(imagenMascota); // Restaura el icono original
+        setSize(anchoOriginal, anchoOriginal);
+        setLocation(getX() + CRECIMIENTO / 2, getY() + CRECIMIENTO / 2);
     }
 
 }

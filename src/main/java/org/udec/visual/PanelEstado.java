@@ -11,15 +11,25 @@ import java.awt.image.BufferedImage;
 
 public class PanelEstado extends JPanel {
 
+    private final int ANCHO = 260;
+    private final int ALTO = 120;
+    private final int BARRA_ANCHO = 10;
+    private final int BARRA_ALTO = 40;
+    private final int ICONOS_SIZE = 30;
+    private final int ICONO_HERIDO_X = 80;
+    private final int ICONO_JUGAR_X = 154;
+    private final int ICONOS_Y = 64;
+
     private Mascota mascota;
     private HiloActualizadorEstado Actualizador;
     private Thread hiloActualizadorEstado;
+
     private final Font fuente = new Font("Comic Sans MS", Font.BOLD, 18);
     private final BufferedImage estadoHerido = CargadorDeImagenes.cargarImagen("/interfaz/iconoIsHerido.png");
     private final BufferedImage estadoQuiereJugar = CargadorDeImagenes.cargarImagen("/interfaz/iconoQuiereJugar.png");
 
     public PanelEstado(PanelEscenario panel, int x, int y) {
-        setBounds(x, y, 260, 120);
+        setBounds(x, y, ANCHO, ALTO);
         setLayout(null);
         setVisible(false);
         setOpaque(false);
@@ -31,7 +41,6 @@ public class PanelEstado extends JPanel {
     public void inicializarEstado(Mascota mascota){
         if (mascota != null){
             this.mascota = mascota;
-            System.out.println("Inicializando hilo actualizador de estado para la mascota: " + mascota.getNombrePropio());
             Actualizador = new HiloActualizadorEstado(this, mascota);
             hiloActualizadorEstado = new Thread(Actualizador);
             hiloActualizadorEstado.start();
@@ -43,34 +52,33 @@ public class PanelEstado extends JPanel {
 
         Graphics2D g2d = (Graphics2D) g;
         Font font = new Font("Arial", Font.PLAIN, 12);
-        int barraAncho = 10;
-        int barraAlto = 40; // Altura cuando está al 100%
 
         // Que la altura de la barra sea proporcional al estado
-        int llenado = (int) ((estado / 100.0) * barraAlto);
+        int llenado = (int) ((estado / 100.0) * BARRA_ALTO);
 
         float hue = estado / 100.0f; // Hue para el color, de 0 a 1
         g.setColor(Color.getHSBColor(hue * 0.33f, 1.0f, 1.0f)); // Color basado en el estado
 
-        // Dibu jar la barra
-        g2d.fillRoundRect(x, y + (barraAlto - llenado), barraAncho, llenado, 10, 10);
+        // Dibujar la barra
+        g2d.fillRoundRect(x, y + (BARRA_ALTO - llenado), BARRA_ANCHO, llenado, 10, 10);
 
         // Dibujar el borde de la barra
         g2d.setStroke(new BasicStroke(1));
         g2d.setColor(Color.BLACK);
-        g2d.drawRoundRect(x, y, barraAncho, barraAlto, 10, 10);
+        g2d.drawRoundRect(x, y, BARRA_ANCHO, BARRA_ALTO, 10, 10);
 
         // Dibujar el porcentaje
         g2d.setColor(Color.BLACK);
         g2d.setFont(font);
         String porcentaje = estado + "%";
+
         FontMetrics fontMetrics = g2d.getFontMetrics();
-        int porcentajeX = x + (barraAncho - fontMetrics.stringWidth(porcentaje)) / 2;
-        int porcentajeY = y + barraAlto + fontMetrics.getHeight();
+        int porcentajeX = x + (BARRA_ANCHO - fontMetrics.stringWidth(porcentaje)) / 2;
+        int porcentajeY = y + BARRA_ALTO + fontMetrics.getHeight();
         g2d.drawString(porcentaje, porcentajeX, porcentajeY);
 
         // Dibujar el nombre de la barra
-        int nombreX = x + (barraAncho - fontMetrics.stringWidth(nombre)) / 2;
+        int nombreX = x + (BARRA_ANCHO - fontMetrics.stringWidth(nombre)) / 2;
         g2d.drawString(nombre, nombreX, y - 5);
 
 
@@ -111,11 +119,11 @@ public class PanelEstado extends JPanel {
 
 
             if (mascota.getEstado().isHerido()) {
-                g2d.drawImage(estadoHerido, 80, 64, 30, 30, this);
+                g2d.drawImage(estadoHerido, ICONO_HERIDO_X, ICONOS_Y, ICONOS_SIZE, ICONOS_SIZE, this);
             }
 
             if (mascota.getEstado().quiereJugar()) {
-                g2d.drawImage(estadoQuiereJugar, 154, 64, 30, 30, this);
+                g2d.drawImage(estadoQuiereJugar, ICONO_JUGAR_X, ICONOS_Y, ICONOS_SIZE, ICONOS_SIZE, this);
             }
 
             g2d.dispose();

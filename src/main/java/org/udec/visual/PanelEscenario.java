@@ -48,10 +48,35 @@ public class PanelEscenario extends JPanel {
         this.escenarioListener = escenarioListener;
     }
 
-
-
     public void setAdopcionListener(AdopcionListener adopcionListener) {
         this.adopcionListener = adopcionListener;
+    }
+
+    public void inicializarHiloCompradorInteresado(){
+        if (mascota != null) {
+            hiloComprador = new Thread(new HiloCompradorInteresado(this));
+            hiloComprador.start();
+        }
+    }
+
+    private void crearMascotaInteractuable() {
+        this.mascotaInteractuable = new MascotaInteractuable(this, VentanaPrincipal.ANCHO / 2 - 150, VentanaPrincipal.ALTO / 2 - 150, 300, 300);
+        this.add(mascotaInteractuable);
+    }
+
+    public void mostrarBotonAdoptarMascota() { botonAdoptarMascota.setVisible(true); }
+    public void ocultarBotonAdoptarMascota() { botonAdoptarMascota.setVisible(false); }
+    public void mostrarBotonVenderMascota() { botonVenderMascota.setVisible(true); }
+    public void ocultarBotonVenderMascota() { botonVenderMascota.setVisible(false); }
+    public void ocultarBotonInicializarEscenario() { botonInicializarEscenario.setVisible(false); }
+
+
+    public boolean tieneEscenario() {
+        return escenario != null;
+    }
+
+    public boolean tieneMascota() {
+        return mascota != null;
     }
 
     public Escenario getEscenario() {
@@ -77,49 +102,13 @@ public class PanelEscenario extends JPanel {
                 adopcionListener.adopcionRealizada(this);
                 repaint();
 
-                } catch (MascotaViviendoException ex) {
-                    JOptionPane.showMessageDialog(this, "Ya hay una mascota viviendo en ese escenario.", "Error", JOptionPane.ERROR_MESSAGE);
-                } catch (TipoIncorrectoException ex) {
-                    JOptionPane.showMessageDialog(this, "La mascota no es del mismo tipo que el escenario.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-
+            } catch (MascotaViviendoException ex) {
+                JOptionPane.showMessageDialog(this, "Ya hay una mascota viviendo en ese escenario.", "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (TipoIncorrectoException ex) {
+                JOptionPane.showMessageDialog(this, "La mascota no es del mismo tipo que el escenario.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-    }
 
-    public void inicializarHiloCompradorInteresado(){
-        if (mascota != null) {
-            hiloComprador = new Thread(new HiloCompradorInteresado(this));
-            hiloComprador.start();
         }
-    }
-
-    public void ocultarBotonInicializarEscenario() {
-        botonInicializarEscenario.setVisible(false);
-    }
-
-    public void mostrarBotonAdoptarMascota() {
-        botonAdoptarMascota.setVisible(true);
-    }
-
-    public void mostrarBotonVenderMascota() {
-        botonVenderMascota.setVisible(true);
-    }
-
-    public void ocultarBotonAdoptarMascota() {
-        botonAdoptarMascota.setVisible(false);
-    }
-
-    private void crearMascotaInteractuable() {
-        this.mascotaInteractuable = new MascotaInteractuable(this, VentanaPrincipal.ANCHO / 2 - 150, VentanaPrincipal.ALTO / 2 - 150, 300, 300);
-        this.add(mascotaInteractuable);
-    }
-
-    public boolean tieneEscenario() {
-        return escenario != null;
-    }
-
-    public boolean tieneMascota() {
-        return mascota != null;
     }
 
     public void venderMascota(){
@@ -133,7 +122,7 @@ public class PanelEscenario extends JPanel {
             hiloComprador.interrupt();
         }
 
-        botonVenderMascota.setVisible(false);
+        ocultarBotonVenderMascota();
 
     }
 

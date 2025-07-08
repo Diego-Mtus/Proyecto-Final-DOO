@@ -4,6 +4,8 @@ package org.udec.visual;
 import org.udec.util.DineroNoSuficienteException;
 import org.udec.util.enumerations.MascotasEnum;
 import org.udec.util.enumerations.ProductosEnum;
+import org.udec.visual.comandos.Command;
+import org.udec.visual.comandos.ComprarProductoCommand;
 import org.udec.visual.listeners.CompraListener;
 
 import javax.swing.*;
@@ -12,6 +14,12 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class PanelDescripcion extends JPanel {
+
+    private final int BOTON_COMPRAR_ANCHO = 100;
+    private final int BOTON_COMPRAR_ALTO = 100;
+    private final int BOTON_COMPRAR_X_OFFSET = 110;
+    private final int BOTON_COMPRAR_Y = 10;
+    private final String TEXTO_BIENVENIDA = "¡Bienvenidos a la tienda!\nSeleccione un producto para ver su descripción.";
 
     private String descripcionString;
     private final Font fuente = new Font("Comic Sans MS", Font.PLAIN, 16);
@@ -23,13 +31,13 @@ public class PanelDescripcion extends JPanel {
         setBounds(x, y, width, height);
         setLayout(null);
         setVisible(true);
-        descripcionString = "¡Bienvenidos a la tienda!\nSeleccione un producto para ver su descripción.";
+        descripcionString = TEXTO_BIENVENIDA;
 
         botonComprar = new JButton("Comprar");
-        botonComprar.setBounds(width - 110, 10, 100, 100);
+        botonComprar.setBounds(width - BOTON_COMPRAR_X_OFFSET, BOTON_COMPRAR_Y, BOTON_COMPRAR_ANCHO, BOTON_COMPRAR_ALTO);
         botonComprar.setFocusable(false);
         botonComprar.setVisible(false);
-        botonComprar.addActionListener(_ -> this.comprarProducto());
+        botonComprar.addActionListener(_ -> comprarProducto());
         this.add(botonComprar);
 
     }
@@ -39,24 +47,27 @@ public class PanelDescripcion extends JPanel {
     }
 
     public void actualizarDescripcion(ProductosEnum item) {
-
-        if(item.getParaQueMascota() == null){
-            descripcionString = item.getNombre() + "\nPara todos los animales"
-                    + "\n$" + item.getPrecio()
-                    + "\nActualmente tienes: " + item.getInventario();
-        } else {
-            descripcionString = item.getNombre() + "\nPara "
-                    + Arrays.stream(item.getParaQueMascota()).map(MascotasEnum::getNombre).collect(Collectors.joining(", "))
-                    + "\n$" + item.getPrecio()
-                    + "\nActualmente tienes: " + item.getInventario();
-        }
+        descripcionString = formatearDescripcion(item);
         ultimoProductoSeleccionado = item;
         botonComprar.setVisible(true);
         repaint();
     }
 
+    private String formatearDescripcion(ProductosEnum item) {
+        String paraMascota = (item.getParaQueMascota() == null)
+                ? "Para todos los animales"
+                : "Para " + Arrays.stream(item.getParaQueMascota())
+                .map(MascotasEnum::getNombre)
+                .collect(Collectors.joining(", "));
+
+        return item.getNombre() + "\n" +
+                paraMascota + "\n" +
+                "$" + item.getPrecio() + "\n" +
+                "Actualmente tienes: " + item.getInventario();
+    }
+
     public void reiniciarDescripcion() {
-        descripcionString = "¡Bienvenidos a la tienda!\nSeleccione un producto para ver su descripción.";
+        descripcionString = TEXTO_BIENVENIDA;
         ultimoProductoSeleccionado = null;
         botonComprar.setVisible(false);
         repaint();
@@ -65,15 +76,8 @@ public class PanelDescripcion extends JPanel {
 
     private void comprarProducto() {
         if (compraListener != null && ultimoProductoSeleccionado != null) {
-            try {
-                compraListener.comprar(ultimoProductoSeleccionado.getPrecio());
-                ultimoProductoSeleccionado.setInventario(ultimoProductoSeleccionado.getInventario() + 1);
-
-                actualizarDescripcion(ultimoProductoSeleccionado);
-
-            } catch (DineroNoSuficienteException e) {
-                JOptionPane.showMessageDialog((Component) compraListener, "No tienes suficiente dinero para comprar este producto.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            Command comando = new ComprarProductoCommand(ultimoProductoSeleccionado, compraListener, this);
+            comando.execute();
         }
     }
 
@@ -100,7 +104,6 @@ public class PanelDescripcion extends JPanel {
                 y += fontMetrics.getHeight();
             }
         }
-
 
     }
 }

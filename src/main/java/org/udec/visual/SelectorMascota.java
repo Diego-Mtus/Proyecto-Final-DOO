@@ -2,6 +2,8 @@ package org.udec.visual;
 
 import org.udec.mascotas.*;
 import org.udec.util.enumerations.MascotasEnum;
+import org.udec.visual.comandos.Command;
+import org.udec.visual.comandos.SeleccionarMascotaCommand;
 
 import javax.swing.*;
 import java.awt.*;
@@ -54,11 +56,14 @@ public class SelectorMascota extends JDialog {
     private JButton crearBotonDeMascota(MascotasEnum mascota){
         JButton button = new JButton(mascota.getNombre());
         button.setFocusable(false);
-        button.addActionListener(e -> {
-            mascotaSeleccionada = mascota;
-            dispose();
-        });
+
+        Command comando = new SeleccionarMascotaCommand(mascota, this);
+        button.addActionListener(e -> comando.execute());
         return button;
+    }
+
+    public void setMascotaSeleccionada(MascotasEnum mascotaSeleccionada) {
+        this.mascotaSeleccionada = mascotaSeleccionada;
     }
 
     public MascotasEnum getMascotaSeleccionada() {
