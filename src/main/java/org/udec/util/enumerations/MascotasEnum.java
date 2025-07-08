@@ -3,8 +3,8 @@ package org.udec.util.enumerations;
 public enum MascotasEnum {
 
     // Nombre, Tipo, rutaImagen
-    GATO( "Gato", TiposEnum.COMUN, 80,"/mascotas/gato.png", "/mascotas/gato.png", "/sonidos/gato.wav", "GatoFactory"),
-    PERRO( "Perro", TiposEnum.COMUN, 100,"/mascotas/perro.png", "/perro.png", "/sonidos/perro.wav", "PerroFactory"),
+    GATO( "Gato", TiposEnum.COMUN, 80,"/mascotas/gato.png", "/mascotas/gatoJuego.png", "/sonidos/gato.wav", "GatoFactory"),
+    PERRO( "Perro", TiposEnum.COMUN, 100,"/mascotas/perro.png", "/mascotas/perroJuego.png", "/sonidos/perro.wav", "PerroFactory"),
     HAMSTER( "Hamster", TiposEnum.ROEDOR, 150,"/mascotas/hamster.png", "/mascotas/hamster.png", "/sonidos/hamster.wav", "HamsterFactory"),
     RATON( "Ratón", TiposEnum.ROEDOR, 120,"/mascotas/raton.png", "/mascotas/raton.png", "/sonidos/raton.wav", "RatonFactory"),
     LORO( "Loro", TiposEnum.VOLADOR, 140,"/mascotas/loro.png", "/mascotas/loro.png", "/sonidos/pajaro.wav", "LoroFactory"),

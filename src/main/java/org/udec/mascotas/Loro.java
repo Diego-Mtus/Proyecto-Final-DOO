@@ -11,6 +11,7 @@ public class Loro extends Mascota {
         this.nombrePropio = GeneradorNombreAleatorio.obtenerNombreAleatorio();
         this.estado = new Estado(NivelDecrementoEnum.MEDIO, NivelDecrementoEnum.MEDIO, NivelDecrementoEnum.RAPIDO);
         this.imagenMascota = CargadorDeImagenes.cargarImagen(MascotasEnum.LORO.getRutaImagen());
+        this.imagenMascotaJuego = CargadorDeImagenes.cargarImagen(MascotasEnum.LORO.getRutaImagenJuego());
         this.sonidoMascota = GestionDeSonido.cargarClip(MascotasEnum.LORO.getRutaSonido());
         this.precioVenta = MascotasEnum.LORO.getPrecioVenta();
     }

@@ -11,6 +11,7 @@ public class Golondrina extends Mascota{
         this.nombrePropio = GeneradorNombreAleatorio.obtenerNombreAleatorio();
         this.estado = new Estado(NivelDecrementoEnum.MEDIO, NivelDecrementoEnum.RAPIDO, NivelDecrementoEnum.MEDIO);
         this.imagenMascota = CargadorDeImagenes.cargarImagen(MascotasEnum.GOLONDRINA.getRutaImagen());
+        this.imagenMascotaJuego = CargadorDeImagenes.cargarImagen(MascotasEnum.GOLONDRINA.getRutaImagenJuego());
         this.sonidoMascota = GestionDeSonido.cargarClip(MascotasEnum.GOLONDRINA.getRutaSonido());
         this.precioVenta = MascotasEnum.GOLONDRINA.getPrecioVenta();
     }

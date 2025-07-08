@@ -11,6 +11,7 @@ public class PezPayaso extends Mascota{
         this.nombrePropio = GeneradorNombreAleatorio.obtenerNombreAleatorio();
         this.estado = new Estado(NivelDecrementoEnum.LENTO, NivelDecrementoEnum.RAPIDO, NivelDecrementoEnum.RAPIDO);
         this.imagenMascota = CargadorDeImagenes.cargarImagen(MascotasEnum.PEZPAYASO.getRutaImagen());
+        this.imagenMascotaJuego = CargadorDeImagenes.cargarImagen(MascotasEnum.PEZPAYASO.getRutaImagenJuego());
         this.sonidoMascota = GestionDeSonido.cargarClip(MascotasEnum.PEZPAYASO.getRutaSonido());
         this.precioVenta = MascotasEnum.PEZPAYASO.getPrecioVenta();
     }

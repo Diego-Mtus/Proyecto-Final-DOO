@@ -11,6 +11,7 @@ public class Perro extends Mascota{
         this.nombrePropio = GeneradorNombreAleatorio.obtenerNombreAleatorio();
         this.estado = new Estado(NivelDecrementoEnum.RAPIDO, NivelDecrementoEnum.MEDIO, NivelDecrementoEnum.MEDIO);
         this.imagenMascota = CargadorDeImagenes.cargarImagen(MascotasEnum.PERRO.getRutaImagen());
+        this.imagenMascotaJuego = CargadorDeImagenes.cargarImagen(MascotasEnum.PERRO.getRutaImagenJuego());
         this.sonidoMascota = GestionDeSonido.cargarClip(MascotasEnum.PERRO.getRutaSonido());
         this.precioVenta = MascotasEnum.PERRO.getPrecioVenta();
     }

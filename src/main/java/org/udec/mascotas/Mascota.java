@@ -10,6 +10,7 @@ public abstract class Mascota {
     protected String nombrePropio;
     protected String nombreAnimal;
     protected BufferedImage imagenMascota;
+    protected BufferedImage imagenMascotaJuego;
     protected Clip sonidoMascota;
     protected TiposEnum tipo;
     protected int precioVenta;
@@ -33,6 +34,10 @@ public abstract class Mascota {
 
     public Clip getSonidoMascota() {
         return sonidoMascota;
+    }
+
+    public BufferedImage getImagenMascotaJuego() {
+        return imagenMascotaJuego;
     }
 
     @Override

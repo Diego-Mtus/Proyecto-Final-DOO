@@ -12,6 +12,7 @@ public class Hamster extends Mascota{
         this.nombrePropio = GeneradorNombreAleatorio.obtenerNombreAleatorio();
         this.estado = new Estado(NivelDecrementoEnum.LENTO, NivelDecrementoEnum.RAPIDO, NivelDecrementoEnum.RAPIDO);
         this.imagenMascota = CargadorDeImagenes.cargarImagen(MascotasEnum.HAMSTER.getRutaImagen());
+        this.imagenMascotaJuego = CargadorDeImagenes.cargarImagen(MascotasEnum.HAMSTER.getRutaImagenJuego());
         this.sonidoMascota = GestionDeSonido.cargarClip(MascotasEnum.HAMSTER.getRutaSonido());
         this.precioVenta = MascotasEnum.HAMSTER.getPrecioVenta();
     }

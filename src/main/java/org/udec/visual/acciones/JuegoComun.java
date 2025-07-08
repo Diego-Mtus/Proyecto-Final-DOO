@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
@@ -25,6 +26,7 @@ public class JuegoComun extends JPanel implements ActionListener, KeyListener {
     private int mascotaY = 250;
     private int mascotaVelY = 0;
     private boolean jumping = false;
+    private final int MASCOTA_SIZE = 40; // Tamaño de la mascota
 
     // Obstáculo
     private int obstaculoX = 800; // Posición inicial del obstáculo
@@ -100,7 +102,7 @@ public class JuegoComun extends JPanel implements ActionListener, KeyListener {
             g2d.drawString(msg3, (panelWidth - fontMetrics.stringWidth(msg3)) / 2, 200);
             return;
         } else if (!gameOver && !gameWon) {
-            g.drawImage(imagenMascota, 100, mascotaY, 30, 30, this);
+            dibujarMascota(g2d);
         } else if (gameWon){
             String msg1 = "¡Felicidades! Has ganado el juego.";
             String msg2 = "Has ganado $ xxx";
@@ -126,6 +128,24 @@ public class JuegoComun extends JPanel implements ActionListener, KeyListener {
 
         // Dibujar puntos
         g2d.drawString("Puntos: " + puntos, 10, 20);
+    }
+
+    private void dibujarMascota(Graphics2D g2d){
+
+        // Calcular el ángulo basado en la velocidad de la mascota
+        // Se inclinará hacia arriba si está saltando, y hacia abajo si está cayendo
+        // con un límite de -30 a 30 grados
+        double angulo = 0;
+        if (mascotaY < 260) {
+            angulo = Math.max(-30, Math.min(30, Math.toDegrees(Math.atan2(mascotaVelY, 14))));
+        }
+
+        int x = 100; // Posición X de la mascota
+        AffineTransform originalTransform = g2d.getTransform();
+        g2d.rotate(Math.toRadians(angulo), x + MASCOTA_SIZE / 2, mascotaY + MASCOTA_SIZE / 2);
+        g2d.drawImage(imagenMascota, x, mascotaY, MASCOTA_SIZE, MASCOTA_SIZE, this);
+        g2d.setTransform(originalTransform); // Restaurar la transformación original
+
     }
 
     @Override
@@ -159,8 +179,8 @@ public class JuegoComun extends JPanel implements ActionListener, KeyListener {
 
         mascotaY += mascotaVelY;
 
-        if(mascotaY >= 270){
-            mascotaY = 270; // Asegurarse de que la mascota no caiga por debajo del suelo
+        if(mascotaY >= 260){
+            mascotaY = 260; // Asegurarse de que la mascota no caiga por debajo del suelo
             mascotaVelY = 0; // Detener la caída
             jumping = false;
         } else {
