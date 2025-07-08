@@ -15,6 +15,10 @@ public class JuegoRoedor extends JPanel implements ActionListener, KeyListener {
     private PanelJuegos panelJuegos;
 
     private final BufferedImage imagenMascota;
+    private final int anchoDibujadoMascota;
+    private final int altoDibujadoMascota;
+
+
     private final Font fuente = new Font("Arial", Font.BOLD, 20);
 
     // Variables de juego
@@ -25,7 +29,7 @@ public class JuegoRoedor extends JPanel implements ActionListener, KeyListener {
     private final int FILAS = 20, COLS = 30; // Dimensiones del laberinto
     private int[][] laberinto = new int[FILAS][COLS]; // 0 = camino, 1 = pared, 2 = meta
     private int mascotaFila = 1, mascotaCol = 1; // Posición inicial del jugador
-    private int direccion = 0; // 0: arriba, 1: derecha, 2: abajo, 3: izquierda
+    private int direccion = 0; // 0 = derecha, 1 = abajo, 2 = izquierda, 3 = arriba
     private int radioVision = 3;
 
     // Variables de estado
@@ -45,7 +49,13 @@ public class JuegoRoedor extends JPanel implements ActionListener, KeyListener {
         ventanaJuego.setLocationRelativeTo(null);
 
         this.panelJuegos = panelJuegos;
+
         this.imagenMascota = imagenMascota;
+        int imagenMascotaWidth = imagenMascota.getWidth();
+        int imagenMascotaHeight = imagenMascota.getHeight();
+        double escalaMascota = Math.min((double) (TILE_SIZE - 4) / imagenMascotaWidth, (double) (TILE_SIZE - 4)/ imagenMascotaHeight);
+        anchoDibujadoMascota = (int)(imagenMascotaWidth * escalaMascota);
+        altoDibujadoMascota = (int)(imagenMascotaHeight * escalaMascota);
 
         generarLaberinto(); // Generar el laberinto al iniciar el juego
 
@@ -195,9 +205,13 @@ public class JuegoRoedor extends JPanel implements ActionListener, KeyListener {
         int cy = mascotaFila * TILE_SIZE + TILE_SIZE / 2;
         double angulo = Math.toRadians(direccion * 90);
 
+
+        int drawX = mascotaCol * TILE_SIZE + (TILE_SIZE - anchoDibujadoMascota) / 2;
+        int drawY = mascotaFila * TILE_SIZE + (TILE_SIZE - altoDibujadoMascota) / 2;
+
         AffineTransform originalTransform = g2d.getTransform(); // Guardar transformaciones previas
-        g2d.rotate(angulo, cx, cy); // Para rotar alrededor del centro de la mascota
-        g2d.drawImage(imagenMascota, mascotaCol * TILE_SIZE + 5, mascotaFila * TILE_SIZE + 5, TILE_SIZE - 10, TILE_SIZE - 10, this);
+        g2d.rotate(angulo, cx, cy);
+        g2d.drawImage(imagenMascota, drawX, drawY, anchoDibujadoMascota, altoDibujadoMascota, this);
         g2d.setTransform(originalTransform);
     }
 
@@ -237,10 +251,10 @@ public class JuegoRoedor extends JPanel implements ActionListener, KeyListener {
             }
         } else{
             int nuevaFila = mascotaFila, nuevaColumna = mascotaCol;
-            if (e.getKeyCode() == KeyEvent.VK_W) { nuevaFila--; direccion = 2; }
-            if (e.getKeyCode() == KeyEvent.VK_S) { nuevaFila++; direccion = 0; }
-            if (e.getKeyCode() == KeyEvent.VK_A) { nuevaColumna--; direccion = 1; }
-            if (e.getKeyCode() == KeyEvent.VK_D) { nuevaColumna++; direccion = 3; }
+            if (e.getKeyCode() == KeyEvent.VK_W) { nuevaFila--; direccion = 0; }
+            if (e.getKeyCode() == KeyEvent.VK_S) { nuevaFila++; direccion = 2; }
+            if (e.getKeyCode() == KeyEvent.VK_A) { nuevaColumna--; direccion = 3; }
+            if (e.getKeyCode() == KeyEvent.VK_D) { nuevaColumna++; direccion = 1; }
 
             // ver si está chocando con paredes, con meta o límites.
             detectarColisiones(nuevaFila, nuevaColumna);
