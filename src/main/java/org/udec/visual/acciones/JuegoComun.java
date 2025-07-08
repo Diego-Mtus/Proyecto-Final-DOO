@@ -2,6 +2,7 @@ package org.udec.visual.acciones;
 
 
 import org.udec.util.CargadorDeImagenes;
+import org.udec.util.enumerations.EstadoJuego;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,8 +18,8 @@ import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 
 public class JuegoComun extends JPanel implements ActionListener, KeyListener {
 
-    private JDialog ventanaJuego;
-    private PanelJuegos panelJuegos;
+    private final JDialog ventanaJuego;
+    private final PanelJuegos panelJuegos;
 
     private final int ANCHO = 800;
     private final int ALTO = 400;
@@ -47,12 +48,10 @@ public class JuegoComun extends JPanel implements ActionListener, KeyListener {
     private final BufferedImage IMAGEN_FONDO = CargadorDeImagenes.cargarImagen("/juegos/fondoComun.png");
 
     // Variables de estado
-    private boolean mainMenu = true; // Indica si estamos en el menú principal
-    private boolean gameOver = false;
-    private boolean gameWon = false;
+    private EstadoJuego estadoJuego = EstadoJuego.MENU;
     private int puntos = 0;
 
-    private int velObstaculo = 8; // Velocidad inicial de obstáculo
+    private int velObstaculo = 8; // Velocidad del obstaculo, el valor asignado es el inicial
     private final int MAX_VEL = 20; // Velocidad máxima del obstáculo
     private final int PUNTOS_WIN = 30; // Puntos necesarios para ganar el juego
 
@@ -89,61 +88,75 @@ public class JuegoComun extends JPanel implements ActionListener, KeyListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
+        // Configuración inicial de gráficos
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setFont(fuente);
+        FontMetrics fontMetrics = g2d.getFontMetrics();
 
+        dibujarEntorno(g2d);
+
+        switch(estadoJuego){
+            case MENU -> dibujarMenu(g2d, fontMetrics);
+            case JUGANDO -> {
+                dibujarMascota(g2d);
+                dibujarObstaculo(g2d);
+            }
+            case VICTORIA -> dibujarVictoria(g2d, fontMetrics);
+            case DERROTA -> dibujarDerrota(g2d, fontMetrics);
+        }
+
+        // Dibujar puntos
+        g2d.setColor(Color.BLACK);
+        g2d.drawString("Puntos: " + puntos, 10, 20);
+
+    }
+
+    private void dibujarEntorno(Graphics2D g2d) {
         // Dibujar fondo
         g2d.drawImage(IMAGEN_FONDO, 0, 0, ANCHO, ALTO - 100, this);
 
         // Dibujar piso con desplazamiento
-       for(int x = -pisoOffset; x < ANCHO; x += IMAGEN_PISO.getWidth()) {
-            g.drawImage(IMAGEN_PISO, x, 300, this);
+        for (int x = -pisoOffset; x < ANCHO; x += IMAGEN_PISO.getWidth()) {
+            g2d.drawImage(IMAGEN_PISO, x, 300, this);
         }
+    }
 
-        g2d.setColor(Color.BLACK);
-        g2d.setFont(fuente);
-
-        // Dibujar mensajes del menú principal o del juego
-        FontMetrics fontMetrics = g2d.getFontMetrics();
-        int panelWidth = getWidth();
-
-        if(mainMenu){
-            String msg1 = "Si juntas 30 puntos, ganas el juego";
-            String msg2 = "Presiona 'Espacio' para iniciar";
-            String msg3 = "Presiona 'Esc' para salir";
-            g2d.drawString(msg1, (panelWidth - fontMetrics.stringWidth(msg1)) / 2, 100);
-            g2d.drawString(msg2, (panelWidth - fontMetrics.stringWidth(msg2)) / 2, 150);
-            g2d.drawString(msg3, (panelWidth - fontMetrics.stringWidth(msg3)) / 2, 200);
-            return;
-        } else if (!gameOver && !gameWon) {
-            dibujarMascota(g2d);
-        } else if (gameWon){
-            String msg1 = "¡Felicidades! Has ganado el juego.";
-            String msg2 = "Has ganado $ xxx";
-            String msg3 = "Presiona 'Esc' para salir";
-            g2d.drawString(msg1, (panelWidth - fontMetrics.stringWidth(msg1)) / 2, 100);
-            g2d.drawString(msg2, (panelWidth - fontMetrics.stringWidth(msg2)) / 2, 150);
-            g2d.drawString(msg3, (panelWidth - fontMetrics.stringWidth(msg3)) / 2, 200);
-            return;
-        } else {
-            g2d.setColor(Color.RED);
-            String msg1 = "¡Juego terminado! Has perdido.";
-            String msg2 = "Tu mascota ha perdido un poco de salud";
-            String msg3 = "Presiona 'Esc' para salir";
-            g2d.drawString(msg1, (panelWidth - fontMetrics.stringWidth(msg1)) / 2, 100);
-            g2d.drawString(msg2, (panelWidth - fontMetrics.stringWidth(msg2)) / 2, 150);
-            g2d.drawString(msg3, (panelWidth - fontMetrics.stringWidth(msg3)) / 2, 200);
-            return;
-        }
-
-        // Dibujar obstáculo
+    private void dibujarObstaculo(Graphics2D g2d) {
         g2d.drawImage(IMAGEN_OBSTACULO, obstaculoX, 316 - altoObstaculo, // Esquina superior izquierda destino
                 obstaculoX + ANCHO_OBSTACULO, 316, // Esquina inferior derecha destino
                 0, 0 // Esquina superior izquierda de la imagen original
-                ,ANCHO_OBSTACULO, altoObstaculo, this); // Parte cortada de acuerdo al tamaño del obstáculo
+                , ANCHO_OBSTACULO, altoObstaculo, this); // Parte cortada de acuerdo al tamaño del obstáculo
+    }
 
-        // Dibujar puntos
-        g2d.drawString("Puntos: " + puntos, 10, 20);
+    private void dibujarMenu(Graphics2D g2d, FontMetrics fontMetrics) {
+        g2d.setColor(Color.BLACK);
+        String msg1 = "Si juntas 30 puntos, ganas el juego";
+        String msg2 = "Presiona 'Espacio' para iniciar";
+        String msg3 = "Presiona 'Esc' para salir";
+        g2d.drawString(msg1, (ANCHO - fontMetrics.stringWidth(msg1)) / 2, 100);
+        g2d.drawString(msg2, (ANCHO - fontMetrics.stringWidth(msg2)) / 2, 150);
+        g2d.drawString(msg3, (ANCHO - fontMetrics.stringWidth(msg3)) / 2, 200);
+    }
+
+    private void dibujarVictoria(Graphics2D g2d, FontMetrics fontMetrics) {
+        g2d.setColor(Color.BLACK);
+        String msg1 = "¡Felicidades! Has ganado el juego.";
+        String msg2 = "Has ganado $ xxx";
+        String msg3 = "Presiona 'Esc' para salir";
+        g2d.drawString(msg1, (ANCHO - fontMetrics.stringWidth(msg1)) / 2, 100);
+        g2d.drawString(msg2, (ANCHO - fontMetrics.stringWidth(msg2)) / 2, 150);
+        g2d.drawString(msg3, (ANCHO - fontMetrics.stringWidth(msg3)) / 2, 200);
+    }
+
+    private void dibujarDerrota(Graphics2D g2d, FontMetrics fontMetrics) {
+        g2d.setColor(Color.RED);
+        String msg1 = "¡Juego terminado! Has perdido.";
+        String msg2 = "Tu mascota ha perdido un poco de salud";
+        String msg3 = "Presiona 'Esc' para salir";
+        g2d.drawString(msg1, (ANCHO - fontMetrics.stringWidth(msg1)) / 2, 100);
+        g2d.drawString(msg2, (ANCHO - fontMetrics.stringWidth(msg2)) / 2, 150);
+        g2d.drawString(msg3, (ANCHO - fontMetrics.stringWidth(msg3)) / 2, 200);
     }
 
     private void dibujarMascota(Graphics2D g2d){
@@ -166,33 +179,15 @@ public class JuegoComun extends JPanel implements ActionListener, KeyListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(mainMenu || gameOver || gameWon) {
-            return; // No actualizar si estamos en el menú o el juego ha terminado
-        }
+        if (estadoJuego != EstadoJuego.JUGANDO) return; // No actualizar el juego si no estamos jugando
+        movimientoObstaculo();
+        movimientoMascota();
+        verificarColision();
+        repaint();
 
-        // ====== Movimiento de obstáculo ======
-        obstaculoX -= velObstaculo;
-        if(obstaculoX + ANCHO_OBSTACULO < 0){
-            // Reiniciar obstáculo
-            obstaculoX = ANCHO;
-            altoObstaculo = 40 + (int)(Math.random() * 50); // Altura aleatoria entre 40 y 90
+    }
 
-            puntos++;
-
-            if(puntos == PUNTOS_WIN){
-                gameWon = true;
-                timer.stop();
-                panelJuegos.victoriaJuego(35); // Gana $35
-            }
-
-            // Aumentar velocidad gradualmente
-            if(puntos % 5 == 0 && velObstaculo < MAX_VEL) {
-                velObstaculo++;
-            }
-        }
-
-        // ====== Movimiento de la mascota ======
-
+    private void movimientoMascota() {
         mascotaY += mascotaVelY;
 
         if(mascotaY >= 270){
@@ -203,34 +198,55 @@ public class JuegoComun extends JPanel implements ActionListener, KeyListener {
             mascotaVelY += 1; // Gravedad
         }
 
-        // Movimiento del piso
+        // Movimiento del piso para simular mascota moviendose horizontalmente
         pisoOffset += velObstaculo;
         if(pisoOffset >= IMAGEN_PISO.getWidth()) {
             pisoOffset = 0; // Reiniciar el offset del piso
         }
 
-        // ====== Colisión con obstáculo ======
+    }
 
+    private void movimientoObstaculo() {
+        obstaculoX -= velObstaculo;
+        if(obstaculoX + ANCHO_OBSTACULO < 0){
+            // Reiniciar obstáculo
+            obstaculoX = ANCHO;
+            altoObstaculo = 40 + (int)(Math.random() * 50); // Altura aleatoria entre 40 y 90
+
+            puntos++;
+
+            if(puntos == PUNTOS_WIN){
+                estadoJuego = EstadoJuego.VICTORIA;
+                timer.stop();
+                panelJuegos.victoriaJuego(35); // Gana $35
+            }
+
+            // Aumentar velocidad gradualmente
+            if(puntos % 5 == 0 && velObstaculo < MAX_VEL) {
+                velObstaculo++;
+            }
+        }
+    }
+
+    private void verificarColision() {
         if(new Rectangle(100, mascotaY, 30, 30).intersects(new Rectangle(obstaculoX, 310 - altoObstaculo, ANCHO_OBSTACULO, altoObstaculo))) {
             // Colisión detectada
-            gameOver = true;
+            estadoJuego = EstadoJuego.DERROTA;
             timer.stop();
             panelJuegos.derrotaJuego();
         }
-
-        repaint();
-
     }
+
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_SPACE && mainMenu) {
-            mainMenu = false; // Salir del menú principal
+        if(e.getKeyCode() == KeyEvent.VK_SPACE && estadoJuego == EstadoJuego.MENU) {
+            estadoJuego = EstadoJuego.JUGANDO; // Salir del menú principal
         }
-        if(e.getKeyCode() == KeyEvent.VK_ESCAPE && (gameOver || gameWon || mainMenu)) {
+        if(e.getKeyCode() == KeyEvent.VK_ESCAPE && estadoJuego != EstadoJuego.JUGANDO) {
             ventanaJuego.dispose(); // Cerrar el juego
         }
-        if(e.getKeyCode() == KeyEvent.VK_SPACE && !mainMenu && !gameOver && !gameWon && !jumping) {
+        if(e.getKeyCode() == KeyEvent.VK_SPACE && estadoJuego == EstadoJuego.JUGANDO && !jumping) {
             mascotaVelY = -15; // Velocidad de salto
             jumping = true;
         }
