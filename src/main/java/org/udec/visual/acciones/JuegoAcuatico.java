@@ -13,6 +13,7 @@ public class JuegoAcuatico extends JPanel implements MouseMotionListener, Action
 
     private final JDialog ventanaJuego;
     private final PanelJuegos panelJuegos;
+    private final int RECOMPENSA = 60; // Recompensa por ganar el juego
 
     private final int ANCHO = 700;
     private final int ALTO = 700;
@@ -66,7 +67,7 @@ public class JuegoAcuatico extends JPanel implements MouseMotionListener, Action
         altoDibujadoMascota = (int)(imagenMascotaHeight * escalaMascota);
 
         // Para ahorrar recursos, se escala la imagen de la mascota desde un inicio
-        this.imagenMascota = crearImagenMascota(imagenMascota);
+        this.imagenMascota = redimensionarImagenMascota(imagenMascota);
 
         this.addMouseMotionListener(this);
         this.addKeyListener(this);
@@ -81,7 +82,7 @@ public class JuegoAcuatico extends JPanel implements MouseMotionListener, Action
         requestFocusInWindow();
     }
 
-    private BufferedImage crearImagenMascota(BufferedImage imagenMascota) {
+    private BufferedImage redimensionarImagenMascota(BufferedImage imagenMascota) {
         BufferedImage imagenMascotaEscalada = new BufferedImage(anchoDibujadoMascota, altoDibujadoMascota, BufferedImage.TYPE_INT_ARGB);
         Graphics2D gMascota = imagenMascotaEscalada.createGraphics();
         gMascota.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -172,7 +173,7 @@ public class JuegoAcuatico extends JPanel implements MouseMotionListener, Action
     private void dibujarVictoria(Graphics2D g2d, FontMetrics fontMetrics) {
         g2d.setColor(Color.GREEN);
         String msg1 = "¡Felicidades! Has ganado el juego.";
-        String msg2 = "Has ganado $60";
+        String msg2 = "Has ganado $" + RECOMPENSA;
         String msg3 = "Presiona 'Esc' para salir";
         g2d.drawString(msg1, (ANCHO - fontMetrics.stringWidth(msg1)) / 2, 100);
         g2d.drawString(msg2, (ANCHO - fontMetrics.stringWidth(msg2)) / 2, 150);
@@ -202,7 +203,7 @@ public class JuegoAcuatico extends JPanel implements MouseMotionListener, Action
         if(puntos >= PUNTOS_WIN) {
             estadoJuego = EstadoJuego.VICTORIA;
 
-            panelJuegos.victoriaJuego(60); // Gana $60
+            panelJuegos.victoriaJuego(RECOMPENSA);
             timer.stop();
         }
 

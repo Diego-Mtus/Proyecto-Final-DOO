@@ -20,6 +20,7 @@ public class JuegoComun extends JPanel implements ActionListener, KeyListener {
 
     private final JDialog ventanaJuego;
     private final PanelJuegos panelJuegos;
+    private final int RECOMPENSA = 50; // Recompensa por ganar el juego
 
     private final int ANCHO = 800;
     private final int ALTO = 400;
@@ -74,11 +75,20 @@ public class JuegoComun extends JPanel implements ActionListener, KeyListener {
 
         setVisible(true);
 
-        // Cargar la imagen de la mascota
-        this.imagenMascota = imagenMascota;
+        // Para ahorrar recursos, se escala la imagen de la mascota desde un inicio
+        this.imagenMascota = redimensionarImagenMascota(imagenMascota);
 
         ventanaJuego.setVisible(true);
         this.requestFocusInWindow();
+    }
+
+    private BufferedImage redimensionarImagenMascota(BufferedImage imagenMascota) {
+        BufferedImage imagenMascotaEscalada = new BufferedImage(MASCOTA_SIZE, MASCOTA_SIZE, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D gMascota = imagenMascotaEscalada.createGraphics();
+        gMascota.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        gMascota.drawImage(imagenMascota, 0, 0, MASCOTA_SIZE, MASCOTA_SIZE, null);
+        gMascota.dispose();
+        return imagenMascotaEscalada;
     }
 
     @Override
@@ -130,7 +140,7 @@ public class JuegoComun extends JPanel implements ActionListener, KeyListener {
 
     private void dibujarMenu(Graphics2D g2d, FontMetrics fontMetrics) {
         g2d.setColor(Color.BLACK);
-        String msg1 = "Si juntas 30 puntos, ganas el juego";
+        String msg1 = "Si juntas " + PUNTOS_WIN + " puntos, ganas el juego";
         String msg2 = "Presiona 'Espacio' para iniciar";
         String msg3 = "Presiona 'Esc' para salir";
         g2d.drawString(msg1, (ANCHO - fontMetrics.stringWidth(msg1)) / 2, 100);
@@ -141,7 +151,7 @@ public class JuegoComun extends JPanel implements ActionListener, KeyListener {
     private void dibujarVictoria(Graphics2D g2d, FontMetrics fontMetrics) {
         g2d.setColor(Color.BLACK);
         String msg1 = "¡Felicidades! Has ganado el juego.";
-        String msg2 = "Has ganado $ xxx";
+        String msg2 = "Has ganado $" + RECOMPENSA;
         String msg3 = "Presiona 'Esc' para salir";
         g2d.drawString(msg1, (ANCHO - fontMetrics.stringWidth(msg1)) / 2, 100);
         g2d.drawString(msg2, (ANCHO - fontMetrics.stringWidth(msg2)) / 2, 150);
@@ -217,7 +227,7 @@ public class JuegoComun extends JPanel implements ActionListener, KeyListener {
             if(puntos == PUNTOS_WIN){
                 estadoJuego = EstadoJuego.VICTORIA;
                 timer.stop();
-                panelJuegos.victoriaJuego(35); // Gana $35
+                panelJuegos.victoriaJuego(RECOMPENSA);
             }
 
             // Aumentar velocidad gradualmente

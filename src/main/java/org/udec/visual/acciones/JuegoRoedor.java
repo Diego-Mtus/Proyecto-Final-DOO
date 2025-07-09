@@ -15,6 +15,7 @@ public class JuegoRoedor extends JPanel implements ActionListener, KeyListener {
 
     private final JDialog ventanaJuego;
     private final PanelJuegos panelJuegos;
+    private final int RECOMPENSA = 40; // Recompensa por ganar el juego
 
     private final BufferedImage imagenMascota;
     private final int anchoDibujadoMascota;
@@ -52,14 +53,16 @@ public class JuegoRoedor extends JPanel implements ActionListener, KeyListener {
         ventanaJuego.setLocationRelativeTo(null);
 
         this.panelJuegos = panelJuegos;
-        this.imagenMascota = imagenMascota;
-        
+
         int imagenMascotaWidth = imagenMascota.getWidth();
         int imagenMascotaHeight = imagenMascota.getHeight();
         double escalaMascota = Math.min((double) (TILE_SIZE - 4) / imagenMascotaWidth, (double) (TILE_SIZE - 4)/ imagenMascotaHeight);
         
         anchoDibujadoMascota = (int)(imagenMascotaWidth * escalaMascota);
         altoDibujadoMascota = (int)(imagenMascotaHeight * escalaMascota);
+
+        // Para ahorrar recursos, se escala la imagen de la mascota desde un inicio
+        this.imagenMascota = imagenMascota;
 
         generarLaberinto(); // Generar el laberinto al iniciar el juego
 
@@ -73,6 +76,15 @@ public class JuegoRoedor extends JPanel implements ActionListener, KeyListener {
 
         ventanaJuego.setVisible(true);
         this.requestFocusInWindow();
+    }
+
+    private BufferedImage redimensionarImagenMascota(BufferedImage imagenMascota){
+        BufferedImage imagenMascotaEscalada = new BufferedImage(anchoDibujadoMascota, altoDibujadoMascota, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D gMascota = imagenMascotaEscalada.createGraphics();
+        gMascota.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        gMascota.drawImage(imagenMascota, 0, 0, anchoDibujadoMascota, altoDibujadoMascota, null);
+        gMascota.dispose();
+        return imagenMascotaEscalada;
     }
 
     // Para la implementación, se usará dfs para generar los caminos.
@@ -159,7 +171,7 @@ public class JuegoRoedor extends JPanel implements ActionListener, KeyListener {
 
     private void dibujarMenu(Graphics2D g2d, FontMetrics fontMetrics) {
         g2d.setColor(Color.WHITE);
-        String msg1 = "Si llegas a la meta en menos de 40 segundos, ganas el juego";
+        String msg1 = "Si llegas a la meta en menos de " + tiempoRestante + " segundos, ganas el juego";
         String msg2 = "Te mueves con 'W', 'A', 'S', 'D'";
         String msg3 = "Presiona 'Espacio' para iniciar";
         String msg4 = "Presiona 'Esc' para salir";
@@ -172,7 +184,7 @@ public class JuegoRoedor extends JPanel implements ActionListener, KeyListener {
     private void dibujarVictoria(Graphics2D g2d, FontMetrics fontMetrics) {
         g2d.setColor(Color.WHITE);
         String msg1 = "¡Felicidades! Has ganado el juego.";
-        String msg2 = "Has ganado $ xxx";
+        String msg2 = "Has ganado $" + RECOMPENSA;
         String msg3 = "Presiona 'Esc' para salir";
         g2d.drawString(msg1, (ANCHO - fontMetrics.stringWidth(msg1)) / 2, 100);
         g2d.drawString(msg2, (ANCHO - fontMetrics.stringWidth(msg2)) / 2, 150);
@@ -296,7 +308,7 @@ public class JuegoRoedor extends JPanel implements ActionListener, KeyListener {
                     estadoJuego = EstadoJuego.VICTORIA; // Cambiar el estado del juego a victoria
                     timer.stop();
                     limiteTiempo.stop();
-                    panelJuegos.victoriaJuego(50);
+                    panelJuegos.victoriaJuego(RECOMPENSA);
                     repaint(); // Redibujar el panel
                 }
             }

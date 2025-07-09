@@ -18,6 +18,8 @@ public class JuegoVolador extends JPanel implements ActionListener, KeyListener 
 
     private JDialog ventanaJuego;
     private PanelJuegos panelJuegos;
+    private final int RECOMPENSA = 80;
+
     private final BufferedImage imagenMascota;
     private final Font fuente = new Font("Arial", Font.BOLD, 20);
 
@@ -40,7 +42,7 @@ public class JuegoVolador extends JPanel implements ActionListener, KeyListener 
     // Variables de estado
     private EstadoJuego estadoJuego = EstadoJuego.MENU;
     private int puntos = 0;
-    private final int PUNTOS_WIN = 10; // Puntos necesarios para ganar
+    private final int PUNTOS_WIN = 15; // Puntos necesarios para ganar
     private final int GRAVEDAD = 1; // Gravedad que afecta a la mascota
     private final int FUERZA_SALTO = 12;
     private final int VELOCIDAD_TUBERIA = 5;
@@ -64,7 +66,7 @@ public class JuegoVolador extends JPanel implements ActionListener, KeyListener 
         timer.start();
 
         this.panelJuegos = panelJuegos;
-        this.imagenMascota = imagenMascota;
+        this.imagenMascota = redimensionarImagenMascota(imagenMascota);
 
         // Inicializar tuberías
         for(int i = 0; i < 3; i++){
@@ -75,6 +77,15 @@ public class JuegoVolador extends JPanel implements ActionListener, KeyListener 
         ventanaJuego.setVisible(true);
         this.requestFocusInWindow();
 
+    }
+
+    private BufferedImage redimensionarImagenMascota(BufferedImage imagenMascota){
+        BufferedImage imagenMascotaEscalada = new BufferedImage(MASCOTA_SIZE, MASCOTA_SIZE, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D gMascota = imagenMascotaEscalada.createGraphics();
+        gMascota.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        gMascota.drawImage(imagenMascota, 0, 0, MASCOTA_SIZE, MASCOTA_SIZE, null);
+        gMascota.dispose();
+        return imagenMascotaEscalada;
     }
 
     @Override
@@ -109,7 +120,7 @@ public class JuegoVolador extends JPanel implements ActionListener, KeyListener 
 
     private void dibujarMenu(Graphics2D g2d, FontMetrics fontMetrics) {
         g2d.setColor(Color.BLACK);
-        String msg1 = "Si juntas 10 puntos, ganas el juego";
+        String msg1 = "Si juntas " + PUNTOS_WIN + " puntos, ganas el juego";
         String msg2 = "Presiona 'Espacio' para iniciar";
         String msg3 = "Presiona 'Esc' para salir";
         g2d.drawString(msg1, (ANCHO - fontMetrics.stringWidth(msg1)) / 2, 100);
@@ -120,7 +131,7 @@ public class JuegoVolador extends JPanel implements ActionListener, KeyListener 
     private void dibujarVictoria(Graphics2D g2d, FontMetrics fontMetrics) {
         g2d.setColor(Color.BLACK);
         String msg1 = "¡Felicidades! Has ganado el juego.";
-        String msg2 = "Has ganado $ xxx";
+        String msg2 = "Has ganado $" + RECOMPENSA;
         String msg3 = "Presiona 'Esc' para salir";
         g2d.drawString(msg1, (ANCHO - fontMetrics.stringWidth(msg1)) / 2, 100);
         g2d.drawString(msg2, (ANCHO - fontMetrics.stringWidth(msg2)) / 2, 150);
@@ -182,7 +193,7 @@ public class JuegoVolador extends JPanel implements ActionListener, KeyListener 
         if(puntos >= PUNTOS_WIN){
             estadoJuego = EstadoJuego.VICTORIA;
             timer.stop();
-            panelJuegos.victoriaJuego(60); // Gana $60
+            panelJuegos.victoriaJuego(RECOMPENSA);
         }
 
         repaint();
