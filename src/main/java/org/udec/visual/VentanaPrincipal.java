@@ -4,10 +4,10 @@ import org.udec.util.Dinero;
 import org.udec.util.DineroNoSuficienteException;
 import org.udec.util.enumerations.BotonesUI;
 import org.udec.visual.acciones.PanelAcciones;
-import org.udec.visual.listeners.AdopcionListener;
-import org.udec.visual.listeners.CompraListener;
-import org.udec.visual.listeners.DineroObtenidoListener;
-import org.udec.visual.listeners.EscenarioListener;
+import org.udec.util.listeners.AdopcionListener;
+import org.udec.util.listeners.CompraListener;
+import org.udec.util.listeners.DineroObtenidoListener;
+import org.udec.util.listeners.EscenarioListener;
 
 import javax.swing.*;
 import java.awt.*;

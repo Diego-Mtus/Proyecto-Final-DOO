@@ -1,7 +1,7 @@
 package org.udec.visual;
 
-import org.udec.visual.comandos.Command;
-import org.udec.visual.comandos.VenderMascotaCommand;
+import org.udec.util.comandos.Command;
+import org.udec.util.comandos.VenderMascotaCommand;
 
 import javax.swing.*;
 

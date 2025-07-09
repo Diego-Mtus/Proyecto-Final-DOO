@@ -1,4 +1,4 @@
-package org.udec.visual.listeners;
+package org.udec.util.listeners;
 
 
 import org.udec.visual.PanelEscenario;

@@ -3,7 +3,7 @@ package org.udec.visual.acciones;
 import org.udec.util.enumerations.BotonesUI;
 import org.udec.visual.JButtonAnimado;
 import org.udec.visual.PanelEscenario;
-import org.udec.visual.listeners.DineroObtenidoListener;
+import org.udec.util.listeners.DineroObtenidoListener;
 import org.udec.visual.VentanaPrincipal;
 
 import javax.swing.*;

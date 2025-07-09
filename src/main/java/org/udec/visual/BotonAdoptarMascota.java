@@ -1,7 +1,7 @@
 package org.udec.visual;
 
-import org.udec.visual.comandos.AdoptarMascotaCommand;
-import org.udec.visual.comandos.Command;
+import org.udec.util.comandos.AdoptarMascotaCommand;
+import org.udec.util.comandos.Command;
 
 import javax.swing.*;
 

@@ -1,9 +1,9 @@
 package org.udec.visual;
 
 import org.udec.util.enumerations.TiposEnum;
-import org.udec.visual.comandos.Command;
-import org.udec.visual.comandos.SelecionarEscenarioCommand;
-import org.udec.visual.listeners.CompraListener;
+import org.udec.util.comandos.Command;
+import org.udec.util.comandos.SelecionarEscenarioCommand;
+import org.udec.util.listeners.CompraListener;
 
 import javax.swing.*;
 import java.awt.*;

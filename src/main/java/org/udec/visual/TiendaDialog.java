@@ -4,7 +4,7 @@ import org.udec.util.CargadorDeImagenes;
 import org.udec.util.enumerations.AlimentosEnum;
 import org.udec.util.enumerations.MedicinasEnum;
 import org.udec.util.enumerations.ProductosEnum;
-import org.udec.visual.listeners.CompraListener;
+import org.udec.util.listeners.CompraListener;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;

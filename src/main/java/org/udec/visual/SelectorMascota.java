@@ -1,15 +1,11 @@
 package org.udec.visual;
 
-import org.udec.mascotas.*;
 import org.udec.util.enumerations.MascotasEnum;
-import org.udec.visual.comandos.Command;
-import org.udec.visual.comandos.SeleccionarMascotaCommand;
+import org.udec.util.comandos.Command;
+import org.udec.util.comandos.SeleccionarMascotaCommand;
 
 import javax.swing.*;
 import java.awt.*;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
 import java.util.List;
 
 public class SelectorMascota extends JDialog {

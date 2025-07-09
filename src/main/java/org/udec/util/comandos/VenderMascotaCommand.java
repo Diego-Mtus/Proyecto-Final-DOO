@@ -1,4 +1,4 @@
-package org.udec.visual.comandos;
+package org.udec.util.comandos;
 
 import org.udec.visual.PanelEscenario;
 

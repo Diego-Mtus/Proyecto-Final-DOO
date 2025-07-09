@@ -1,10 +1,9 @@
-package org.udec.visual.comandos;
+package org.udec.util.comandos;
 
 import org.udec.util.DineroNoSuficienteException;
 import org.udec.util.enumerations.ProductosEnum;
 import org.udec.visual.PanelDescripcion;
-import org.udec.visual.PanelEscenario;
-import org.udec.visual.listeners.CompraListener;
+import org.udec.util.listeners.CompraListener;
 
 import javax.swing.*;
 
