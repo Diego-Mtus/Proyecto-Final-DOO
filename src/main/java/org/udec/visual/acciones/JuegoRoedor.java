@@ -1,5 +1,7 @@
 package org.udec.visual.acciones;
 
+import org.udec.util.enumerations.EstadoJuego;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,32 +13,33 @@ import java.awt.image.BufferedImage;
 
 public class JuegoRoedor extends JPanel implements ActionListener, KeyListener {
 
-    private JDialog ventanaJuego;
-    private PanelJuegos panelJuegos;
+    private final JDialog ventanaJuego;
+    private final PanelJuegos panelJuegos;
 
     private final BufferedImage imagenMascota;
     private final int anchoDibujadoMascota;
     private final int altoDibujadoMascota;
 
-
     private final Font fuente = new Font("Arial", Font.BOLD, 20);
 
     // Variables de juego
-    private Timer timer, limiteTiempo;
+    private final Timer timer;
+    private final Timer limiteTiempo;
     private int tiempoRestante = 40;
 
     private final int TILE_SIZE = 40; // Tamaño de cada celda del laberinto
     private final int FILAS = 20, COLS = 30; // Dimensiones del laberinto
-    private int[][] laberinto = new int[FILAS][COLS]; // 0 = camino, 1 = pared, 2 = meta
+    private final int RADIO_VISION = 3;
+    private final int ANCHO = COLS * TILE_SIZE;
+    private final int ALTO = FILAS * TILE_SIZE;
+
+    private final int[][] laberinto = new int[FILAS][COLS]; // 0 = camino, 1 = pared, 2 = meta
     private int mascotaFila = 1, mascotaCol = 1; // Posición inicial del jugador
-    private int direccion = 0; // 0 = derecha, 1 = abajo, 2 = izquierda, 3 = arriba
-    private int radioVision = 3;
+    private int direccion = 0; // Para multiplicarlo por 90 y obtener la rotación.
+
 
     // Variables de estado
-    private boolean mainMenu = true; // Indica si estamos en el menú principal
-    private boolean gameOver = false;
-    private boolean gameWon = false;
-
+    private EstadoJuego estadoJuego = EstadoJuego.MENU;
 
     public JuegoRoedor(BufferedImage imagenMascota, PanelJuegos panelJuegos) {
         ventanaJuego = new JDialog();
@@ -45,15 +48,16 @@ public class JuegoRoedor extends JPanel implements ActionListener, KeyListener {
         ventanaJuego.setResizable(false);
         ventanaJuego.setTitle("Juego Roedor");
         ventanaJuego.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        ventanaJuego.setSize(TILE_SIZE * COLS, TILE_SIZE * FILAS + 40); // +40 para espacio de puntaje y tiempo
+        ventanaJuego.setSize(ANCHO, ALTO);
         ventanaJuego.setLocationRelativeTo(null);
 
         this.panelJuegos = panelJuegos;
-
         this.imagenMascota = imagenMascota;
+        
         int imagenMascotaWidth = imagenMascota.getWidth();
         int imagenMascotaHeight = imagenMascota.getHeight();
         double escalaMascota = Math.min((double) (TILE_SIZE - 4) / imagenMascotaWidth, (double) (TILE_SIZE - 4)/ imagenMascotaHeight);
+        
         anchoDibujadoMascota = (int)(imagenMascotaWidth * escalaMascota);
         altoDibujadoMascota = (int)(imagenMascotaHeight * escalaMascota);
 
@@ -130,105 +134,122 @@ public class JuegoRoedor extends JPanel implements ActionListener, KeyListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        // Dibujar el laberinto
-        for (int f = 0; f < FILAS; f++) {
-            for (int c = 0; c < COLS; c++) {
-                if(laberinto[f][c] == 2) { // Siempre mostrar la meta
-                    g.setColor(Color.yellow);
-                    g.fillRect(c * TILE_SIZE, f * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-                } else{
-                    int dist = Math.abs(f - mascotaFila) + Math.abs(c - mascotaCol);
-                    if(dist <= radioVision) { // Solo se muestran celdas dentro del radio de visión
-                        if (laberinto[f][c] == 1) {
-                            g.setColor(Color.DARK_GRAY);
-                            g.fillRect(c * TILE_SIZE, f * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-                        } else if (laberinto[f][c] == 0) {
-                            g.setColor(Color.WHITE); // Camino
-                            g.fillRect(c * TILE_SIZE, f * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-                        }
-                    } else {
-                        g.setColor(Color.BLACK); // Celdas fuera del radio de visión
-                        g.fillRect(c * TILE_SIZE, f * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-                    }
-                }
-            }
-        }
-
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setFont(fuente);
-        g2d.setColor(Color.WHITE);
+        FontMetrics fontMetrics = g2d.getFontMetrics();
+        
+        // Dibujar el laberinto
+        dibujarLaberinto(g2d);
 
         // Dibujar mascota con rotación
         dibujarMascota(g2d);
 
-        // Dibujar mensajes del menú principal o del juego
-        FontMetrics fontMetrics = g2d.getFontMetrics();
-        int panelWidth = getWidth();
-
-        if(mainMenu){
-            String msg1 = "Si llegas a la meta en menos de 40 segundos, ganas el juego";
-            String msg2 = "Te mueves con 'W', 'A', 'S', 'D'";
-            String msg3 = "Presiona 'Espacio' para iniciar";
-            String msg4 = "Presiona 'Esc' para salir";
-            g2d.drawString(msg1, (panelWidth - fontMetrics.stringWidth(msg1)) / 2, 100);
-            g2d.drawString(msg2, (panelWidth - fontMetrics.stringWidth(msg2)) / 2, 150);
-            g2d.drawString(msg3, (panelWidth - fontMetrics.stringWidth(msg3)) / 2, 200);
-            g2d.drawString(msg4, (panelWidth - fontMetrics.stringWidth(msg4)) / 2, 250);
-            return;
-        } else if(gameWon){
-            String msg1 = "¡Felicidades! Has ganado el juego.";
-            String msg2 = "Has ganado $ xxx";
-            String msg3 = "Presiona 'Esc' para salir";
-            g2d.drawString(msg1, (panelWidth - fontMetrics.stringWidth(msg1)) / 2, 100);
-            g2d.drawString(msg2, (panelWidth - fontMetrics.stringWidth(msg2)) / 2, 150);
-            g2d.drawString(msg3, (panelWidth - fontMetrics.stringWidth(msg3)) / 2, 200);
-            return;
-        } else if(gameOver) {
-            g2d.setColor(Color.RED);
-            String msg1 = "¡Te has quedado sin tiempo! Has perdido.";
-            String msg2 = "Tu mascota ha perdido un poco de salud";
-            String msg3 = "Presiona 'Esc' para salir";
-            g2d.drawString(msg1, (panelWidth - fontMetrics.stringWidth(msg1)) / 2, 100);
-            g2d.drawString(msg2, (panelWidth - fontMetrics.stringWidth(msg2)) / 2, 150);
-            g2d.drawString(msg3, (panelWidth - fontMetrics.stringWidth(msg3)) / 2, 200);
-            return;
+        switch(estadoJuego){
+            case MENU -> dibujarMenu(g2d, fontMetrics);
+            case VICTORIA -> dibujarVictoria(g2d, fontMetrics);
+            case DERROTA -> dibujarDerrota(g2d, fontMetrics);
         }
 
         // Dibujar tiempo restante
+        g2d.setColor(Color.WHITE);
         g2d.drawString("Tiempo: " + tiempoRestante, 10, 20);
 
     }
 
-    private void dibujarMascota(Graphics2D g2d) {
-        int cx = mascotaCol * TILE_SIZE + TILE_SIZE / 2;
-        int cy = mascotaFila * TILE_SIZE + TILE_SIZE / 2;
-        double angulo = Math.toRadians(direccion * 90);
+    private void dibujarMenu(Graphics2D g2d, FontMetrics fontMetrics) {
+        g2d.setColor(Color.WHITE);
+        String msg1 = "Si llegas a la meta en menos de 40 segundos, ganas el juego";
+        String msg2 = "Te mueves con 'W', 'A', 'S', 'D'";
+        String msg3 = "Presiona 'Espacio' para iniciar";
+        String msg4 = "Presiona 'Esc' para salir";
+        g2d.drawString(msg1, (ANCHO - fontMetrics.stringWidth(msg1)) / 2, 100);
+        g2d.drawString(msg2, (ANCHO - fontMetrics.stringWidth(msg2)) / 2, 150);
+        g2d.drawString(msg3, (ANCHO - fontMetrics.stringWidth(msg3)) / 2, 200);
+        g2d.drawString(msg4, (ANCHO - fontMetrics.stringWidth(msg4)) / 2, 250);
+    }
 
+    private void dibujarVictoria(Graphics2D g2d, FontMetrics fontMetrics) {
+        g2d.setColor(Color.WHITE);
+        String msg1 = "¡Felicidades! Has ganado el juego.";
+        String msg2 = "Has ganado $ xxx";
+        String msg3 = "Presiona 'Esc' para salir";
+        g2d.drawString(msg1, (ANCHO - fontMetrics.stringWidth(msg1)) / 2, 100);
+        g2d.drawString(msg2, (ANCHO - fontMetrics.stringWidth(msg2)) / 2, 150);
+        g2d.drawString(msg3, (ANCHO - fontMetrics.stringWidth(msg3)) / 2, 200);
+    }
+
+    private void dibujarDerrota(Graphics2D g2d, FontMetrics fontMetrics) {
+        g2d.setColor(Color.RED);
+        String msg1 = "¡Te has quedado sin tiempo! Has perdido.";
+        String msg2 = "Tu mascota ha perdido un poco de salud";
+        String msg3 = "Presiona 'Esc' para salir";
+        g2d.drawString(msg1, (ANCHO - fontMetrics.stringWidth(msg1)) / 2, 100);
+        g2d.drawString(msg2, (ANCHO - fontMetrics.stringWidth(msg2)) / 2, 150);
+        g2d.drawString(msg3, (ANCHO - fontMetrics.stringWidth(msg3)) / 2, 200);
+    }
+
+    private void dibujarLaberinto(Graphics2D g2d) {
+        for (int f = 0; f < FILAS; f++) {
+            for (int c = 0; c < COLS; c++) {
+                if(laberinto[f][c] == 2) dibujarMeta(g2d, c, f); // Siempre mostrar la meta
+
+                else{
+                    int dist = Math.abs(f - mascotaFila) + Math.abs(c - mascotaCol);
+                    
+                    if(dist <= RADIO_VISION) { // Solo se muestran celdas dentro del radio de visión
+                        
+                        if (laberinto[f][c] == 1) dibujarPared(g2d, c, f);
+                        else if (laberinto[f][c] == 0) dibujarCamino(g2d, c, f);
+
+                    } else dibujadoFueraDeVision(g2d, c, f);
+                }
+
+            }
+        }
+    }
+
+    private void dibujarMeta(Graphics2D g2d, int c, int f) {
+        g2d.setColor(Color.yellow);
+        g2d.fillRect(c * TILE_SIZE, f * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+    }
+
+    private void dibujarPared(Graphics2D g2d, int c, int f) {
+        g2d.setColor(Color.DARK_GRAY);
+        g2d.fillRect(c * TILE_SIZE, f * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+    }
+
+    private void dibujarCamino(Graphics2D g2d, int c, int f) {
+        g2d.setColor(Color.WHITE); // Camino
+        g2d.fillRect(c * TILE_SIZE, f * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+    }
+
+    private void dibujadoFueraDeVision(Graphics2D g2d, int c, int f) {
+        g2d.setColor(Color.BLACK); // Celdas fuera del radio de visión
+        g2d.fillRect(c * TILE_SIZE, f * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+    }
+
+
+    private void dibujarMascota(Graphics2D g2d) {
+        int centroX = mascotaCol * TILE_SIZE + TILE_SIZE / 2;
+        int centroY = mascotaFila * TILE_SIZE + TILE_SIZE / 2;
+        double angulo = Math.toRadians(direccion * 90);
 
         int drawX = mascotaCol * TILE_SIZE + (TILE_SIZE - anchoDibujadoMascota) / 2;
         int drawY = mascotaFila * TILE_SIZE + (TILE_SIZE - altoDibujadoMascota) / 2;
 
         AffineTransform originalTransform = g2d.getTransform(); // Guardar transformaciones previas
-        g2d.rotate(angulo, cx, cy);
+        g2d.rotate(angulo, centroX, centroY);
         g2d.drawImage(imagenMascota, drawX, drawY, anchoDibujadoMascota, altoDibujadoMascota, this);
         g2d.setTransform(originalTransform);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(mainMenu) {
-            return; // No actualizar el juego si estamos en el menú
-        }
-
-        if(gameWon) {
-           timer.stop();
-           limiteTiempo.stop();
-           panelJuegos.victoriaJuego(50);
-        }
+        if(estadoJuego != EstadoJuego.JUGANDO) return;
 
         if(tiempoRestante <= 0) {
-            gameOver = true; // Si el tiempo se agota, el juego termina
+            estadoJuego = EstadoJuego.DERROTA; // Cambiar el estado del juego a derrota
             limiteTiempo.stop();
             timer.stop();
             panelJuegos.derrotaJuego();
@@ -240,29 +261,30 @@ public class JuegoRoedor extends JPanel implements ActionListener, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_SPACE && mainMenu) {
-            mainMenu = false; // Salir del menú principal
-            limiteTiempo.start();
+        if(e.getKeyCode() == KeyEvent.VK_SPACE && estadoJuego == EstadoJuego.MENU) {
+            estadoJuego = EstadoJuego.JUGANDO; // Salir del menú principal
+            limiteTiempo.start(); // Iniciar el temporizador
             return;
         }
-        if(gameOver || gameWon || mainMenu) {
-            if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                ventanaJuego.dispose(); // Cerrar el juego
-            }
-        } else{
+        if(e.getKeyCode() == KeyEvent.VK_ESCAPE && estadoJuego != EstadoJuego.JUGANDO) {
+            ventanaJuego.dispose(); // Cerrar el juego
+            return;
+        }
+        if (estadoJuego == EstadoJuego.JUGANDO) {
+
             int nuevaFila = mascotaFila, nuevaColumna = mascotaCol;
             if (e.getKeyCode() == KeyEvent.VK_W) { nuevaFila--; direccion = 0; }
             if (e.getKeyCode() == KeyEvent.VK_S) { nuevaFila++; direccion = 2; }
             if (e.getKeyCode() == KeyEvent.VK_A) { nuevaColumna--; direccion = 3; }
             if (e.getKeyCode() == KeyEvent.VK_D) { nuevaColumna++; direccion = 1; }
 
-            // ver si está chocando con paredes, con meta o límites.
-            detectarColisiones(nuevaFila, nuevaColumna);
+            // Se mueve la mascota verificando las paredes y meta
+            moverMascota(nuevaFila, nuevaColumna);
         }
 
     }
 
-    private void detectarColisiones(int nuevaFila, int nuevaColumna) {
+    private void moverMascota(int nuevaFila, int nuevaColumna) {
         if (nuevaFila >= 0 && nuevaFila < FILAS && nuevaColumna >= 0 && nuevaColumna < COLS) {
             // Verificar si es un camino o la meta
             if (laberinto[nuevaFila][nuevaColumna] == 0 || laberinto[nuevaFila][nuevaColumna] == 2) {
@@ -271,7 +293,11 @@ public class JuegoRoedor extends JPanel implements ActionListener, KeyListener {
 
                 // Verificar si llegó a la meta
                 if (laberinto[mascotaFila][mascotaCol] == 2) {
-                    gameWon = true;
+                    estadoJuego = EstadoJuego.VICTORIA; // Cambiar el estado del juego a victoria
+                    timer.stop();
+                    limiteTiempo.stop();
+                    panelJuegos.victoriaJuego(50);
+                    repaint(); // Redibujar el panel
                 }
             }
         }
