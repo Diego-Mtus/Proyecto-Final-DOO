@@ -2,7 +2,7 @@ package org.udec.visual.acciones;
 
 import org.udec.mascotas.Mascota;
 import org.udec.visual.PanelEscenario;
-import org.udec.visual.listeners.DineroObtenidoListener;
+import org.udec.util.listeners.DineroObtenidoListener;
 import org.udec.visual.VentanaPrincipal;
 
 import javax.swing.*;
@@ -47,7 +47,8 @@ public class PanelJuegos extends JPanel {
                         SwingUtilities.invokeLater(() -> new JuegoRoedor(mascotaActual.getImagenMascotaJuego(), this));
                 case VOLADOR ->
                         SwingUtilities.invokeLater(() -> new JuegoVolador(mascotaActual.getImagenMascotaJuego(), this));
-                case ACUATICO -> System.out.println("Jugando con una mascota acuática.");
+                case ACUATICO ->
+                        SwingUtilities.invokeLater(() -> new JuegoAcuatico(mascotaActual.getImagenMascotaJuego(), this));
             }
 
         } else {

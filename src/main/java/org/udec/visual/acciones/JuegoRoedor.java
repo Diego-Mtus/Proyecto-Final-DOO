@@ -235,12 +235,12 @@ public class JuegoRoedor extends JPanel implements ActionListener, KeyListener {
         int centroY = mascotaFila * TILE_SIZE + TILE_SIZE / 2;
         double angulo = Math.toRadians(direccion * 90);
 
-        int drawX = mascotaCol * TILE_SIZE + (TILE_SIZE - anchoDibujadoMascota) / 2;
-        int drawY = mascotaFila * TILE_SIZE + (TILE_SIZE - altoDibujadoMascota) / 2;
+        int dibujadoX = mascotaCol * TILE_SIZE + (TILE_SIZE - anchoDibujadoMascota) / 2;
+        int dibujadoY = mascotaFila * TILE_SIZE + (TILE_SIZE - altoDibujadoMascota) / 2;
 
         AffineTransform originalTransform = g2d.getTransform(); // Guardar transformaciones previas
         g2d.rotate(angulo, centroX, centroY);
-        g2d.drawImage(imagenMascota, drawX, drawY, anchoDibujadoMascota, altoDibujadoMascota, this);
+        g2d.drawImage(imagenMascota, dibujadoX, dibujadoY, anchoDibujadoMascota, altoDibujadoMascota, this);
         g2d.setTransform(originalTransform);
     }
 
