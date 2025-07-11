@@ -1,5 +1,10 @@
 package org.udec.mascotas;
 
+import org.udec.util.CargadorDeImagenes;
+import org.udec.util.GeneradorNombreAleatorio;
+import org.udec.util.GestionDeSonido;
+import org.udec.util.enumerations.MascotasEnum;
+import org.udec.util.enumerations.NivelDecrementoEnum;
 import org.udec.util.enumerations.TiposEnum;
 
 import javax.sound.sampled.Clip;
@@ -15,6 +20,16 @@ public abstract class Mascota {
     protected TiposEnum tipo;
     protected int precioVenta;
     protected Estado estado;
+
+    protected Mascota(MascotasEnum mascotaEnum){
+        this.nombreAnimal = mascotaEnum.getNombre();
+        this.tipo = mascotaEnum.getTipo();
+        this.nombrePropio = GeneradorNombreAleatorio.obtenerNombreAleatorio();
+        this.imagenMascota = CargadorDeImagenes.cargarImagen(mascotaEnum.getRutaImagen());
+        this.imagenMascotaJuego = CargadorDeImagenes.cargarImagen(mascotaEnum.getRutaImagenJuego());
+        this.sonidoMascota = GestionDeSonido.cargarClip(mascotaEnum.getRutaSonido());
+        this.precioVenta = mascotaEnum.getPrecioVenta();
+    }
 
     public TiposEnum getTipo(){
         return this.tipo;

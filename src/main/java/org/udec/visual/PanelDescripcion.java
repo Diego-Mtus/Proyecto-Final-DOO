@@ -22,7 +22,7 @@ public class PanelDescripcion extends JPanel {
 
     private String descripcionString;
     private final Font fuente = new Font("Comic Sans MS", Font.PLAIN, 16);
-    private JButton botonComprar;
+    private final JButton botonComprar;
     private ProductosEnum ultimoProductoSeleccionado;
     private CompraListener compraListener;
 

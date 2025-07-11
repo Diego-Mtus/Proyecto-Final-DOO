@@ -11,9 +11,9 @@ public class Estado {
     private volatile boolean isHerido = false;
     private volatile boolean quiereJugar = true;
 
-    private int decrementoHambre;
-    private int decrementoSalud;
-    private int decrementoFelicidad;
+    private final int decrementoHambre;
+    private final int decrementoSalud;
+    private final int decrementoFelicidad;
 
     private final int estadoMax = 100;
 

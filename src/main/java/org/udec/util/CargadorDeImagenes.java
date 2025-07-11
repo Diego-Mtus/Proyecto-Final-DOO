@@ -3,17 +3,26 @@ package org.udec.util;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Objects;
+import java.net.URL;
 
 public class CargadorDeImagenes {
 
     public static BufferedImage cargarImagen(String ruta) {
-        BufferedImage imagen = null;
-        try {
-            imagen = ImageIO.read(Objects.requireNonNull(CargadorDeImagenes.class.getResource(ruta)));
-        } catch (IOException e) {
-            System.err.println("Error al cargar la imagen: " + e.getMessage());
+        URL recurso = CargadorDeImagenes.class.getResource(ruta);
+        if (recurso == null) {
+            System.err.println("No se encontró el recurso de imagen: " + ruta);
+            return null;
         }
-        return imagen;
+        try {
+            BufferedImage imagen = ImageIO.read(recurso);
+            if (imagen == null) {
+                System.err.println("No se pudo leer la imagen: " + ruta);
+                return null;
+            }
+            return imagen;
+        } catch (IOException e) {
+            System.err.println("Error al cargar la imagen: " + ruta);
+            return null;
+        }
     }
 }

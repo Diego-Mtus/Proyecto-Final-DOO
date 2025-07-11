@@ -6,14 +6,13 @@ import org.udec.visual.PanelEstado;
 
 public class HiloActualizadorEstado implements Runnable{
 
-    private PanelEstado panelEstado;
-    private Mascota mascota;
+    private final PanelEstado panelEstado;
+    private final Mascota mascota;
     private final int decrementoHambre;
     private final int decrementoSalud;
     private final int decrementoFelicidad;
 
     private boolean corriendo = true;
-
 
     public HiloActualizadorEstado(PanelEstado panelEstado, Mascota mascota) {
 

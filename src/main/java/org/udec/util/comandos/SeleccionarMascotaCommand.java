@@ -1,4 +1,3 @@
-// src/main/java/org/udec/visual/comandos/SeleccionarMascotaCommand.java
 package org.udec.util.comandos;
 
 import org.udec.util.enumerations.MascotasEnum;

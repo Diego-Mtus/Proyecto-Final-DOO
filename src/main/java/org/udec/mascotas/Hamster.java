@@ -1,19 +1,12 @@
 package org.udec.mascotas;
 
-import org.udec.util.*;
 import org.udec.util.enumerations.MascotasEnum;
 import org.udec.util.enumerations.NivelDecrementoEnum;
 
 
 public class Hamster extends Mascota{
     Hamster(){
-        this.nombreAnimal = MascotasEnum.HAMSTER.getNombre();
-        this.tipo = MascotasEnum.HAMSTER.getTipo();
-        this.nombrePropio = GeneradorNombreAleatorio.obtenerNombreAleatorio();
+        super(MascotasEnum.HAMSTER);
         this.estado = new Estado(NivelDecrementoEnum.LENTO, NivelDecrementoEnum.RAPIDO, NivelDecrementoEnum.RAPIDO);
-        this.imagenMascota = CargadorDeImagenes.cargarImagen(MascotasEnum.HAMSTER.getRutaImagen());
-        this.imagenMascotaJuego = CargadorDeImagenes.cargarImagen(MascotasEnum.HAMSTER.getRutaImagenJuego());
-        this.sonidoMascota = GestionDeSonido.cargarClip(MascotasEnum.HAMSTER.getRutaSonido());
-        this.precioVenta = MascotasEnum.HAMSTER.getPrecioVenta();
     }
 }

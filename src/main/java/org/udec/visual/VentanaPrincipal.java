@@ -20,8 +20,8 @@ public class VentanaPrincipal extends JFrame implements EscenarioListener, Compr
     public static final int ALTO = 860;
 
     // Panel que contiene los escenarios
-    private JPanel cardPanel;
-    private CardLayout cardLayout;
+    private final JPanel cardPanel;
+    private final CardLayout cardLayout;
     private List<PanelEscenario> panelesEscenario;
 
     // Variables para controlar paneles de escenario.

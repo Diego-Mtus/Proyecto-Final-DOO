@@ -1,18 +1,12 @@
 package org.udec.mascotas;
 
-import org.udec.util.*;
 import org.udec.util.enumerations.MascotasEnum;
 import org.udec.util.enumerations.NivelDecrementoEnum;
 
 public class PezPayaso extends Mascota{
     PezPayaso(){
-        this.nombreAnimal = MascotasEnum.PEZPAYASO.getNombre();
-        this.tipo = MascotasEnum.PEZPAYASO.getTipo();
-        this.nombrePropio = GeneradorNombreAleatorio.obtenerNombreAleatorio();
+        super(MascotasEnum.PEZPAYASO);
         this.estado = new Estado(NivelDecrementoEnum.LENTO, NivelDecrementoEnum.RAPIDO, NivelDecrementoEnum.RAPIDO);
-        this.imagenMascota = CargadorDeImagenes.cargarImagen(MascotasEnum.PEZPAYASO.getRutaImagen());
-        this.imagenMascotaJuego = CargadorDeImagenes.cargarImagen(MascotasEnum.PEZPAYASO.getRutaImagenJuego());
-        this.sonidoMascota = GestionDeSonido.cargarClip(MascotasEnum.PEZPAYASO.getRutaSonido());
-        this.precioVenta = MascotasEnum.PEZPAYASO.getPrecioVenta();
+
     }
 }
