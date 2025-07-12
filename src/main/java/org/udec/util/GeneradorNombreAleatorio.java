@@ -8,10 +8,20 @@ import java.util.List;
 import java.util.Random;
 
 
+/**
+ * Clase que genera un nombre aleatorio para una mascota.
+ * Utiliza un archivo de texto que contiene nombres de mascotas.
+ */
 public class GeneradorNombreAleatorio {
 
     private static final String RUTA = "/nombres_mascota.txt";
 
+    /**
+     * Método que obtiene un nombre aleatorio de una lista de nombres
+     * almacenados en un archivo de texto.
+     *
+     * @return Un nombre aleatorio como String.
+     */
     public static String obtenerNombreAleatorio(){
         InputStream inputStream = GeneradorNombreAleatorio.class.getResourceAsStream(RUTA);
 

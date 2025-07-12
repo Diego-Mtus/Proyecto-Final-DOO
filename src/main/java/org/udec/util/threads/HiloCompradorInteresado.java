@@ -5,6 +5,11 @@ import org.udec.visual.PanelEscenario;
 
 import java.util.Random;
 
+/**
+ * Hilo que simula el comportamiento de un comprador interesado en una mascota.
+ * Este hilo revisa periódicamente el estado de la mascota y determina si es apta para la venta.
+ * Si la mascota cumple con los requisitos, se muestra un botón para venderla.
+ */
 public class HiloCompradorInteresado implements Runnable{
 
     private volatile boolean corriendo = true;
@@ -15,6 +20,12 @@ public class HiloCompradorInteresado implements Runnable{
     private int intervalosActuales = 0;
     private final int intervalosEsperados;
 
+    /**
+     * Constructor que inicializa el hilo con el panel del escenario y la mascota actual.
+     * También establece un intervalo aleatorio esperado para que un comprador se interese en la mascota.
+     *
+     * @param panelEscenario El panel del escenario donde se encuentra la mascota.
+     */
     public HiloCompradorInteresado(PanelEscenario panelEscenario){
         this.panelEscenario = panelEscenario;
         this.mascota = panelEscenario.getEscenario().getMascotaActual();
@@ -25,6 +36,11 @@ public class HiloCompradorInteresado implements Runnable{
         this.intervalosEsperados = intervalos.nextInt(5,10);
     }
 
+    /**
+     * Método que inicia el hilo del comprador interesado.
+     * Este método se ejecuta en un bucle, revisando periódicamente el estado de la mascota.
+     * Si la mascota cumple con los requisitos, se muestra un botón para venderla y se detiene el hilo.
+     */
     @Override
     public void run() {
 

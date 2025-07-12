@@ -4,6 +4,11 @@ import org.udec.mascotas.Mascota;
 import org.udec.visual.PanelEscenario;
 import org.udec.visual.PanelEstado;
 
+/**
+ * Clase que representa un hilo para actualizar el estado de una mascota en un panel de estado.
+ * Este hilo se encarga de decrementar los valores de hambre, salud y felicidad de la mascota
+ * en intervalos regulares, y actualiza el panel de estado correspondiente.
+ */
 public class HiloActualizadorEstado implements Runnable{
 
     private final PanelEstado panelEstado;
@@ -14,6 +19,13 @@ public class HiloActualizadorEstado implements Runnable{
 
     private boolean corriendo = true;
 
+    /**
+     * Constructor de la clase HiloActualizadorEstado.
+     * Inicializa el hilo con el panel de estado y la mascota a actualizar.
+     *
+     * @param panelEstado El panel de estado donde se mostrará la información de la mascota.
+     * @param mascota La mascota cuyo estado se actualizará.
+     */
     public HiloActualizadorEstado(PanelEstado panelEstado, Mascota mascota) {
 
         this.panelEstado = panelEstado;
@@ -23,12 +35,17 @@ public class HiloActualizadorEstado implements Runnable{
         this.decrementoFelicidad = mascota.getEstado().getDecrementoFelicidad();
     }
 
+
+    /**
+     * Método que inicia el hilo de actualización de estado.
+     * Este método se ejecuta en un bucle, actualizando el estado de la mascota cada 10 segundos.
+     */
     @Override
     public void run() {
         while(corriendo){
 
             try {
-                Thread.sleep(10000); // Esperar 1 segundo entre ciclos
+                Thread.sleep(10000);
             } catch (InterruptedException e) {
                 System.out.println("El hilo de actualización de estado fue interrumpido.");
             }
@@ -56,6 +73,10 @@ public class HiloActualizadorEstado implements Runnable{
 
     }
 
+    /**
+     * Método para detener el hilo de actualización de estado.
+     * Cambia el estado de corriendo a false, lo que detiene el bucle del hilo.
+     */
     public void detener(){
         this.corriendo = false;
     }

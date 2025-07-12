@@ -5,8 +5,18 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * Clase que gestiona la carga y reproducción de sonidos en la aplicación.
+ * Utiliza Java Sound para manejar clips de audio.
+ */
 public class GestionDeSonido {
 
+    /**
+     * Carga un clip de audio desde la ruta especificada.
+     *
+     * @param ruta Ruta del archivo de audio dentro del classpath.
+     * @return Un objeto Clip que representa el audio cargado, o null si ocurre un error.
+     */
     public static Clip cargarClip(String ruta) {
         try {
             InputStream sonidoStream = GestionDeSonido.class.getResourceAsStream(ruta);
@@ -23,6 +33,12 @@ public class GestionDeSonido {
         }
     }
 
+    /**
+     * Reproduce un clip de audio en un hilo separado.
+     * Esto permite que la reproducción del sonido no bloquee el hilo principal de la aplicación.
+     *
+     * @param clip El clip de audio a reproducir.
+     */
     public static void reproducirClipEnHilo(Clip clip) {
         new Thread(() -> {
             clip.stop();
