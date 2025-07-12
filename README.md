@@ -13,12 +13,13 @@ decidimos que por tener que cargar todas las imagenes de los productos, es mejor
 
 * **Factory Method**: Se utiliza para crear diferentes tipos de mascotas (perros, gatos, peces) de manera que en su uso no
 haya que preocuparse por los detalles de su creación. Por ejemplo, que cada mascota deba tener un escenario adecuado disponible para existir.
-Esto permite una mayor flexibilidad y escalabilidad en la adición de nuevas mascotas. Fue implementado en la clase `MascotaFactory` y sus subclases.
+Esto permite una mayor flexibilidad y escalabilidad en la adición de nuevas mascotas. Fue implementado en la clase `MascotaFactory` y sus subclases:
+`PerroFactory`, `GatoFactory`, `PezDoradoFactory`, `PezPayasoFactory`, `HamsterFactory`, `RatonFactory`, `GolondrinaFactory` y `LoroFactory`.
 
   
 * **Command**: Se utiliza para encapsular el comportamiento de los botones del apartado visual, permitiendo que la acción de cada botón sea tratada como un objeto independiente.
 Esto se aplica para separar responsabilidades, facilitar la extensión y legibilidad del sistema. Por ejemplo, a futuro pueden varios botones tener el mismo comportamiento reutilizando el mismo comando.
-Fue implementado en la clase `Comando` y sus subclases: `AdoptarMascotaCommand`, `ComprarProductoCommand`, `VenderMascotaCommand`, `InicializarEscenarioCommand`, `SeleccionarMascotaCommand`, `SeleccionarEscenarioCommand`.
+Fue implementado en la clase `Command` y sus subclases: `AdoptarMascotaCommand`, `ComprarProductoCommand`, `VenderMascotaCommand`, `InicializarEscenarioCommand`, `SeleccionarMascotaCommand` y `SeleccionarEscenarioCommand`.
 
 ## Decisiones importantes tomadas:
 Nuestro enfoque principal para la creación de este simulador fue lograr se sintiera como un juego interactivo, poniendo especial énfasis en el apartado visual
