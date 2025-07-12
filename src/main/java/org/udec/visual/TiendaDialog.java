@@ -11,6 +11,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Objects;
 
 
 public class TiendaDialog extends JDialog {
@@ -90,21 +91,16 @@ public class TiendaDialog extends JDialog {
         return scrollPane;
     }
 
-    private JButton crearBotonProducto(ProductosEnum prod, int i) {
-        JButton boton = new JButton();
+    private JButtonAnimado crearBotonProducto(ProductosEnum prod, int i) {
         BufferedImage imagen = CargadorDeImagenes.cargarImagen(prod.getRutaImagen());
-        if(imagen != null) {
-            boton.setIcon(new ImageIcon(imagen.getScaledInstance(TAM_BOTON, TAM_BOTON, Image.SCALE_SMOOTH)));
-        } else {
-            boton.setText(prod.getNombre());
-        }
-        boton.setFocusable(false);
-        boton.setBorderPainted(false);
+        ImageIcon icono = new ImageIcon(Objects.requireNonNull(imagen).getScaledInstance(TAM_BOTON, TAM_BOTON, Image.SCALE_SMOOTH));
+
         int col = i % COLUMNAS;
         int fila = i / COLUMNAS;
         int x = ESPACIO + col * (TAM_BOTON + ESPACIO);
         int y = ESPACIO + fila * (TAM_BOTON + ESPACIO);
-        boton.setBounds(x, y, TAM_BOTON, TAM_BOTON);
+
+        JButtonAnimado boton = new JButtonAnimado(icono, x, y, TAM_BOTON, TAM_BOTON);
         boton.addActionListener(_ -> actualizarDescripcion(prod));
         return boton;
     }
