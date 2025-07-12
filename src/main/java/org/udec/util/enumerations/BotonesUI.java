@@ -19,6 +19,8 @@ public enum BotonesUI {
     BOTON_ADOPTARMASCOTA("/interfaz/botonAdoptarMascota.png"),
     BOTON_JUGAR("/interfaz/botonJugar.png"),
     BOTON_VENDERMASCOTA("/interfaz/botonVenderMascota.png"),
+    BOTON_IZQUERDASMALLER("/interfaz/botonIzquierdaSmaller.png"),
+    BOTON_DERECHASMALLER("/interfaz/botonDerechaSmaller.png"),
     BOTON_TIENDA("/interfaz/botonTienda.png");
 
     private final ImageIcon imagen;

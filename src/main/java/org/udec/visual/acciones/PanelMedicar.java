@@ -2,7 +2,9 @@ package org.udec.visual.acciones;
 
 import org.udec.mascotas.Mascota;
 import org.udec.util.CargadorDeImagenes;
+import org.udec.util.enumerations.BotonesUI;
 import org.udec.util.enumerations.MedicinasEnum;
+import org.udec.visual.JButtonAnimado;
 import org.udec.visual.PanelEscenario;
 import org.udec.visual.VentanaPrincipal;
 
@@ -41,14 +43,12 @@ public class PanelMedicar extends JPanel {
         this.setLayout(null);
         this.setBounds(0, 0, VentanaPrincipal.ANCHO, VentanaPrincipal.ALTO);
 
-        botonIzquierda = new JButton("<");
-        botonIzquierda.setBounds(VentanaPrincipal.ANCHO / 2 - 64, VentanaPrincipal.ALTO - 40, 40, 30);
+        botonIzquierda = new JButtonAnimado(BotonesUI.BOTON_IZQUERDASMALLER.getImagen(), VentanaPrincipal.ANCHO / 2 - 64, VentanaPrincipal.ALTO - 40, 30, 30);
         botonIzquierda.addActionListener(e -> cambiarMedicina(-1));
         botonIzquierda.setVisible(medicinasDisponibles.size() > 1);
         this.add(botonIzquierda);
 
-        botonDerecha = new JButton(">");
-        botonDerecha.setBounds(VentanaPrincipal.ANCHO / 2 + 24, VentanaPrincipal.ALTO - 40, 40, 30);
+        botonDerecha = new JButtonAnimado(BotonesUI.BOTON_DERECHASMALLER.getImagen(),VentanaPrincipal.ANCHO / 2 + 34, VentanaPrincipal.ALTO - 40, 30, 30);
         botonDerecha.addActionListener(e -> cambiarMedicina(1));
         botonDerecha.setVisible(medicinasDisponibles.size() > 1);
         this.add(botonDerecha);
