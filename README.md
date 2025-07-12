@@ -1,5 +1,5 @@
 # Proyecto final: Simulador de Tienda de Mascotas Virtual
-### Grupo 24:
+### Grupo 4:
 * José Efraín González Aguayo
 * Diego Antonio Matus Salas
 ### Diagrama de casos de uso UML:
