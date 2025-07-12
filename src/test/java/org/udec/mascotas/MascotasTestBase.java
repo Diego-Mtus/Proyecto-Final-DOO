@@ -9,6 +9,8 @@ import org.udec.util.MascotaViviendoException;
 import org.udec.util.TipoIncorrectoException;
 import org.udec.util.enumerations.TiposEnum;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 // Las pruebas unitarias de mascotas específicas es para ver si
 // sonido e imagenes cargas correctamente.
 
@@ -29,17 +31,17 @@ public abstract class MascotasTestBase {
 
     @Test
     void testReconoceImagen() {
-        assert mascota.getImagenMascota()!= null : "La mascota no tiene imagen asignada.";
+        assertNotNull(mascota.getImagenMascota(), "La mascota no tiene imagen asignada.");
     }
 
     @Test
     void testReconoceImagenJuego() {
-        assert mascota.getImagenMascotaJuego() != null : "La mascota no tiene imagen de juego asignada.";
+        assertNotNull(mascota.getImagenMascotaJuego(), "La mascota no tiene imagen de juego asignada.");
     }
 
     @Test
     void testReconoceSonido() {
-        assert mascota.getSonidoMascota() != null : "La mascota no tiene sonido asignado.";
+        assertNotNull(mascota.getSonidoMascota(), "La mascota no tiene sonido asignado.");
     }
 
 }
