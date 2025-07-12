@@ -12,14 +12,14 @@ import java.util.Objects;
  */
 public enum AlimentosEnum implements ProductosEnum{
 
-    ALIMENTO_PERRO("Croquetas para perro", MascotasEnum.PERRO, "/mascotas/pezpayaso.png", 1),
-    ALIMENTO_GATO("Croquetas para gato", MascotasEnum.GATO, "/mascotas/pezpayaso.png", 1),
-    ALIMENTO_GOLONDRINA("Semillas para golondrina", MascotasEnum.GOLONDRINA, "/mascotas/pezpayaso.png", 1),
-    ALIMENTO_LORO("Semillas para loro", MascotasEnum.LORO, "/mascotas/pezpayaso.png", 1),
-    ALIMENTO_RATON("Queso para ratón", MascotasEnum.RATON, "/mascotas/pezpayaso.png", 1),
-    ALIMENTO_HAMSTER("Alimento para hámster", MascotasEnum.HAMSTER, "/mascotas/pezpayaso.png", 1),
-    ALIMENTO_PEZDORADO("Alimento para pez dorado", MascotasEnum.PEZDORADO, "/mascotas/pezpayaso.png", 1),
-    ALIMENTO_PEZPAYASO("Alimento para pez payaso", MascotasEnum.PEZPAYASO, "/mascotas/pezpayaso.png", 1);
+    ALIMENTO_PERRO("Enlatado para perro", MascotasEnum.PERRO, "/alimentos/alimentoPerro.png", 1),
+    ALIMENTO_GATO("Enlatado para gato", MascotasEnum.GATO, "/alimentos/alimentoGato.png", 1),
+    ALIMENTO_GOLONDRINA("Semillas para golondrina", MascotasEnum.GOLONDRINA, "/alimentos/alimentoGolondrina.png", 1),
+    ALIMENTO_LORO("Semillas para loro", MascotasEnum.LORO, "/alimentos/alimentoLoro.png", 1),
+    ALIMENTO_RATON("Queso para ratón", MascotasEnum.RATON, "/alimentos/alimentoRaton.png", 1),
+    ALIMENTO_HAMSTER("Semillas para hámster", MascotasEnum.HAMSTER, "/alimentos/alimentoHamster.png", 1),
+    ALIMENTO_PEZDORADO("Alimento para pez dorado", MascotasEnum.PEZDORADO, "/alimentos/alimentoPezdorado.png", 1),
+    ALIMENTO_PEZPAYASO("Alimento para pez payaso", MascotasEnum.PEZPAYASO, "/alimentos/alimentoPezpayaso.png", 1);
 
     private final String nombre;
     private final MascotasEnum paraQueMascota;
