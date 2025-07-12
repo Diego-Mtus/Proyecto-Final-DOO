@@ -12,11 +12,11 @@ import java.util.Arrays;
  */
 public enum MedicinasEnum implements ProductosEnum{
 
-    MEDICINA_VOLADOR("Medicamento para aves", TiposEnum.VOLADOR.mascotasCompatibles().toArray(new MascotasEnum[0]) , "/mascotas/pezpayaso.png", 5),
-    MEDICINA_COMUN("Medicamento para mascotas comúnes", TiposEnum.COMUN.mascotasCompatibles().toArray(new MascotasEnum[0]), "/mascotas/pezpayaso.png", 5),
-    MEDICINA_ROEDOR("Medicamento para roedores", TiposEnum.ROEDOR.mascotasCompatibles().toArray(new MascotasEnum[0]), "/mascotas/pezpayaso.png", 5),
-    MEDICINA_PECES("Medicamento para peces", TiposEnum.ACUATICO.mascotasCompatibles().toArray(new MascotasEnum[0]), "/mascotas/pezpayaso.png", 5),
-    CURITA_HERIDAS("Curita para heridas", null, "/mascotas/pezpayaso.png", 2);
+    MEDICINA_VOLADOR("Medicamento para aves", TiposEnum.VOLADOR.mascotasCompatibles().toArray(new MascotasEnum[0]) , "/medicinas/medicinaVolador.png", 5),
+    MEDICINA_COMUN("Medicamento para mascotas comúnes", TiposEnum.COMUN.mascotasCompatibles().toArray(new MascotasEnum[0]), "/medicinas/medicinaComun.png", 5),
+    MEDICINA_ROEDOR("Medicamento para roedores", TiposEnum.ROEDOR.mascotasCompatibles().toArray(new MascotasEnum[0]), "/medicinas/medicinaRoedor.png", 5),
+    MEDICINA_PECES("Medicamento para peces", TiposEnum.ACUATICO.mascotasCompatibles().toArray(new MascotasEnum[0]), "/medicinas/medicinaAcuatico.png", 5),
+    CURITA_HERIDAS("Curita para heridas", null, "/medicinas/curitaHeridas.png", 2);
 
     private final String nombre;
     private final MascotasEnum[] paraQueMascota;
