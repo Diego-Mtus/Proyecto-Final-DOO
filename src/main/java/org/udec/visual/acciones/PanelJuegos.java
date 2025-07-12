@@ -1,6 +1,8 @@
 package org.udec.visual.acciones;
 
 import org.udec.mascotas.Mascota;
+import org.udec.util.enumerations.BotonesUI;
+import org.udec.visual.JButtonAnimado;
 import org.udec.visual.PanelEscenario;
 import org.udec.util.listeners.DineroObtenidoListener;
 import org.udec.visual.VentanaPrincipal;
@@ -20,11 +22,8 @@ public class PanelJuegos extends JPanel {
 
         this.setOpaque(false); // Hacer el panel transparente
 
-        botonJugar = new JButton("Jugar");
-        botonJugar.setBounds(VentanaPrincipal.ANCHO / 2 - 50, VentanaPrincipal.ALTO - 104, 100, 50);
+        botonJugar = new JButtonAnimado(BotonesUI.BOTON_JUGAR.getImagen(), VentanaPrincipal.ANCHO / 2 - 50, VentanaPrincipal.ALTO - 104, 100, 50);
         botonJugar.addActionListener(e -> this.jugar());
-        botonJugar.setFocusable(false);
-        botonJugar.setVisible(true);
         this.add(botonJugar);
     }
 

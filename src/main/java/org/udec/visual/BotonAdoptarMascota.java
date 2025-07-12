@@ -2,16 +2,14 @@ package org.udec.visual;
 
 import org.udec.util.comandos.AdoptarMascotaCommand;
 import org.udec.util.comandos.Command;
+import org.udec.util.enumerations.BotonesUI;
 
-import javax.swing.*;
 
-public class BotonAdoptarMascota extends JButton {
+public class BotonAdoptarMascota extends JButtonAnimado {
 
     public BotonAdoptarMascota(PanelEscenario panelEscenario, int x, int y) {
-        super("Adoptar Mascota");
-        setBounds(x, y, 200, 50);
-        setFocusable(false);
-        setVisible(false);
+        super(BotonesUI.BOTON_ADOPTARMASCOTA.getImagen(), x, y, 240, 90);
+        setVisible(true);
 
         panelEscenario.add(this);
 
