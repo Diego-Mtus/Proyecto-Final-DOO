@@ -10,14 +10,30 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 
+/**
+ * Comando para adoptar una mascota.
+ * Este comando abre un panel de selección de mascota y, si se selecciona una mascota,
+ * establece la mascota en el panel de escenario y oculta el botón de adopción.
+ * Implementa la interfaz Command.
+ */
 public class AdoptarMascotaCommand implements Command{
 
     private final PanelEscenario panelEscenario;
 
+    /**
+     * Constructor que inicializa el comando con el panel de escenario.
+     *
+     * @param panelEscenario El panel de escenario donde se mostrará la mascota adoptada.
+     */
     public AdoptarMascotaCommand(PanelEscenario panelEscenario) {
         this.panelEscenario = panelEscenario;
     }
 
+    /**
+     * Método que ejecuta el comando de adopción de mascota.
+     * Abre un panel de selección de mascota y, si se selecciona una mascota,
+     * establece la mascota en el panel de escenario y oculta el botón de adopción.
+     */
     @Override
     public void execute() {
         System.out.println("Se abre panel de adopción de mascota");

@@ -4,14 +4,31 @@ import org.udec.visual.PanelEscenario;
 
 import javax.swing.*;
 
+/**
+ * Clase que representa el comando para vender una mascota.
+ * Este comando permite al usuario vender la mascota actual del escenario,
+ * mostrando un mensaje de confirmación antes de proceder con la venta.
+ * Implementa la interfaz Command.
+ */
 public class VenderMascotaCommand implements Command{
 
     private final PanelEscenario panelEscenario;
 
+    /**
+     * Constructor de la clase VenderMascotaCommand.
+     * Inicializa el comando con el panel del escenario donde se realizará la venta.
+     *
+     * @param panelEscenario El panel del escenario que contiene la mascota a vender.
+     */
     public VenderMascotaCommand(PanelEscenario panelEscenario) {
         this.panelEscenario = panelEscenario;
     }
 
+    /**
+     * Método que ejecuta el comando de vender la mascota.
+     * Muestra un mensaje de confirmación y, si se acepta, procede a vender la mascota,
+     * actualizando el panel del escenario y mostrando un mensaje de éxito.
+     */
     @Override
     public void execute() {
         System.out.println("Se vende la mascota");
