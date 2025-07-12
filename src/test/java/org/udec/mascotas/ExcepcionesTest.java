@@ -26,9 +26,7 @@ public class ExcepcionesTest {
     void crearMascotaConTipoIncorrectoTest() {
         // Intentar crear una mascota de tipo incorrecto
         LoroFactory loroFactory = new LoroFactory();
-        assertThrows(TipoIncorrectoException.class, () -> {
-            loroFactory.crearMascota(escenario);
-        });
+        assertThrows(TipoIncorrectoException.class, () -> loroFactory.crearMascota(escenario));
     }
 
     @Test
@@ -41,9 +39,7 @@ public class ExcepcionesTest {
         }
 
         // Intentar crear otra mascota cuando ya hay una
-        assertThrows(MascotaViviendoException.class, () -> {
-            mascotaFactory.crearMascota(escenario);
-        });
+        assertThrows(MascotaViviendoException.class, () -> mascotaFactory.crearMascota(escenario));
 
     }
 
