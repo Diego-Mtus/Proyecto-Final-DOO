@@ -6,6 +6,10 @@ import org.udec.util.GestionDeSonido;
 import javax.sound.sampled.Clip;
 import java.util.Objects;
 
+/**
+ * Enumeración que representa diferentes tipos de alimentos para mascotas.
+ * Implementa la interfaz ProductosEnum para definir los productos que se pueden comprar.
+ */
 public enum AlimentosEnum implements ProductosEnum{
 
     ALIMENTO_PERRO("Croquetas para perro", MascotasEnum.PERRO, "/mascotas/pezpayaso.png", 1),
@@ -24,6 +28,14 @@ public enum AlimentosEnum implements ProductosEnum{
     private int inventario = 0;
     private final Clip clipComer = GestionDeSonido.cargarClip("/sonidos/comer.wav");
 
+    /**
+     * Constructor de la enumeración AlimentosEnum.
+     *
+     * @param nombre Nombre del alimento.
+     * @param paraQueMascota Tipo de mascota para la que es adecuado el alimento.
+     * @param rutaImagen Ruta de la imagen del alimento.
+     * @param precio Precio del alimento.
+     */
     AlimentosEnum(String nombre, MascotasEnum paraQueMascota, String rutaImagen, int precio) {
         this.nombre = nombre;
         this.paraQueMascota = paraQueMascota;
@@ -55,6 +67,12 @@ public enum AlimentosEnum implements ProductosEnum{
         this.inventario = inventario;
     }
 
+    /**
+     * Método para alimentar a una mascota con el alimento correspondiente.
+     * Aumenta el hambre de la mascota según su tipo.
+     *
+     * @param mascota La mascota que se va a alimentar.
+     */
     public void alimentar(Mascota mascota){
         if (Objects.equals(mascota.getNombreAnimal(), paraQueMascota.getNombre())){
             mascota.getEstado().addHambre(20);

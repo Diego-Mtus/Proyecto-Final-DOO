@@ -6,6 +6,10 @@ import org.udec.util.GestionDeSonido;
 import javax.sound.sampled.Clip;
 import java.util.Arrays;
 
+/**
+ * Enumeración que representa diferentes tipos de medicinas para mascotas.
+ * Implementa la interfaz ProductosEnum para definir los productos que se pueden comprar.
+ */
 public enum MedicinasEnum implements ProductosEnum{
 
     MEDICINA_VOLADOR("Medicamento para aves", TiposEnum.VOLADOR.mascotasCompatibles().toArray(new MascotasEnum[0]) , "/mascotas/pezpayaso.png", 5),
@@ -21,6 +25,14 @@ public enum MedicinasEnum implements ProductosEnum{
     private int inventario = 0;
     private final Clip clipComer = GestionDeSonido.cargarClip("/sonidos/comer.wav");
 
+    /**
+     * Constructor de la enumeración MedicinasEnum.
+     *
+     * @param nombre Nombre de la medicina.
+     * @param paraQueMascota Mascotas para las que es compatible la medicina.
+     * @param rutaImagen Ruta de la imagen de la medicina.
+     * @param precio Precio de la medicina.
+     */
     MedicinasEnum(String nombre, MascotasEnum[] paraQueMascota, String rutaImagen, int precio) {
         this.nombre = nombre;
         this.paraQueMascota = paraQueMascota;
@@ -52,6 +64,14 @@ public enum MedicinasEnum implements ProductosEnum{
         this.inventario = inventario;
     }
 
+    /**
+     * Método para curar una mascota.
+     * Si la medicina es CURITA_HERIDAS, se cura la herida de la mascota.
+     * Si no, se incrementa la salud de la mascota en 20 si es compatible,
+     * o se decrementa en 5 si no lo es.
+     *
+     * @param mascota La mascota a curar.
+     */
     public void curar(Mascota mascota){
         if(this == CURITA_HERIDAS){
             mascota.getEstado().setHerido(false);
