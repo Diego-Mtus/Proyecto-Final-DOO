@@ -15,6 +15,11 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+
+/**
+ * Panel para medicar a la mascota actual.
+ * Permite seleccionar entre diferentes tipos de medicamentos y arrastrarla hacia la mascota.
+ */
 public class PanelMedicar extends JPanel {
 
     private final int posicionInicialX = VentanaPrincipal.ANCHO / 2 - 40;
@@ -39,6 +44,10 @@ public class PanelMedicar extends JPanel {
     private int mouseX, mouseY;
     private boolean isDragging = false;
 
+    /**
+     * Constructor del panel de medicación.
+     * Configura el panel, los botones y los eventos de arrastre para medicar a la mascota.
+     */
     public PanelMedicar() {
         this.setLayout(null);
         this.setBounds(0, 0, VentanaPrincipal.ANCHO, VentanaPrincipal.ALTO);

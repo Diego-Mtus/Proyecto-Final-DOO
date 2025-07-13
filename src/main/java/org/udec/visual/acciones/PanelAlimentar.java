@@ -44,7 +44,7 @@ public class PanelAlimentar extends JPanel {
 
     /**
      * Constructor del panel de alimentar.
-     * Configura el layout, botones y eventos del panel.
+     * Configura el panel, los botones y los eventos de arrastre para medicar a la mascota.
      */
     public PanelAlimentar() {
         this.setLayout(null);

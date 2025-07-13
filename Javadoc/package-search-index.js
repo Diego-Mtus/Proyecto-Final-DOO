@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"org.udec"},{"l":"org.udec.escenarios"},{"l":"org.udec.mascotas"},{"l":"org.udec.util"},{"l":"org.udec.util.comandos"},{"l":"org.udec.util.enumerations"},{"l":"org.udec.util.listeners"},{"l":"org.udec.util.threads"},{"l":"org.udec.visual"},{"l":"org.udec.visual.acciones"}];updateSearchResults();

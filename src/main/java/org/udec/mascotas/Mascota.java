@@ -16,13 +16,42 @@ import java.awt.image.BufferedImage;
  */
 public abstract class Mascota {
 
+    /**
+     * Nombre propio de la mascota, asignado aleatoriamente.
+     */
     protected String nombrePropio;
+    /**
+     * Nombre del animal de la mascota, definido por la enumeración de mascotas.
+     */
     protected String nombreAnimal;
+    /**
+     * Imagen que representa a la mascota.
+     * Se utiliza para mostrar la mascota en la interfaz gráfica del juego.
+     */
     protected BufferedImage imagenMascota;
+    /**
+     * Imagen de la mascota que se muestra en el juego.
+     * Puede ser diferente a la imagen principal para adaptarse al contexto del juego.
+     */
     protected BufferedImage imagenMascotaJuego;
+    /**
+     * Clip de sonido asociado a la mascota.
+     * Se reproduce cuando se interactúa con ella.
+     */
     protected Clip sonidoMascota;
+    /**
+     * Tipo de mascota, representado por un valor de la enumeración TiposEnum.
+     */
     protected TiposEnum tipo;
+    /**
+     * Precio de venta de la mascota.
+     * Este valor es utilizado para determinar el costo al vender la mascota en el juego.
+     */
     protected int precioVenta;
+    /**
+     * Estado de la mascota, que incluye niveles de hambre, salud y felicidad.
+     * Este atributo es utilizado para gestionar el bienestar de la mascota en el juego.
+     */
     protected Estado estado;
 
     /**

@@ -1,0 +1,10 @@
+org.udec
+org.udec.escenarios
+org.udec.mascotas
+org.udec.util
+org.udec.util.comandos
+org.udec.util.enumerations
+org.udec.util.listeners
+org.udec.util.threads
+org.udec.visual
+org.udec.visual.acciones
