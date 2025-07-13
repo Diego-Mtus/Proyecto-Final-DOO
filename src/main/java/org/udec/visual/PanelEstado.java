@@ -2,13 +2,17 @@ package org.udec.visual;
 
 import org.udec.mascotas.Mascota;
 import org.udec.util.CargadorDeImagenes;
-import org.udec.util.enumerations.BotonesUI;
 import org.udec.util.threads.HiloActualizadorEstado;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+/**
+ * PanelEstado es un JPanel que muestra el estado de una mascota en el escenario.
+ * Muestra barras de estado para hambre, salud y felicidad, así como iconos
+ * que indican si la mascota está herida o quiere jugar.
+ */
 public class PanelEstado extends JPanel {
 
     private final int ANCHO = 260;
@@ -28,6 +32,12 @@ public class PanelEstado extends JPanel {
     private final BufferedImage estadoHerido = CargadorDeImagenes.cargarImagen("/interfaz/iconoIsHerido.png");
     private final BufferedImage estadoQuiereJugar = CargadorDeImagenes.cargarImagen("/interfaz/iconoQuiereJugar.png");
 
+    /**
+     * Constructor del PanelEstado.
+     * @param panel El panel de escenario al que se añadirá este panel de estado.
+     * @param x Posición x del panel en la ventana.
+     * @param y Posición y del panel en la ventana.
+     */
     public PanelEstado(PanelEscenario panel, int x, int y) {
         setBounds(x, y, ANCHO, ALTO);
         setLayout(null);
@@ -38,6 +48,11 @@ public class PanelEstado extends JPanel {
 
     }
 
+    /**
+     * Inicializa el estado del panel con la mascota proporcionada.
+     * Inicia un hilo para actualizar el estado de la mascota periódicamente.
+     * @param mascota La mascota cuyo estado se mostrará en el panel.
+     */
     public void inicializarEstado(Mascota mascota){
         if (mascota != null){
             this.mascota = mascota;
@@ -84,6 +99,10 @@ public class PanelEstado extends JPanel {
 
     }
 
+    /**
+     * Detiene el hilo de actualización del estado y oculta el panel.
+     * Limpia la referencia a la mascota.
+     */
     public void detenerEstado() {
         if (hiloActualizadorEstado != null && hiloActualizadorEstado.isAlive()) {
             System.out.println("Deteniendo hilo actualizador de estado para la mascota: " + mascota.getNombrePropio());

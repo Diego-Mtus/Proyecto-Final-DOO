@@ -15,6 +15,10 @@ import java.util.ArrayList;
 
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 
+/**
+ * Juego volador donde la mascota debe evitar tuberías.
+ * La mascota puede saltar y el objetivo es alcanzar una cantidad de puntos para ganar.
+ */
 public class JuegoVolador extends JPanel implements ActionListener, KeyListener {
 
     private JDialog ventanaJuego;
@@ -50,7 +54,11 @@ public class JuegoVolador extends JPanel implements ActionListener, KeyListener 
     private final int VELOCIDAD_TUBERIA = 5;
 
 
-
+    /**
+     * Constructor del juego volador.
+     * @param imagenMascota Imagen de la mascota que se va a jugar.
+     * @param panelJuegos Panel donde se muestra el juego y se manejan las acciones de victoria/derrota.
+     */
     public JuegoVolador(BufferedImage imagenMascota, PanelJuegos panelJuegos){
         ventanaJuego = new JDialog();
         ventanaJuego.setContentPane(this);

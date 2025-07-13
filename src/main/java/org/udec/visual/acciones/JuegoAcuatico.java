@@ -1,6 +1,5 @@
 package org.udec.visual.acciones;
 
-import org.udec.util.CargadorDeImagenes;
 import org.udec.util.enumerations.EstadoJuego;
 
 import javax.swing.*;
@@ -10,6 +9,10 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
+/** Clase que representa un juego acuático donde el jugador debe esquivar obstáculos.
+ * El jugador controla una mascota con el mouse y gana puntos al esquivar obstáculos.
+ * Si alcanza una cantidad de puntos, gana el juego; si colisiona con un obstáculo, pierde.
+ */
 public class JuegoAcuatico extends JPanel implements MouseMotionListener, ActionListener, KeyListener {
 
     private final JDialog ventanaJuego;
@@ -47,6 +50,10 @@ public class JuegoAcuatico extends JPanel implements MouseMotionListener, Action
     private int puntos = 0;
     private int puntosAux = 0;
 
+    /** Constructor del juego acuático.
+     * @param imagenMascota Imagen de la mascota que el jugador controla.
+     * @param panelJuegos Panel donde se muestra el juego y se manejan las acciones de victoria/derrota.
+     */
     public JuegoAcuatico(BufferedImage imagenMascota, PanelJuegos panelJuegos) {
         ventanaJuego = new JDialog();
         ventanaJuego.setContentPane(this);
@@ -274,6 +281,10 @@ public class JuegoAcuatico extends JPanel implements MouseMotionListener, Action
 
     // ============================================================
 
+    /** Clase interna que representa un obstáculo en el juego acuático.
+     * Cada obstáculo tiene una posición polar (radio y ángulo) y se mueve hacia el centro.
+     * Detecta colisiones con la mascota y se reinicia cuando sale de la pantalla.
+     */
     // Ya que tiene mucha lógica propia, se implementará como clase interna
     class Obstaculo {
 
@@ -285,6 +296,12 @@ public class JuegoAcuatico extends JPanel implements MouseMotionListener, Action
         private final int indiceConjunto;
         private final int indiceIndividual;
 
+        /** Constructor del obstáculo.
+         * @param radio Distancia desde el centro del panel.
+         * @param anguloEnGrados Ángulo en grados desde el centro del panel.
+         * @param indiceConjunto Índice del conjunto de obstáculos al que pertenece.
+         * @param indiceIndividual Índice individual del obstáculo dentro de su conjunto.
+         */
         public Obstaculo(double radio, double anguloEnGrados, int indiceConjunto, int indiceIndividual) {
             this.radio = radio;
             this.angulo = Math.toRadians(anguloEnGrados);
@@ -292,10 +309,17 @@ public class JuegoAcuatico extends JPanel implements MouseMotionListener, Action
             this.indiceIndividual = indiceIndividual;
         }
 
+        /** Actualiza la posición del obstáculo.
+         * Se mueve hacia el centro del panel reduciendo su radio.
+         */
         public void actualizarPosicion() {
             this.radio -= velocidad; // Se va contrayendo
         }
 
+        /** Dibuja el obstáculo en el panel.
+         * Convierte las coordenadas polares (radio y ángulo) a cartesianas para dibujar un círculo.
+         * @param g2d Objeto Graphics2D para dibujar el obstáculo.
+         */
         public void dibujar(Graphics2D g2d) {
             // Se transforma de coordenadas polares a cartesianas
             int x = (int) (CENTRO_X + radio * Math.cos(angulo)) - SIZE / 2;
@@ -304,10 +328,21 @@ public class JuegoAcuatico extends JPanel implements MouseMotionListener, Action
             g2d.fillOval(x, y, SIZE, SIZE);
         }
 
+        /** Añade velocidad al obstáculo.
+         * Aumenta la velocidad de movimiento del obstáculo.
+         * @param incremento Cantidad de velocidad a añadir.
+         */
         public void addVelocidad(double incremento) {
             this.velocidad += incremento;
         }
 
+        /** Detecta si el obstáculo colisiona con la mascota.
+         * Utiliza la distancia entre el centro del obstáculo y el centro de la mascota para determinar colisión.
+         * @param mascotaX Posición X del centro de la mascota.
+         * @param mascotaY Posición Y del centro de la mascota.
+         * @param mascotaSize Tamaño de la mascota (para calcular su centro).
+         * @return true si hay colisión, false en caso contrario.
+         */
         public boolean detectarColision(int mascotaX, int mascotaY, int mascotaSize) {
 
             // Verifica si la mascota colisiona con el obstáculo
@@ -319,10 +354,17 @@ public class JuegoAcuatico extends JPanel implements MouseMotionListener, Action
             return distanciaCuadrado <= SIZE * SIZE;
         }
 
+        /** Obtiene el radio actual del obstáculo.
+         * @return El radio actual del obstáculo.
+         */
         public double getRadio() {
             return radio;
         }
 
+        /** Reinicia la posición del obstáculo.
+         * Coloca el obstáculo en una nueva posición aleatoria en el borde exterior del panel.
+         * También actualiza su ángulo para que cada conjunto de obstáculos tenga un ángulo diferente.
+         */
         public void reiniciarPosicion() {
             this.radio = RADIO_DE_PRIMER_CONJUNTO + DISTANCIA_ENTRE_CONJUNTOS * (CANTIDAD_CONJUNTOS - 1);
 

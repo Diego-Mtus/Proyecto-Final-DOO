@@ -16,6 +16,10 @@ import java.awt.image.BufferedImage;
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 
 
+/**
+ * Clase que representa un juego común donde la mascota debe saltar obstáculos.
+ * El objetivo es ganar puntos y evitar chocar con los obstáculos.
+ */
 public class JuegoComun extends JPanel implements ActionListener, KeyListener {
 
     private final JDialog ventanaJuego;
@@ -54,6 +58,12 @@ public class JuegoComun extends JPanel implements ActionListener, KeyListener {
     private final int PUNTOS_WIN = 30; // Puntos necesarios para ganar el juego
 
 
+    /**
+     * Constructor del juego común.
+     *
+     * @param imagenMascota Imagen de la mascota que se utilizará en el juego.
+     * @param panelJuegos   Panel donde se muestra el juego y se manejan las acciones de victoria/derrota.
+     */
     public JuegoComun(BufferedImage imagenMascota, PanelJuegos panelJuegos) {
         ventanaJuego = new JDialog();
         ventanaJuego.setContentPane(this);

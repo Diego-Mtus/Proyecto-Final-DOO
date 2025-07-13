@@ -8,6 +8,11 @@ import org.udec.util.listeners.CompraListener;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Diálogo para seleccionar un escenario en el juego.
+ * Permite al usuario elegir entre diferentes escenarios disponibles.
+ * Al seleccionar un escenario, se notifica al listener de compra.
+ */
 public class SelectorEscenario extends JDialog {
 
     private TiposEnum escenarioSeleccionado = null;
@@ -18,6 +23,12 @@ public class SelectorEscenario extends JDialog {
     private final int FILAS = 2;
     private final int COLUMNAS = 2;
 
+    /**
+     * Constructor del Selector de Escenario.
+     * Inicializa el diálogo y configura su apariencia y comportamiento.
+     *
+     * @param panelEscenario El panel del escenario desde el cual se invoca el selector.
+     */
     public SelectorEscenario(PanelEscenario panelEscenario) {
         setTitle("Seleccionar Escenario");
         setSize(ANCHO, ALTO);
@@ -56,10 +67,22 @@ public class SelectorEscenario extends JDialog {
         return button;
     }
 
+    /**
+     * Establece el escenario seleccionado por el usuario.
+     * Este método se invoca cuando el usuario selecciona un escenario.
+     *
+     * @param escenarioSeleccionado El escenario seleccionado por el usuario.
+     */
     public void setEscenarioSeleccionado(TiposEnum escenarioSeleccionado) {
         this.escenarioSeleccionado = escenarioSeleccionado;
     }
 
+    /**
+     * Obtiene el escenario seleccionado por el usuario.
+     * Este método se utiliza para recuperar el escenario elegido después de que el diálogo se cierra.
+     *
+     * @return El escenario seleccionado, o null si no se ha seleccionado ninguno.
+     */
     public TiposEnum getEscenarioSeleccionado() {
         return escenarioSeleccionado;
     }

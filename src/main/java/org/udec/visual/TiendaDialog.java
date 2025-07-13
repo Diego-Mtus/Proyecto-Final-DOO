@@ -14,6 +14,11 @@ import java.awt.image.BufferedImage;
 import java.util.Objects;
 
 
+/**
+ * Diálogo que muestra la tienda de productos.
+ * Permite al usuario seleccionar productos de diferentes categorías (comida, medicina),
+ * ver su descripción y realizar compras.
+ */
 public class TiendaDialog extends JDialog {
 
     private static TiendaDialog singletonTienda;
@@ -109,6 +114,13 @@ public class TiendaDialog extends JDialog {
         panelDescripcion.actualizarDescripcion(item);
     }
 
+    /**
+     * Obtiene una instancia del diálogo de la tienda.
+     * Si ya existe, la hace visible; si no, crea una nueva instancia.
+     *
+     * @param parent Ventana padre para posicionar el dialog.
+     * @return La instancia del diálogo de la tienda.
+     */
     public static TiendaDialog getInstance(JFrame parent) {
         if (singletonTienda == null) {
             singletonTienda = new TiendaDialog(parent);

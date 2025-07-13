@@ -12,6 +12,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+/**
+ * Panel que representa una pelota para jugar con la mascota.
+ * Permite arrastrar y soltar la pelota, simulando el movimiento y la fricción.
+ * Aumenta la felicidad de la mascota al mover la pelota.
+ */
 public class PanelJuguete extends JPanel {
 
     private Mascota mascotaActual;
@@ -36,6 +41,10 @@ public class PanelJuguete extends JPanel {
     private int contadorFelicidad = 0;
     private int contadorFelicidadMaximo = 15; // Cada cuántos movimientos se aumenta la felicidad
 
+    /**
+     * Constructor del panel de juguete.
+     * Configura el layout, tamaño y añade los listeners para arrastrar la pelota.
+     */
     public PanelJuguete(){
 
         imagenJuguete = CargadorDeImagenes.cargarImagen("/juguetes/pelota.png");
@@ -107,6 +116,11 @@ public class PanelJuguete extends JPanel {
         return animacionThread;
     }
 
+    /**
+     * Método para establecer la mascota actual desde el panel de escenario.
+     * Esto se utiliza para modificar el estado de la mascota al jugar
+     * @param panelEscenario El panel de escenario que contiene la mascota actual.
+     */
     public void setMascotaActual(PanelEscenario panelEscenario){
         this.mascotaActual = panelEscenario.getEscenario().getMascotaActual();
     }
@@ -203,6 +217,10 @@ public class PanelJuguete extends JPanel {
         return new Color(red, green, 0);
     }
 
+    /**
+     * Reinicia la posición y velocidad de la pelota.
+     * Se utiliza al momento de cambiar de panel.
+     */
     public void reiniciarPelota() {
         pelotaX = VentanaPrincipal.ANCHO / 2 - 50; // Posición inicial de la pelota
         pelotaY = VentanaPrincipal.ALTO - 120;

@@ -7,6 +7,10 @@ import javax.sound.sampled.FloatControl;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 
+/**
+ * Clase que representa un botón animado con sonido al hacer clic.
+ * El botón crece al hacer clic y reproduce un sonido.
+ */
 public class JButtonAnimado extends JButton {
 
     private final int CRECIMIENTO = 6; // Crecimiento del botón al hacer clic
@@ -22,6 +26,15 @@ public class JButtonAnimado extends JButton {
     private final int anchoOriginal;
     private final int altoOriginal;
 
+    /**
+     * Constructor del botón animado.
+     *
+     * @param icon  Icono del botón.
+     * @param x      Posición x del botón en el panel.
+     * @param y      Posición y del botón en el panel.
+     * @param ancho  Ancho original del botón.
+     * @param alto   Alto original del botón.
+     */
     public JButtonAnimado(ImageIcon icon, int x, int y, int ancho, int alto) {
         super(icon);
         this.anchoOriginal = ancho;
@@ -73,6 +86,12 @@ public class JButtonAnimado extends JButton {
     }
 
 
+    /**
+     * Agrega un ActionListener al botón que ejecuta una animación al hacer clic.
+     * La animación consiste en cambiar el icono y tamaño del botón temporalmente.
+     *
+     * @param l ActionListener a agregar después de la animación.
+     */
     // Se hace override para que se haga la animación antes de ejecutar el ActionListener
     @Override
     public void addActionListener(ActionListener l) {

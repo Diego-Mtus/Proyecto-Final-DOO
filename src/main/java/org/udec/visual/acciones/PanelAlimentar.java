@@ -15,6 +15,10 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+/**
+ * Panel para alimentar a la mascota actual.
+ * Permite seleccionar entre diferentes tipos de comida y arrastrarla hacia la mascota.
+ */
 public class PanelAlimentar extends JPanel {
 
     private final int posicionInicialX = VentanaPrincipal.ANCHO / 2 - 40;
@@ -38,6 +42,10 @@ public class PanelAlimentar extends JPanel {
     private int mouseX, mouseY;
     private boolean isDragging = false;
 
+    /**
+     * Constructor del panel de alimentar.
+     * Configura el layout, botones y eventos del panel.
+     */
     public PanelAlimentar() {
         this.setLayout(null);
         this.setBounds(0, 0, VentanaPrincipal.ANCHO, VentanaPrincipal.ALTO);
@@ -117,11 +125,22 @@ public class PanelAlimentar extends JPanel {
         repaint();
     }
 
+    /**
+     * Establece la mascota actual del panel de escenario.
+     * Actualiza la posición de la mascota para el arrastre de comida.
+     *
+     * @param panelEscenario El panel de escenario que contiene la mascota actual.
+     */
     public void setMascotaActual(PanelEscenario panelEscenario){
         this.mascotaActual = panelEscenario.getEscenario().getMascotaActual();
         this.posicionMascota = panelEscenario.getPosicionMascota();
     }
 
+    /**
+     * Actualiza la lista de alimentos disponibles.
+     * Limpia la lista actual y agrega los alimentos que tienen inventario mayor a 0.
+     * También actualiza las imágenes de los alimentos.
+     */
     public void actualizarListaAlimentos() {
         alimentosDisponibles.clear();
         imagenesComida.clear();

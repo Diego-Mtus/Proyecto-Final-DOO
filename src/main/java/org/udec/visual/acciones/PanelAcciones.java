@@ -10,6 +10,10 @@ import javax.swing.*;
 import java.awt.*;
 
 
+/**
+ * PanelAcciones es un panel que contiene diferentes acciones que se pueden realizar con la mascota.
+ * Permite cambiar entre diferentes paneles de acciones como alimentar, medicar, jugar, etc.
+ */
 public class PanelAcciones extends JPanel {
 
     private static PanelAcciones instance; // Instancia del panel de acciones
@@ -24,6 +28,12 @@ public class PanelAcciones extends JPanel {
     private PanelJuguete panelJuguete;
     private PanelJuegos panelJuegos;
 
+    /**
+     * Constructor privado para implementar el patrón Singleton.
+     * @param panel PanelEscenario al que se asociará este PanelAcciones.
+     * @param x Posición x del panel en la ventana.
+     * @param y Posición y del panel en la ventana.
+     */
     private PanelAcciones(PanelEscenario panel, int x, int y) {
 
         setBounds(0, 0, VentanaPrincipal.ANCHO, VentanaPrincipal.ALTO);
@@ -87,6 +97,11 @@ public class PanelAcciones extends JPanel {
         panelJuguete.reiniciarPelota();
     }
 
+    /**
+     * Establece el panel de escenario al que este PanelAcciones está asociado.
+     * Actualiza los paneles de acciones con la mascota actual del escenario.
+     * @param panelEscenario PanelEscenario al que se asociará este PanelAcciones.
+     */
     public void setPanelEscenario(PanelEscenario panelEscenario){
         this.panelEscenario = panelEscenario;
         this.panelJuguete.setMascotaActual(panelEscenario);
@@ -95,18 +110,30 @@ public class PanelAcciones extends JPanel {
         this.panelJuegos.setMascotaActual(panelEscenario);
     }
 
+    /**
+     * Establece un listener para recibir eventos de dinero obtenido en los juegos.
+     * @param dineroObtenidoListener Listener que manejará los eventos de dinero obtenido.
+     */
     public void setDineroObtenidoListenerJuegos(DineroObtenidoListener dineroObtenidoListener){
         if(panelJuegos != null) {
             panelJuegos.setDineroObtenidoListener(dineroObtenidoListener);
         }
     }
 
+    /**
+     * Reinicia la pelota en el panel de juguetes.
+     * Esto es para volver a colocar la pelota en su posición inicial
+     */
     public void reiniciarPelota() {
         if (panelJuguete != null) {
             panelJuguete.reiniciarPelota();
         }
     }
 
+    /**
+     * Actualiza las listas de alimentos y medicamentos en los paneles correspondientes.
+     * Se llama cuando se realiza una acción que puede cambiar la lista de alimentos o medicamentos.
+     */
     public void actualizarListas() {
         if (panelAlimento != null) {
             panelAlimento.actualizarListaAlimentos();
@@ -116,6 +143,14 @@ public class PanelAcciones extends JPanel {
         }
     }
 
+    /**
+     * Método para obtener la instancia única de PanelAcciones (Singleton).
+     * Si no existe, crea una nueva instancia; si ya existe, actualiza el panelEscenario.
+     * @param panelEscenario PanelEscenario al que se asociará este PanelAcciones.
+     * @param x Posición x del panel en la ventana.
+     * @param y Posición y del panel en la ventana.
+     * @return La instancia única de PanelAcciones.
+     */
     public static PanelAcciones getInstance(PanelEscenario panelEscenario, int x, int y) {
         if (instance == null) {
             instance = new PanelAcciones(panelEscenario, x, y);

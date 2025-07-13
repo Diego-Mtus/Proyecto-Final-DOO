@@ -116,11 +116,22 @@ public class PanelMedicar extends JPanel {
         repaint();
     }
 
+    /**
+     * Establece la mascota actual del panel de escenario.
+     * Actualiza la posición de la mascota para el arrastre de comida.
+     *
+     * @param panelEscenario El panel de escenario que contiene la mascota actual.
+     */
     public void setMascotaActual(PanelEscenario panelEscenario){
         this.mascotaActual = panelEscenario.getEscenario().getMascotaActual();
         this.posicionMascota = panelEscenario.getPosicionMascota();
     }
 
+    /**
+     * Actualiza la lista de medicamentos disponibles.
+     * Limpia la lista actual y agrega los medicamentos que tienen inventario mayor a 0.
+     * También actualiza las imágenes de los medicamentos.
+     */
     public void actualizarListaMedicamentos() {
         medicinasDisponibles.clear();
         imagenesMedicina.clear();

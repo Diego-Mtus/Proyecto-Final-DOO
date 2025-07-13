@@ -12,6 +12,10 @@ import java.awt.*;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+/**
+ * Panel que muestra la descripción de un producto seleccionado en la tienda.
+ * Permite ver detalles del producto y realizar la compra.
+ */
 public class PanelDescripcion extends JPanel {
 
     private final int BOTON_COMPRAR_ANCHO = 100;
@@ -26,6 +30,13 @@ public class PanelDescripcion extends JPanel {
     private ProductosEnum ultimoProductoSeleccionado;
     private CompraListener compraListener;
 
+    /**
+     * Constructor del panel de descripción.
+     * @param x Posición x del panel en la ventana.
+     * @param y Posición y del panel en la ventana.
+     * @param width Ancho del panel.
+     * @param height Alto del panel.
+     */
     public PanelDescripcion(int x, int y, int width, int height) {
         setBounds(x, y, width, height);
         setLayout(null);
@@ -41,10 +52,19 @@ public class PanelDescripcion extends JPanel {
 
     }
 
+
+    /**
+     * Establece el listener para manejar las compras de productos.
+     * @param compraListener El listener que manejará las compras.
+     */
     public void setCompraListener(CompraListener compraListener) {
         this.compraListener = compraListener;
     }
 
+    /**
+     * Actualiza la descripción del producto seleccionado.
+     * @param item El producto seleccionado del enum ProductosEnum.
+     */
     public void actualizarDescripcion(ProductosEnum item) {
         descripcionString = formatearDescripcion(item);
         ultimoProductoSeleccionado = item;
@@ -65,6 +85,10 @@ public class PanelDescripcion extends JPanel {
                 "Actualmente tienes: " + item.getInventario();
     }
 
+    /**
+     * Reinicia la descripción del panel a su estado inicial.
+     * Limpia la descripción y oculta el botón de compra.
+     */
     public void reiniciarDescripcion() {
         descripcionString = TEXTO_BIENVENIDA;
         ultimoProductoSeleccionado = null;
@@ -80,6 +104,11 @@ public class PanelDescripcion extends JPanel {
         }
     }
 
+    /**
+     * Actualiza la descripción del panel cuando se cambia de pestaña.
+     * Muestra un mensaje de bienvenida y oculta el botón de compra.
+     * @param descripcion Descripción de la pestaña actual.
+     */
     public void actualizarDescripcionTab(String descripcion) {
         descripcionString = "¡Bienvenidos a la sección de " + descripcion +"!\nSeleccione un producto para ver su descripción.";
         botonComprar.setVisible(false);

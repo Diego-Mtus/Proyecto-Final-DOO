@@ -14,6 +14,12 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * VentanaPrincipal es la ventana principal del simulador de mascotas.
+ * Contiene los paneles de escenario, botones de navegación, tienda y acciones.
+ * Permite navegar entre diferentes escenarios y realizar acciones con las mascotas.
+ * Se entiende que esta ventana representa al usuario y su interacción con el simulador.
+ */
 public class VentanaPrincipal extends JFrame implements EscenarioListener, CompraListener, AdopcionListener, DineroObtenidoListener {
 
     public static final int ANCHO = 640;

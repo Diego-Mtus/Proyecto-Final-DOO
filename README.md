@@ -41,7 +41,9 @@ Adicionalmente, con los minijuegos se puede ganar dinero, para progresar en caso
 
 ## Patrones de diseño utilizados:
 * **Singleton**: Se utiliza para asegurar que solo haya una instancia de la tienda de mascotas en el sistema, lo que permite un acceso controlado a los recursos de la tienda,
-decidimos que por tener que cargar todas las imagenes de los productos, es mejor que se carguen una sola vez y no cada vez que se acceda a la tienda. Fue implementado en la clase `TiendaDialog`.
+decidimos que por tener que cargar todas las imagenes de los productos, es mejor que se carguen una sola vez y no cada vez que se acceda a la tienda.
+También se utiliza para denotar que las acciones del jugador a las mascotas son globales, es decir, que hay solo un panel de acciones para todas las mascotas y escenarios.
+Fue implementado en la clase `TiendaDialog` y `PanelAcciones`.
 
 
 * **Factory Method**: Se utiliza para crear diferentes tipos de mascotas (perros, gatos, peces) de manera que en su uso no

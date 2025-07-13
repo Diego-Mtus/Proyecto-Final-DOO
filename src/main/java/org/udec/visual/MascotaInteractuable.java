@@ -8,6 +8,10 @@ import javax.swing.*;
 import java.util.Random;
 
 
+/**
+ * Clase que representa una mascota interactuable en el escenario.
+ * Al hacer clic en la mascota, se reproduce un sonido y se anima el icono.
+ */
 public class MascotaInteractuable extends JButton {
 
     private final int PROBABILIDAD_EASTER_EGG = 2; // %
@@ -27,6 +31,12 @@ public class MascotaInteractuable extends JButton {
     private int xOriginal;
     private int yOriginal;
 
+    /**
+     * Constructor de la mascota interactuable.
+     * Inicializa el botón y configura sus propiedades.
+     *
+     * @param panelEscenario El panel del escenario donde se mostrará la mascota.
+     */
     public MascotaInteractuable(PanelEscenario panelEscenario) {
         super();
         this.panelEscenario = panelEscenario;
@@ -46,6 +56,12 @@ public class MascotaInteractuable extends JButton {
         });
     }
 
+    /**
+     * Establece la mascota a mostrar en el botón.
+     * Configura la imagen, sonido y dimensiones de la mascota.
+     *
+     * @param mascota La mascota a mostrar.
+     */
     public void setMascota(Mascota mascota) {
         this.imagenMascota = new ImageIcon(mascota.getImagenMascota());
 
@@ -65,10 +81,20 @@ public class MascotaInteractuable extends JButton {
         this.setVisible(true);
     }
 
+    /**
+     * Obtiene la posición original de la mascota en el panel.
+     * Devuelve un arreglo con las coordenadas x, y, ancho y alto de la mascota.
+     *
+     * @return Un arreglo con las coordenadas y dimensiones de la mascota en formato {x, y, x + ancho, y + alto}.
+     */
     public int[] getPosicionMascota() {
         return new int[]{xOriginal, yOriginal, xOriginal + anchoOriginal, altoOriginal + yOriginal};
     }
 
+    /**
+     * Elimina la mascota del panel.
+     * Desactiva el botón, elimina el icono y libera los recursos asociados.
+     */
     public void removerMascota() {
         this.setVisible(false);
         this.setEnabled(false);

@@ -12,6 +12,10 @@ import java.awt.event.KeyListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
+/**
+ * Clase que representa un juego en donde la mascota debe navegar por un laberinto.
+ * El objetivo es llegar a la meta antes de que se acabe el tiempo.
+ */
 public class JuegoRoedor extends JPanel implements ActionListener, KeyListener {
 
     private final JDialog ventanaJuego;
@@ -47,6 +51,11 @@ public class JuegoRoedor extends JPanel implements ActionListener, KeyListener {
     // Variables de estado
     private EstadoJuego estadoJuego = EstadoJuego.MENU;
 
+    /**
+     * Constructor del juego Roedor.
+     * @param imagenMascota Imagen de la mascota que se usará en el juego.
+     * @param panelJuegos Panel donde se muestra el juego y se manejan las acciones de victoria/derrota.
+     */
     public JuegoRoedor(BufferedImage imagenMascota, PanelJuegos panelJuegos) {
         ventanaJuego = new JDialog();
         ventanaJuego.setContentPane(this);
