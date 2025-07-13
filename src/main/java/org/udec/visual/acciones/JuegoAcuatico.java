@@ -1,5 +1,6 @@
 package org.udec.visual.acciones;
 
+import org.udec.util.CargadorDeImagenes;
 import org.udec.util.enumerations.EstadoJuego;
 
 import javax.swing.*;
@@ -39,7 +40,6 @@ public class JuegoAcuatico extends JPanel implements MouseMotionListener, Action
     private final double RANGO_ANGULO = 290.0; // Los obstaculos cubren 290 grados
     private final double RADIO_DE_PRIMER_CONJUNTO = 200.0; // El más cercano al centro
     private List<Obstaculo> obstaculos = new ArrayList<>();
-
 
     // Variables de estado
     private EstadoJuego estadoJuego = EstadoJuego.MENU;
@@ -297,7 +297,7 @@ public class JuegoAcuatico extends JPanel implements MouseMotionListener, Action
         }
 
         public void dibujar(Graphics2D g2d) {
-            // Se transforma de coordenadas polares a cartesianas, y se establece en centro;
+            // Se transforma de coordenadas polares a cartesianas
             int x = (int) (CENTRO_X + radio * Math.cos(angulo)) - SIZE / 2;
             int y = (int) (CENTRO_Y + radio * Math.sin(angulo)) - SIZE / 2;
             g2d.setColor(Color.GREEN);

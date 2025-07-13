@@ -1,5 +1,6 @@
 package org.udec.visual.acciones;
 
+import org.udec.util.CargadorDeImagenes;
 import org.udec.util.enumerations.EstadoJuego;
 
 import javax.swing.*;
@@ -35,9 +36,10 @@ public class JuegoVolador extends JPanel implements ActionListener, KeyListener 
     // Tuberías
     private final ArrayList<Integer> tuberiasX = new ArrayList<>();
     private final ArrayList<Integer> tuberiasAltura = new ArrayList<>();
-    private final int TUBERIA_ANCHO = 60;
+    private final int TUBERIA_ANCHO = 80;
     private final int TUBERIA_ESPACIO = 180; // Espacio entre tuberías verticalmente
     private final int TUBERIA_SEPARACION = 300; // Separación horizontal entre tuberías
+    private final BufferedImage IMAGEN_TUBERIA = CargadorDeImagenes.cargarImagen("/juegos/tuberiaVolador.png");
 
     // Variables de estado
     private EstadoJuego estadoJuego = EstadoJuego.MENU;
@@ -153,9 +155,31 @@ public class JuegoVolador extends JPanel implements ActionListener, KeyListener 
         g2d.setColor(Color.GREEN);
         for(int i = 0; i < tuberiasX.size(); i++){
             // Tubería superior
-            g2d.fillRect(tuberiasX.get(i), 0, TUBERIA_ANCHO, tuberiasAltura.get(i));
+            //g2d.fillRect(tuberiasX.get(i), 0, TUBERIA_ANCHO, tuberiasAltura.get(i));
+
+            int x = tuberiasX.get(i);
+            int altura = tuberiasAltura.get(i);
+
+            // Tubería superior
+            g2d.drawImage(
+                    IMAGEN_TUBERIA,
+                    x, 0, x + TUBERIA_ANCHO, altura, // destino
+                    0, 500 - altura, TUBERIA_ANCHO, 500,     // origen (recorte)
+                    this
+            );
+
             // Tubería inferior
-            g2d.fillRect(tuberiasX.get(i), tuberiasAltura.get(i) + TUBERIA_ESPACIO, TUBERIA_ANCHO, 800 - tuberiasAltura.get(i) - TUBERIA_ESPACIO);
+            int yInferior = altura + TUBERIA_ESPACIO;
+            int altoInferior = ALTO - yInferior;
+            g2d.drawImage(
+                    IMAGEN_TUBERIA,
+                    x, yInferior, x + TUBERIA_ANCHO, yInferior + altoInferior, // destino
+                    0, 0, TUBERIA_ANCHO, altoInferior,                         // origen (recorte)
+                    this
+            );
+
+            // Tubería inferior
+           //g2d.fillRect(tuberiasX.get(i), tuberiasAltura.get(i) + TUBERIA_ESPACIO, TUBERIA_ANCHO, 800 - tuberiasAltura.get(i) - TUBERIA_ESPACIO);
         }
     }
 

@@ -12,8 +12,8 @@ public enum MascotasEnum {
     PERRO( "Perro", TiposEnum.COMUN, 100,"/mascotas/perro.png", "/mascotas/perroJuego.png", "/sonidos/perro.wav", "PerroFactory"),
     HAMSTER( "Hamster", TiposEnum.ROEDOR, 150,"/mascotas/hamster.png", "/mascotas/hamsterJuego.png", "/sonidos/hamster.wav", "HamsterFactory"),
     RATON( "Ratón", TiposEnum.ROEDOR, 120,"/mascotas/raton.png", "/mascotas/ratonJuego.png", "/sonidos/raton.wav", "RatonFactory"),
-    LORO( "Loro", TiposEnum.VOLADOR, 140,"/mascotas/loro.png", "/mascotas/loro.png", "/sonidos/pajaro.wav", "LoroFactory"),
-    GOLONDRINA( "Golondrina", TiposEnum.VOLADOR, 130,"/mascotas/golondrina.png", "/mascotas/golondrina.png", "/sonidos/pajaro.wav", "GolondrinaFactory"),
+    LORO( "Loro", TiposEnum.VOLADOR, 140,"/mascotas/loro.png", "/mascotas/loroJuego.png", "/sonidos/pajaro.wav", "LoroFactory"),
+    GOLONDRINA( "Golondrina", TiposEnum.VOLADOR, 130,"/mascotas/golondrina.png", "/mascotas/golondrinaJuego.png", "/sonidos/pajaro.wav", "GolondrinaFactory"),
     PEZDORADO( "Pez dorado", TiposEnum.ACUATICO, 100,"/mascotas/pezdorado.png", "/mascotas/pezdorado.png", "/sonidos/pez.wav", "PezDoradoFactory"),
     PEZPAYASO( "Pez payaso", TiposEnum.ACUATICO, 90,"/mascotas/pezpayaso.png", "/mascotas/pezpayaso.png", "/sonidos/pez.wav", "PezPayasoFactory");
 

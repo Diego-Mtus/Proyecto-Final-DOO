@@ -1,5 +1,6 @@
 package org.udec.visual.acciones;
 
+import org.udec.util.CargadorDeImagenes;
 import org.udec.util.enumerations.EstadoJuego;
 
 import javax.swing.*;
@@ -38,6 +39,10 @@ public class JuegoRoedor extends JPanel implements ActionListener, KeyListener {
     private int mascotaFila = 1, mascotaCol = 1; // Posición inicial del jugador
     private int direccion = 0; // Para multiplicarlo por 90 y obtener la rotación.
 
+    // Carga de imagenes
+    private final BufferedImage META = CargadorDeImagenes.cargarImagen("/juegos/metaRoedor.png");
+    private final BufferedImage PISO = CargadorDeImagenes.cargarImagen("/juegos/pisoRoedor.png");
+    private final BufferedImage PARED = CargadorDeImagenes.cargarImagen("/juegos/paredRoedor.png");
 
     // Variables de estado
     private EstadoJuego estadoJuego = EstadoJuego.MENU;
@@ -204,36 +209,32 @@ public class JuegoRoedor extends JPanel implements ActionListener, KeyListener {
     private void dibujarLaberinto(Graphics2D g2d) {
         for (int f = 0; f < FILAS; f++) {
             for (int c = 0; c < COLS; c++) {
-                if(laberinto[f][c] == 2) dibujarMeta(g2d, c, f); // Siempre mostrar la meta
 
-                else{
-                    int dist = Math.abs(f - mascotaFila) + Math.abs(c - mascotaCol);
+                int dist = Math.abs(f - mascotaFila) + Math.abs(c - mascotaCol);
                     
-                    if(dist <= RADIO_VISION) { // Solo se muestran celdas dentro del radio de visión
+                if(dist <= RADIO_VISION) { // Solo se muestran celdas dentro del radio de visión
                         
-                        if (laberinto[f][c] == 1) dibujarPared(g2d, c, f);
-                        else if (laberinto[f][c] == 0) dibujarCamino(g2d, c, f);
+                    if (laberinto[f][c] == 1) dibujarPared(g2d, c, f);
+                    else if (laberinto[f][c] == 0 || laberinto[f][c] == 2) dibujarCamino(g2d, c, f);
 
-                    } else dibujadoFueraDeVision(g2d, c, f);
-                }
+                } else dibujadoFueraDeVision(g2d, c, f);
+
+                if (laberinto[f][c] == 2) dibujarMeta(g2d, c, f);
 
             }
         }
     }
 
     private void dibujarMeta(Graphics2D g2d, int c, int f) {
-        g2d.setColor(Color.yellow);
-        g2d.fillRect(c * TILE_SIZE, f * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+        g2d.drawImage(META, c * TILE_SIZE, f * TILE_SIZE, TILE_SIZE, TILE_SIZE, this);
     }
 
     private void dibujarPared(Graphics2D g2d, int c, int f) {
-        g2d.setColor(Color.DARK_GRAY);
-        g2d.fillRect(c * TILE_SIZE, f * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+        g2d.drawImage(PARED, c * TILE_SIZE, f * TILE_SIZE, TILE_SIZE, TILE_SIZE, this);
     }
 
     private void dibujarCamino(Graphics2D g2d, int c, int f) {
-        g2d.setColor(Color.WHITE); // Camino
-        g2d.fillRect(c * TILE_SIZE, f * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+        g2d.drawImage(PISO, c * TILE_SIZE, f * TILE_SIZE, TILE_SIZE, TILE_SIZE, this);
     }
 
     private void dibujadoFueraDeVision(Graphics2D g2d, int c, int f) {
