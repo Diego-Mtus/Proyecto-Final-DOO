@@ -77,7 +77,6 @@ public class PanelMedicar extends JPanel {
                 if(isDragging){
                     if(e.getX() >= posicionMascota[0] && e.getX() <= posicionMascota[2] &&
                             e.getY() >= posicionMascota[1] && e.getY() <= posicionMascota[3]) {
-                        System.out.println("Medicando "+ medicinasDisponibles.get(indiceMedicina).getNombre() + " a la mascota en: " + mouseX + ", " + mouseY);
                         if (mascotaActual != null) {
                             medicinasDisponibles.get(indiceMedicina).curar(mascotaActual);
 
@@ -91,7 +90,6 @@ public class PanelMedicar extends JPanel {
                         cambiarMedicina(0);
 
                     } else {
-                        System.out.println("La medicina no llegó a la mascota.");
                         // Regresa la comida a la posición inicial con animación
                         animarRegresoMedicina();
                     }
@@ -133,7 +131,6 @@ public class PanelMedicar extends JPanel {
             }
 
         }
-        System.out.println(medicinasDisponibles);
         botonIzquierda.setVisible(medicinasDisponibles.size() > 1);
         botonDerecha.setVisible(medicinasDisponibles.size() > 1);
         indiceMedicina = 0; // Reinicia el índice al actualizar la lista

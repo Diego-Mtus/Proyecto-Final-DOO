@@ -31,7 +31,6 @@ public class VenderMascotaCommand implements Command{
      */
     @Override
     public void execute() {
-        System.out.println("Se vende la mascota");
         if (panelEscenario.tieneEscenario() && panelEscenario.tieneMascota()){
             int respuesta = JOptionPane.showConfirmDialog(panelEscenario,
                     "¿Estás seguro de que quieres vender a la mascota?",

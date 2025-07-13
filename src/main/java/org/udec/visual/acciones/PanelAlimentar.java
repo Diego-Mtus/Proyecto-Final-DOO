@@ -78,7 +78,6 @@ public class PanelAlimentar extends JPanel {
                 if(isDragging){
                     if(e.getX() >= posicionMascota[0] && e.getX() <= posicionMascota[2] &&
                             e.getY() >= posicionMascota[1] && e.getY() <= posicionMascota[3]) {
-                        System.out.println("Alimentando "+ alimentosDisponibles.get(indiceComida).getNombre() + " a la mascota en: " + mouseX + ", " + mouseY);
                         if (mascotaActual != null) {
                             alimentosDisponibles.get(indiceComida).alimentar(mascotaActual);
                         // Regresa la comida a la posición inicial
@@ -92,7 +91,6 @@ public class PanelAlimentar extends JPanel {
                         cambiarAlimento(0);
 
                     } else {
-                        System.out.println("La comida no llegó a la mascota.");
                         // Regresa la comida a la posición inicial con animación
                         animarRegresoComida();
                     }
@@ -134,7 +132,6 @@ public class PanelAlimentar extends JPanel {
             }
 
         }
-        System.out.println(alimentosDisponibles);
         botonIzquierda.setVisible(alimentosDisponibles.size() > 1);
         botonDerecha.setVisible(alimentosDisponibles.size() > 1);
         indiceComida = 0; // Reinicia el índice al actualizar la lista

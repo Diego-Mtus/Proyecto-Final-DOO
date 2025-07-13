@@ -37,7 +37,6 @@ public class PanelJuegos extends JPanel {
 
     private void jugar() {
         if (mascotaActual != null) {
-            System.out.println("Jugando con la mascota: " + mascotaActual.getNombreAnimal());
 
             switch (mascotaActual.getTipo()) {
                 case COMUN ->

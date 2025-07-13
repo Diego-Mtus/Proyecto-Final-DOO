@@ -72,7 +72,6 @@ public class HiloCompradorInteresado implements Runnable{
                         corriendo = false;
                     }
 
-                    System.out.println("Ciclo de comprador completado.");
                 }
 
 

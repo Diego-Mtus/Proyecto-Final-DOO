@@ -36,7 +36,6 @@ public class AdoptarMascotaCommand implements Command{
      */
     @Override
     public void execute() {
-        System.out.println("Se abre panel de adopción de mascota");
         SelectorMascota selectorMascota = new SelectorMascota(panelEscenario);
         if(selectorMascota.getMascotaSeleccionada() != null){
             MascotaFactory mascotaFactory = seleccionDinamicaDeFactory(selectorMascota.getMascotaSeleccionada());
@@ -50,7 +49,6 @@ public class AdoptarMascotaCommand implements Command{
     private MascotaFactory seleccionDinamicaDeFactory(MascotasEnum mascotasEnum){
         try {
             Constructor<?>[] factories = Class.forName("org.udec.mascotas." + mascotasEnum.getNombreFactory()).getConstructors();
-            System.out.println(Arrays.toString(factories));
             return (MascotaFactory) factories[0].newInstance();
         } catch (ClassNotFoundException | InstantiationException | InvocationTargetException | IllegalAccessException e) {
             e.getMessage();

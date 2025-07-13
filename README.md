@@ -2,10 +2,43 @@
 ### Grupo 4:
 * José Efraín González Aguayo
 * Diego Antonio Matus Salas
+## Enunciado:
+Se desarrolla un simulador de una tienda de mascotas virtual, donde el jugador puede adoptar mascotas y cuidarlas. Inicialmente, se cuenta con un presupuesto base
+para poder comprar un escenario a elección. La progresión del juego se basa en el cuidado de las mascotas, que deben ser alimentadas, medicadas y entretenidas, para luego poder venderlas a un comprador interesado.
+
+El jugador debe comprar escenarios adecuados para poder hospedar a las mascotas, y cada mascota requiere de cierto tipo de alimentación y medicación, que se pueden adquirir en la tienda.
+
+Se pueden tener hasta 10 escenarios diferentes hospedando a mascotas, pero esto le añade dificultad al usuario, ya que debe gestionar el cuidado de todas las mascotas al mismo tiempo.
+
+Si las mascotas están bien cuidadas, es decir, que sus 3 estados estén por sobre el 80% durante un periodo de tiempo, el comprador se interesa en ellas y se despliega un botón de venta.
+De esta manera, se puede obtener dinero para comprar más escenarios.
+
+![Boton de venta](https://github.com/Diego-Mtus/Proyecto-Final-DOO/blob/main/src/main/resources/interfaz/botonVenderMascota.png?raw=true "Botón de venta")
+Si ves este boton, significa que el comprador se interesa en la mascota y puedes venderla. Al hacer clic en él, podrás vender la mascota y recibir dinero por ella.
+
+![Icono de jugar](https://raw.githubusercontent.com/Diego-Mtus/Proyecto-Final-DOO/refs/heads/main/src/main/resources/interfaz/iconoQuiereJugar.png "Icono de jugar")
+Si ves este icono, significa que la mascota quiere jugar contigo. Debes ir al apartado de "Jugar" y probar el minijuego para que la mascota se divierta.
+Esto es un requerimiento para que la mascota pueda ser vendida.
+
+![Icono de herida](https://github.com/Diego-Mtus/Proyecto-Final-DOO/blob/main/src/main/resources/interfaz/iconoIsHerido.png?raw=true "Icono de herida")
+Si ves este icono, significa que la mascota se hirió al jugar, y debes usar la curita para heridas para que se cure (se debe comprar en la tienda).
+La mascota debe estar sin heridas para que pueda ser vendida.
+
+Adicionalmente, con los minijuegos se puede ganar dinero, para progresar en caso de quedar sin presupuesto para el cuidado de las mascotas.
+
 ### Diagrama de casos de uso UML:
 ![Diagrama de casos de uso](https://github.com/Diego-Mtus/Proyecto-Final-DOO/blob/main/DiagramaDeCasos.png?raw=true "Diagrama de casos de uso ")
-### Prototipo de interfaz
+
+### Prototipo de interfaz:
 ![Prototipo de interfaz](https://github.com/Diego-Mtus/Proyecto-Final-DOO/blob/main/Prototipo.png?raw=true "Prototipo de interfaz")
+
+### Capturas del juego:
+
+![Captura del inicio](Captura1.png "Captura del inicio")
+![Captura adopción](Captura2.png "Captura de la tienda")
+![Captura juego](Captura3.png "Captura de la tienda")
+
+
 ## Patrones de diseño utilizados:
 * **Singleton**: Se utiliza para asegurar que solo haya una instancia de la tienda de mascotas en el sistema, lo que permite un acceso controlado a los recursos de la tienda,
 decidimos que por tener que cargar todas las imagenes de los productos, es mejor que se carguen una sola vez y no cada vez que se acceda a la tienda. Fue implementado en la clase `TiendaDialog`.

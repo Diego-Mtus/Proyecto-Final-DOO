@@ -65,7 +65,6 @@ public class HiloActualizadorEstado implements Runnable{
                     decrementarFelicidad();
                 }
 
-                System.out.println("Ciclo de estado completado.");
                 panelEstado.repaint(); // Actualizar el panel de estado
             }
 

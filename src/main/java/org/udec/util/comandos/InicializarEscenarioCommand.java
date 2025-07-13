@@ -30,7 +30,6 @@ public class InicializarEscenarioCommand implements Command{
      */
     @Override
     public void execute() {
-        System.out.println("Se abre panel de seleccion de escenario");
         SelectorEscenario selectorEscenario = new SelectorEscenario(panelEscenario);
         if(selectorEscenario.getEscenarioSeleccionado() != null) {
             panelEscenario.establecerEscenario(selectorEscenario.getEscenarioSeleccionado());
