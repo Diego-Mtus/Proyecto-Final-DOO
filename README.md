@@ -81,3 +81,5 @@ Una mejor planificación y organización del código desde el principio
 hubiera permitido una mejor separación de responsabilidades y una mayor facilidad para agregar nuevas funcionalidades en el futuro. Actualmente, la lógica del simulador
 está muy acoplada a la parte visual, lo que dificulta la reutilización del código en otros contextos. Esto se notó al momento de querer hacer pruebas unitarias,
 en donde se dificulta hacer estas pruebas debido a la dependencia de la parte visual.
+
+### Puedes acceder al JavaDoc de este proyecto presionando [este enlace](https://diego-mtus.github.io/proyectofinal-javadoc/) (alojado en github.io).
