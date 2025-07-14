@@ -29,6 +29,9 @@ Adicionalmente, con los minijuegos se puede ganar dinero, para progresar en caso
 ### Diagrama de casos de uso UML:
 ![Diagrama de casos de uso](https://github.com/Diego-Mtus/Proyecto-Final-DOO/blob/main/DiagramaDeCasos.png?raw=true "Diagrama de casos de uso ")
 
+### Diagrama de clases UML:
+![Diagrama de clases](UMLClases.png "Diagrama de clases")
+
 ### Prototipo de interfaz:
 ![Prototipo de interfaz](https://github.com/Diego-Mtus/Proyecto-Final-DOO/blob/main/Prototipo.png?raw=true "Prototipo de interfaz")
 
@@ -83,3 +86,5 @@ está muy acoplada a la parte visual, lo que dificulta la reutilización del có
 en donde se dificulta hacer estas pruebas debido a la dependencia de la parte visual.
 
 ### Puedes acceder al JavaDoc de este proyecto presionando [este enlace](https://diego-mtus.github.io/proyectofinal-javadoc/) (alojado en github.io).
+
+### (Proyecto fue ejecutado en Java 24 en un monitor de 1920x1080)
