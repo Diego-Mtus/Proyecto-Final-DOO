@@ -3,25 +3,25 @@
 * José Efraín González Aguayo
 * Diego Antonio Matus Salas
 ## Enunciado:
-Se desarrolla un simulador de una tienda de mascotas virtual, donde el jugador puede adoptar mascotas y cuidarlas. Inicialmente, se cuenta con un presupuesto base
-para poder comprar un escenario a elección. La progresión del juego se basa en el cuidado de las mascotas, que deben ser alimentadas, medicadas y entretenidas, para luego poder venderlas a un comprador interesado.
+Se desarrolla un simulador de una tienda de mascotas, donde el jugador puede adoptar mascotas y cuidarlas. Inicialmente, se cuenta con un presupuesto base
+para poder comprar un escenario a elección. La progresión del juego se basa en el cuidado de las mascotas, alimentándolas, medicándolas y entreteniéndolas, para luego poder venderlas a un comprador interesado.
 
 El jugador debe comprar escenarios adecuados para poder hospedar a las mascotas, y cada mascota requiere de cierto tipo de alimentación y medicación, que se pueden adquirir en la tienda.
 
 Se pueden tener hasta 10 escenarios diferentes hospedando a mascotas, pero esto le añade dificultad al usuario, ya que debe gestionar el cuidado de todas las mascotas al mismo tiempo.
 
-Si las mascotas están bien cuidadas, es decir, que sus 3 estados estén por sobre el 80% durante un periodo de tiempo, el comprador se interesa en ellas y se despliega un botón de venta.
+Si las mascotas están bien cuidadas, es decir, que sus 3 estados estén por sobre el 80% durante un periodo de tiempo, un comprador se interesará en ellas y se despliega un botón de venta.
 De esta manera, se puede obtener dinero para comprar más escenarios.
 
 ![Boton de venta](https://github.com/Diego-Mtus/Proyecto-Final-DOO/blob/main/src/main/resources/interfaz/botonVenderMascota.png?raw=true "Botón de venta")
-Si ves este boton, significa que el comprador se interesa en la mascota y puedes venderla. Al hacer clic en él, podrás vender la mascota y recibir dinero por ella.
+Si ves este botón, significa que hay un comprador interesado en la mascota. Al hacer clic en él, podrás vender la mascota y recibir dinero por ella.
 
 ![Icono de jugar](https://raw.githubusercontent.com/Diego-Mtus/Proyecto-Final-DOO/refs/heads/main/src/main/resources/interfaz/iconoQuiereJugar.png "Icono de jugar")
 Si ves este icono, significa que la mascota quiere jugar contigo. Debes ir al apartado de "Jugar" y probar el minijuego para que la mascota se divierta.
 Esto es un requerimiento para que la mascota pueda ser vendida.
 
 ![Icono de herida](https://github.com/Diego-Mtus/Proyecto-Final-DOO/blob/main/src/main/resources/interfaz/iconoIsHerido.png?raw=true "Icono de herida")
-Si ves este icono, significa que la mascota se hirió al jugar, y debes usar la curita para heridas para que se cure (se debe comprar en la tienda).
+Si ves este icono, significa que la mascota se hirió al jugar, y debes usar la curita para heridas la cual se debe comprar en la tienda.
 La mascota debe estar sin heridas para que pueda ser vendida.
 
 Adicionalmente, con los minijuegos se puede ganar dinero, para progresar en caso de quedar sin presupuesto para el cuidado de las mascotas.
